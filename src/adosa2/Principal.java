@@ -4,6 +4,8 @@
  */
 package adosa2;
 
+import vista.VentanaInicial;
+
 /**
  *
  * @author Juan
@@ -14,7 +16,7 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        VentanaInicial ventanaInicial = new VentanaInicial();
     }
     
 }
