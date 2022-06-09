@@ -8,7 +8,7 @@ package adosa2;
  *
  * @author Juan
  */
-public class Adosa2 {
+public class Principal {
 
     /**
      * @param args the command line arguments
