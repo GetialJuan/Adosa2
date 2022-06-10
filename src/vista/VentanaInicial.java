@@ -32,6 +32,8 @@ public class VentanaInicial extends JFrame {
     //Iconos(Imagenes)
     private ImageIcon imgJugar;
     private ImageIcon imgJugarShadow;
+    private ImageIcon imgComoJugar;
+    private ImageIcon imgComoJugarShadow;
     private ImageIcon imgFondo;
     
     //Botones
@@ -47,7 +49,7 @@ public class VentanaInicial extends JFrame {
     
     public VentanaInicial() throws IOException {
         iniciarComponentes();
-        setSize(700,600);
+        setSize(700,500);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,12 +60,7 @@ public class VentanaInicial extends JFrame {
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
         
-        //Icons(imagenes)
-        imgJugar = establecerIcon("\\src\\imagenes\\imgJugar.png",
-                200, 100);
-        imgJugarShadow = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
-                200, 100);
-        
+        //Fondo
         imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg",
                 700, 600);
         
@@ -71,14 +68,33 @@ public class VentanaInicial extends JFrame {
         lblFondo= new JLabel(imgFondo);
         lblFondo.setBounds(0, 0, 700, 600);
         
-        //Botones
-        btnJugar = new JButton(imgJugar);
-        btnJugar.setRolloverEnabled(true);
+        //Botones//
+        
+        /*btnJugar*/
+        btnJugar = new BotonImg();
+        btnJugar.setBounds(220, 280, 250, 150);
+            //imagenes 
+        imgJugar = establecerIcon("\\src\\imagenes\\imgJugar.png",
+                (int) btnJugar.getBounds().getWidth(), (int) btnJugar.
+                        getBounds().getHeight());
+        imgJugarShadow = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
+                (int) btnJugar.getBounds().getWidth(), (int) btnJugar.
+                        getBounds().getHeight());
+        btnJugar.setIcon(imgJugar);
         btnJugar.setRolloverIcon(imgJugarShadow);
-        btnJugar.setFocusPainted(false);
-        btnJugar.setBorderPainted(false);
-        btnJugar.setContentAreaFilled(false);
-        btnJugar.setBounds(250, 400, 200, 100);
+        
+        /*btnComoJugar*/
+        btnComoJugar = new BotonImg();
+        btnComoJugar.setBounds(10, 280, 200, 130);
+            //imagnes
+        imgComoJugar = establecerIcon("\\src\\imagenes\\imgComoJugar.png",
+                (int) btnComoJugar.getBounds().getWidth(), (int) btnComoJugar.
+                        getBounds().getHeight());
+        imgComoJugarShadow = establecerIcon("\\src\\imagenes\\imgComoJugarShadow.png",
+                (int) btnComoJugar.getBounds().getWidth(), (int) btnComoJugar.
+                        getBounds().getHeight());
+        btnComoJugar.setIcon(imgComoJugar);
+        btnComoJugar.setRolloverIcon(imgComoJugarShadow);
         
         //Contenedor Principal
         contContenedorPrincipal = getContentPane();
@@ -87,12 +103,14 @@ public class VentanaInicial extends JFrame {
         contContenedorPrincipal.add(lblFondo);
         //Ñadiendo objetos al lblFondo
         lblFondo.add(btnJugar);
+        lblFondo.add(btnComoJugar);
         
         ////Añadiendo listeners
         btnJugar.addMouseListener(new ManejadorDeEventos());
         
     }
     
+    //Metodo que retorna una imagen con el ancho y alto recibido
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
             throws IOException
     {
@@ -103,12 +121,23 @@ public class VentanaInicial extends JFrame {
         return new ImageIcon(imagen);
     }
     
+    //Clase manejadora de eventos
     private class ManejadorDeEventos extends MouseAdapter {
 
         @Override
         public void mousePressed(MouseEvent e) {
         }
         
+    }
+    
+    //Clase de boton sin fondo ni bordes con imagen
+    private class BotonImg extends JButton{
+        public BotonImg(){
+            setRolloverEnabled(true);
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setContentAreaFilled(false);
+        }
     }
         
 
