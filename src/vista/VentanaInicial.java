@@ -7,6 +7,9 @@ package vista;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +31,7 @@ public class VentanaInicial extends JFrame {
     
     //Iconos(Imagenes)
     private ImageIcon imgJugar;
+    private ImageIcon imgJugarShadow;
     private ImageIcon imgFondo;
     
     //Botones
@@ -55,7 +59,9 @@ public class VentanaInicial extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
         
         //Icons(imagenes)
-        imgJugar = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
+        imgJugar = establecerIcon("\\src\\imagenes\\imgJugar.png",
+                200, 100);
+        imgJugarShadow = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
                 200, 100);
         
         imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg",
@@ -67,6 +73,8 @@ public class VentanaInicial extends JFrame {
         
         //Botones
         btnJugar = new JButton(imgJugar);
+        btnJugar.setRolloverEnabled(true);
+        btnJugar.setRolloverIcon(imgJugarShadow);
         btnJugar.setFocusPainted(false);
         btnJugar.setBorderPainted(false);
         btnJugar.setContentAreaFilled(false);
@@ -79,6 +87,10 @@ public class VentanaInicial extends JFrame {
         contContenedorPrincipal.add(lblFondo);
         //Ñadiendo objetos al lblFondo
         lblFondo.add(btnJugar);
+        
+        ////Añadiendo listeners
+        btnJugar.addMouseListener(new ManejadorDeEventos());
+        
     }
     
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
@@ -89,6 +101,14 @@ public class VentanaInicial extends JFrame {
         Image imagen = bufferedImagen.
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
+    }
+    
+    private class ManejadorDeEventos extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+        
     }
         
 
