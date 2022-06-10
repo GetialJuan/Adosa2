@@ -15,6 +15,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -26,6 +28,7 @@ public class VentanaInicial extends JFrame {
     
     //Iconos(Imagenes)
     private ImageIcon imgJugar;
+    private ImageIcon imgFondo;
     
     //Botones
     private JButton btnJugar;
@@ -34,6 +37,9 @@ public class VentanaInicial extends JFrame {
     
     //Contenedor Pirncipal
     private Container contContenedorPrincipal;
+    
+    //Label de Fondo
+    private JLabel lblFondo;
     
     public VentanaInicial() throws IOException {
         iniciarComponentes();
@@ -49,7 +55,15 @@ public class VentanaInicial extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
         
         //Icons(imagenes)
-        imgJugar = establecerIcon("\\src\\imagenes\\imgJugarShadow.png", 200, 100);
+        imgJugar = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
+                200, 100);
+        
+        imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg",
+                700, 600);
+        
+        //Lbl fondo
+        lblFondo= new JLabel(imgFondo);
+        lblFondo.setBounds(0, 0, 700, 600);
         
         //Botones
         btnJugar = new JButton(imgJugar);
@@ -62,7 +76,9 @@ public class VentanaInicial extends JFrame {
         contContenedorPrincipal = getContentPane();
         contContenedorPrincipal.setLayout(null);
             //Añadiendo objetos
-        contContenedorPrincipal.add(btnJugar);
+        contContenedorPrincipal.add(lblFondo);
+        //Ñadiendo objetos al lblFondo
+        lblFondo.add(btnJugar);
     }
     
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
