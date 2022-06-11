@@ -4,10 +4,16 @@
  */
 package vista;
 
+import com.sun.java.accessibility.util.AWTEventMonitor;
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.AWTEventListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -20,12 +26,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
  * @author Juan
  */
 public class VentanaJuego extends JFrame {
+    //timer
+    private Timer tiempo;
+    
     //Ancho y alto de ventana
     private int anchoV = 700;
     private int largoV = 500;
@@ -65,6 +75,10 @@ public class VentanaJuego extends JFrame {
     private void iniciarComponentes() throws IOException{
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
+        
+        //timer//
+        tiempo = new Timer(1000, new ManejadorDeEventosTiempo());
+        tiempo.start();
         
         //Fondo (provisonal)//
         imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg", anchoV, largoV);
@@ -113,6 +127,7 @@ public class VentanaJuego extends JFrame {
         //Añadiendo listenrs//
         btnBlanco.addMouseListener(new ManejadorDeEventosMouse());
         btnBlanco.addKeyListener(new ManejadorDeEventosTeclado());
+        
     }
     
     //Metodo que retorna una imagen con el ancho y alto recibido
@@ -129,6 +144,7 @@ public class VentanaJuego extends JFrame {
     private class ManejadorDeEventosMouse extends MouseAdapter{
         @Override
         public void mousePressed(MouseEvent e){
+            //si se da click en el boton balnco
             if(e.getSource() == btnBlanco)
             {
                 System.out.println("falat implementar codigo");
@@ -136,12 +152,24 @@ public class VentanaJuego extends JFrame {
         }
     }
     
+    //clase manejadora de eventos de lteclado
     private class ManejadorDeEventosTeclado extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
+            //Si se oprime la barra espaciadora
             if(e.getKeyCode() == 32){
                 System.out.println("falat implementar codigo");
             }
         }
     }
+    
+    //clase Manejadroa de eventos de tiempo
+    private class ManejadorDeEventosTiempo implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("action performed");
+        }
+    }
+    
 }
