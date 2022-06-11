@@ -77,12 +77,13 @@ public class VentanaInicial extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
 
         //Fondo
-        imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg",
+        imgFondo = establecerIcon("\\src\\imagenes\\fondo2.png",
                 anchoV, largoV);
 
         //Lbl fondo
         lblFondo = new JLabel(imgFondo);
         lblFondo.setBounds(0, 0, anchoV, largoV);
+
 
         //Botones//
         /*btnJugar*/
