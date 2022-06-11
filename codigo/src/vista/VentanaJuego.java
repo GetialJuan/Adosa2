@@ -29,12 +29,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import logica.LogicaAdosa2;
 
 /**
  *
  * @author Juan
  */
 public class VentanaJuego extends JFrame {
+    //logica
+    private LogicaAdosa2 logica;
+    
     //controlador de baldosas(imagenes)
     private Baldosas imgsBaldosas;
     
@@ -83,6 +87,9 @@ public class VentanaJuego extends JFrame {
     private void iniciarComponentes() throws IOException{
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
+        
+        //logica
+        logica = new LogicaAdosa2();
         
         //baldosas (controlador)
         imgsBaldosas = new Baldosas();
@@ -193,13 +200,21 @@ public class VentanaJuego extends JFrame {
     
     //metodo para inciailizar las baldosas
     private void inicializarBaldosas(){
+        //cordenadas de cada baldosa
         int coordenadas[][] = { {30,170}, {160,170}, {420,170}, {550,170},
         {300,10}, {300,120}, {300,350}, {300,240} };
         
+        //Se añaden 8 baldosas
         for(int i = 0; i<8; i++){
             JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
             baldosa.setBounds(coordenadas[i][0], coordenadas[i][1], 
                     100, 100);
+            if(logica.baldosaAMostrar(i)){
+                baldosa.setVisible(true);
+            }
+            else{
+                baldosa.setVisible(false);
+            }
             this.listaBaldosas.add(baldosa);
         }
     }
