@@ -34,6 +34,8 @@ public class VentanaInicial extends JFrame {
     private ImageIcon imgJugarShadow;
     private ImageIcon imgComoJugar;
     private ImageIcon imgComoJugarShadow;
+    private ImageIcon imgParaQueSirve;
+    private ImageIcon imgParaQueSirveShadow;
     private ImageIcon imgFondo;
     
     //Botones
@@ -96,6 +98,21 @@ public class VentanaInicial extends JFrame {
         btnComoJugar.setIcon(imgComoJugar);
         btnComoJugar.setRolloverIcon(imgComoJugarShadow);
         
+        /*btnParaQueSirve*/
+        btnParaQueSirve = new BotonImg();
+        btnParaQueSirve.setBounds(470, 280, 200, 130);
+            //imagens
+        imgParaQueSirve = establecerIcon("\\src\\imagenes\\imgParaQueSirve.png",
+                (int) btnParaQueSirve.getBounds().getWidth(), (int) 
+                        btnParaQueSirve.getBounds().getHeight());
+        imgParaQueSirveShadow = establecerIcon
+        ("\\src\\imagenes\\imgParaQueSirveShadow.png", (int) btnParaQueSirve.
+                getBounds().getWidth(), (int) btnParaQueSirve.getBounds().
+                        getHeight());
+        btnParaQueSirve.setIcon(imgParaQueSirve);
+        btnParaQueSirve.setRolloverIcon(imgParaQueSirveShadow);
+            
+        
         //Contenedor Principal
         contContenedorPrincipal = getContentPane();
         contContenedorPrincipal.setLayout(null);
@@ -104,6 +121,7 @@ public class VentanaInicial extends JFrame {
         //Ñadiendo objetos al lblFondo
         lblFondo.add(btnJugar);
         lblFondo.add(btnComoJugar);
+        lblFondo.add(btnParaQueSirve);
         
         ////Añadiendo listeners
         btnJugar.addMouseListener(new ManejadorDeEventos());
