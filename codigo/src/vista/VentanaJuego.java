@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -59,6 +60,9 @@ public class VentanaJuego extends JFrame {
     
     //Contendero principal
     private Container contPrincipal;
+    
+    //Baldosas
+    private ArrayList<JLabel> listaBaldosas;
     
     //Imagenes
     private ImageIcon imgFondo;
@@ -112,6 +116,11 @@ public class VentanaJuego extends JFrame {
         btnBlanco.setOpaque(true);
         btnBlanco.setBackground(Color.WHITE);
         
+        //Baldosas//
+        listaBaldosas = new ArrayList<>();
+        inicializarBaldosas();
+        
+        
         //Contenedor Principal//
         contPrincipal = getContentPane();
         contPrincipal.setLayout(null);
@@ -123,6 +132,9 @@ public class VentanaJuego extends JFrame {
         lblFondo.add(lblVida2);
         lblFondo.add(lblVida3);
         lblFondo.add(btnBlanco);
+        for(int i = 0; i<8; i++){
+            lblFondo.add(listaBaldosas.get(i));
+        }
         
         //Añadiendo listenrs//
         btnBlanco.addMouseListener(new ManejadorDeEventosMouse());
@@ -169,6 +181,21 @@ public class VentanaJuego extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("action performed");
+        }
+    }
+    
+    //metodo para inciailizar las baldosas
+    private void inicializarBaldosas(){
+        int coordenadas[][] = { {30,170}, {160,170}, {420,170}, {550,170},
+        {300,10}, {300,120}, {300,350}, {300,240} };
+        
+        for(int i = 0; i<8; i++){
+            JLabel baldosa = new JLabel();
+            baldosa.setOpaque(true);
+            baldosa.setBackground(Color.red);
+            baldosa.setBounds(coordenadas[i][0], coordenadas[i][1], 
+                    100, 100);
+            this.listaBaldosas.add(baldosa);
         }
     }
     
