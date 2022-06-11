@@ -8,6 +8,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -105,6 +109,10 @@ public class VentanaJuego extends JFrame {
         lblFondo.add(lblVida2);
         lblFondo.add(lblVida3);
         lblFondo.add(btnBlanco);
+        
+        //Añadiendo listenrs//
+        btnBlanco.addMouseListener(new ManejadorDeEventosMouse());
+        btnBlanco.addKeyListener(new ManejadorDeEventosTeclado());
     }
     
     //Metodo que retorna una imagen con el ancho y alto recibido
@@ -115,5 +123,25 @@ public class VentanaJuego extends JFrame {
         Image imagen = bufferedImagen.
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
+    }
+    
+    //clasee manejadora de eventos del mouse
+    private class ManejadorDeEventosMouse extends MouseAdapter{
+        @Override
+        public void mousePressed(MouseEvent e){
+            if(e.getSource() == btnBlanco)
+            {
+                System.out.println("falat implementar codigo");
+            }
+        }
+    }
+    
+    private class ManejadorDeEventosTeclado extends KeyAdapter{
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode() == 32){
+                System.out.println("falat implementar codigo");
+            }
+        }
     }
 }
