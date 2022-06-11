@@ -5,6 +5,7 @@
 package vista;
 
 import com.sun.java.accessibility.util.AWTEventMonitor;
+import controladores.Baldosas;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
@@ -34,6 +35,9 @@ import javax.swing.Timer;
  * @author Juan
  */
 public class VentanaJuego extends JFrame {
+    //controlador de baldosas(imagenes)
+    private Baldosas imgsBaldosas;
+    
     //timer
     private Timer tiempo;
     
@@ -79,6 +83,9 @@ public class VentanaJuego extends JFrame {
     private void iniciarComponentes() throws IOException{
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
+        
+        //baldosas (controlador)
+        imgsBaldosas = new Baldosas();
         
         //timer//
         tiempo = new Timer(1000, new ManejadorDeEventosTiempo());
@@ -190,9 +197,7 @@ public class VentanaJuego extends JFrame {
         {300,10}, {300,120}, {300,350}, {300,240} };
         
         for(int i = 0; i<8; i++){
-            JLabel baldosa = new JLabel();
-            baldosa.setOpaque(true);
-            baldosa.setBackground(Color.red);
+            JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
             baldosa.setBounds(coordenadas[i][0], coordenadas[i][1], 
                     100, 100);
             this.listaBaldosas.add(baldosa);

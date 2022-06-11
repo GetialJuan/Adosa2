@@ -19,8 +19,8 @@ import javax.swing.ImageIcon;
 public class Baldosas {
 
     private ArrayList<ImageIcon> listaDeBaldosas;
-    private final int altoBaldosa = 75;
-    private final int anchoBaldosa = 75;
+    private final int altoBaldosa = 100;
+    private final int anchoBaldosa = 100;
 
     public Baldosas() throws IOException {
         listaDeBaldosas = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Baldosas {
             
             String nuevaRuta = rutaAux.replace("numero",i+"");
             
-            baldosa = establecerIcon(rutaAux, anchoBaldosa, altoBaldosa);
+            baldosa = establecerIcon(nuevaRuta, anchoBaldosa, altoBaldosa);
             listaDeBaldosas.add(baldosa);
         }
 
