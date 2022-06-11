@@ -4,6 +4,7 @@
  */
 package adosa2;
 
+import java.io.IOException;
 import vista.VentanaInicial;
 
 /**
@@ -15,7 +16,7 @@ public class Principal {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         VentanaInicial ventanaInicial = new VentanaInicial();
     }
     
