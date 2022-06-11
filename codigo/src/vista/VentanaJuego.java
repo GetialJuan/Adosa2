@@ -24,12 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.border.BevelBorder;
 import logica.LogicaAdosa2;
 
 /**
@@ -192,18 +194,33 @@ public class VentanaJuego extends JFrame {
     
     //clase Manejadroa de eventos de tiempo
     private class ManejadorDeEventosTiempo implements ActionListener{
+        //tiempo
         private int t = 0;
+        
+        //baldosaCambiada
+        private int baldosaCambiada = 0;
         @Override
         public void actionPerformed(ActionEvent e) {
+            //se aumenta el tiempo 1 segundo
             t++;
+            
+            
             if(t<4){
                 //aqui debe ir la cuenta regresiva inciial
                 System.out.println(t+"");
             }
             
             if(t%2 == 0 && t>4){
-                listaBaldosas.get(logica.baldosaACambiar()).
+                //se pone normal la baldosa anteriroemnet ressaltada
+                listaBaldosas.get(baldosaCambiada).setBorder(null);
+                
+                //se cambia la baldosa
+                int baldosaACambiar = logica.baldosaACambiar();
+                listaBaldosas.get(baldosaACambiar).
                         setIcon(imgsBaldosas.getImgBaldosaAleatoria());
+                listaBaldosas.get(baldosaACambiar).
+                        setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                baldosaCambiada = baldosaACambiar;
             }
         }
     }
