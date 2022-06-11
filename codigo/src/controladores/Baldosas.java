@@ -52,5 +52,9 @@ public class Baldosas {
 
         return new ImageIcon(imagen);
     }
+    
+    public ImageIcon getImgBaldosa(int cualBaldosa){
+        return listaDeBaldosas.get(cualBaldosa);
+    }
 
 }
