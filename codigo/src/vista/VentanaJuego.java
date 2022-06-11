@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import logica.LogicaAdosa2;
 
@@ -191,10 +192,19 @@ public class VentanaJuego extends JFrame {
     
     //clase Manejadroa de eventos de tiempo
     private class ManejadorDeEventosTiempo implements ActionListener{
-
+        private int t = 0;
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("action performed");
+            t++;
+            if(t<4){
+                //aqui debe ir la cuenta regresiva inciial
+                System.out.println(t+"");
+            }
+            
+            if(t%2 == 0 && t>4){
+                listaBaldosas.get(logica.baldosaACambiar()).
+                        setIcon(imgsBaldosas.getImgBaldosaAleatoria());
+            }
         }
     }
     

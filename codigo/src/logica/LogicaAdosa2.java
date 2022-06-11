@@ -34,4 +34,9 @@ public class LogicaAdosa2 {
     public boolean baldosaAMostrar(int cualNumero){
         return baldosasAMostrar.indexOf(cualNumero) != -1;
     }
+    
+    public int baldosaACambiar(){
+        return baldosasAMostrar.get((int) (Math.random() *
+                baldosasAMostrar.size()));
+    }
 }

@@ -56,5 +56,10 @@ public class Baldosas {
     public ImageIcon getImgBaldosa(int cualBaldosa){
         return listaDeBaldosas.get(cualBaldosa);
     }
+    
+    public ImageIcon getImgBaldosaAleatoria(){
+        return listaDeBaldosas.get((int) (Math.random() * 
+                listaDeBaldosas.size()));
+    }
 
 }
