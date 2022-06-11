@@ -13,6 +13,8 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -26,7 +28,8 @@ import javax.swing.JPanel;
  * @author Juan
  */
 public class VentanaInicial extends JFrame {
-
+    //frame
+    
     //Ruta absoluta
     private String rutaAbsoluta;
 
@@ -160,6 +163,16 @@ public class VentanaInicial extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if(e.getSource() == btnJugar){
+                dispose();
+                //Se abre la ventana del juego
+                try {
+                    VentanaJuego ventanaJuego = new VentanaJuego();
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaInicial.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
     }
