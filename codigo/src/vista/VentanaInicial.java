@@ -120,7 +120,7 @@ public class VentanaInicial extends JFrame {
         btnParaQueSirve.setIcon(imgParaQueSirve);
         btnParaQueSirve.setRolloverIcon(imgParaQueSirveShadow);
 
-        //Contenedor Principal
+        //Contenedor Principal//
         contPrincipal = getContentPane();
         contPrincipal.setLayout(null);
         //Añadiendo objetos
