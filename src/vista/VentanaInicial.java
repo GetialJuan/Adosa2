@@ -73,7 +73,7 @@ public class VentanaInicial extends JFrame {
         //Botones//
         
         /*btnJugar*/
-        btnJugar = new BotonImg();
+        btnJugar = new BotonSinFondo();
         btnJugar.setBounds(220, 280, 250, 150);
             //imagenes 
         imgJugar = establecerIcon("\\src\\imagenes\\imgJugar.png",
@@ -86,7 +86,7 @@ public class VentanaInicial extends JFrame {
         btnJugar.setRolloverIcon(imgJugarShadow);
         
         /*btnComoJugar*/
-        btnComoJugar = new BotonImg();
+        btnComoJugar = new BotonSinFondo();
         btnComoJugar.setBounds(10, 280, 200, 130);
             //imagnes
         imgComoJugar = establecerIcon("\\src\\imagenes\\imgComoJugar.png",
@@ -99,7 +99,7 @@ public class VentanaInicial extends JFrame {
         btnComoJugar.setRolloverIcon(imgComoJugarShadow);
         
         /*btnParaQueSirve*/
-        btnParaQueSirve = new BotonImg();
+        btnParaQueSirve = new BotonSinFondo();
         btnParaQueSirve.setBounds(470, 280, 200, 130);
             //imagens
         imgParaQueSirve = establecerIcon("\\src\\imagenes\\imgParaQueSirve.png",
@@ -148,9 +148,9 @@ public class VentanaInicial extends JFrame {
         
     }
     
-    //Clase de boton sin fondo ni bordes con imagen
-    private class BotonImg extends JButton{
-        public BotonImg(){
+    //Clase de boton sin fondo ni bordes
+    private class BotonSinFondo extends JButton{
+        public BotonSinFondo(){
             setRolloverEnabled(true);
             setFocusPainted(false);
             setBorderPainted(false);
