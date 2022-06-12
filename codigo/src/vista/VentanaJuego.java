@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -199,6 +200,7 @@ public class VentanaJuego extends JFrame {
         
         //baldosaCambiada
         private int baldosaCambiada = 0;
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
@@ -210,7 +212,13 @@ public class VentanaJuego extends JFrame {
                 System.out.println(t+"");
             }
             
+            //se cambia una baldosa cada cierto tiempo
+            //y verfica si hay baldosas iguales
             if(t%2 == 0 && t>4){
+                if(baldosasIguales(baldosaCambiada)){
+                    System.out.println("Baldosas iguales");
+                }
+                
                 //se pone normal la baldosa anteriroemnet ressaltada
                 listaBaldosas.get(baldosaCambiada).setBorder(null);
                 
@@ -244,6 +252,30 @@ public class VentanaJuego extends JFrame {
             }
             this.listaBaldosas.add(baldosa);
         }
+    }
+    
+    //metodo que verfiica baldosas iguales(con la logica)
+    private boolean baldosasIguales(int baldosaCambiada){
+        //lista auxiliar del indice de las baldosas visibles
+        ArrayList<Integer> baldosasEnPantalla = logica.
+                getBaldosasAMostrar();
+        //VAriable que indicara si hay dos baldosas iguales
+        boolean hayBaldosasIguales = false;
+        //Imagen de la baldosa cambiada anteriroremenet
+        Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
+        //se verifica si hay dos baldosa iguales//
+        for(int i = 0; i<baldosasEnPantalla.size(); i++){
+            //se verfica que no sea la misma baldosa
+            if(baldosaCambiada != baldosasEnPantalla.get(i)){
+                Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
+                //se verfica si sus imagenes son iguales
+                if(imgBaldosaCambiada == imgBaldosa){
+                    hayBaldosasIguales = true;
+                }
+            }
+        }
+
+        return hayBaldosasIguales;
     }
     
 }

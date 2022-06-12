@@ -39,4 +39,8 @@ public class LogicaAdosa2 {
         return baldosasAMostrar.get((int) (Math.random() *
                 baldosasAMostrar.size()));
     }
+    
+    public ArrayList getBaldosasAMostrar(){
+        return baldosasAMostrar;
+    }
 }
