@@ -14,8 +14,11 @@ public class LogicaAdosa2 {
     private int dificultad;//Mientras mayor el numero, mas dificil
     private ArrayList<Integer> baldosasSinMostrar;
     private ArrayList<Integer> baldosasAMostrar;
+    private int vidas;
     
     public LogicaAdosa2(){
+        dificultad = 1;
+        vidas = 3;
         
         baldosasSinMostrar = new ArrayList<>();
         for(int i = 0; i<8; i++){
@@ -31,6 +34,7 @@ public class LogicaAdosa2 {
         
     }
     
+    //indica si la baldosa si se esta mostrando
     public boolean baldosaAMostrar(int cualNumero){
         return baldosasAMostrar.indexOf(cualNumero) != -1;
     }
@@ -42,5 +46,10 @@ public class LogicaAdosa2 {
     
     public ArrayList getBaldosasAMostrar(){
         return baldosasAMostrar;
+    }
+    
+    public void baldosasIguales(){
+        vidas--;
+        
     }
 }

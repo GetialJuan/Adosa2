@@ -215,6 +215,7 @@ public class VentanaJuego extends JFrame {
             //se cambia una baldosa cada cierto tiempo
             //y verfica si hay baldosas iguales
             if(t%2 == 0 && t>4){
+                //se verifica si hay baldosas iguales
                 if(baldosasIguales(baldosaCambiada)){
                     System.out.println("Baldosas iguales");
                 }
