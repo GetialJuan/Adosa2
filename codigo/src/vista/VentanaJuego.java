@@ -81,10 +81,18 @@ public class VentanaJuego extends JFrame {
     
     public VentanaJuego() throws IOException {
         iniciarComponentes();
+        iniciarVentana();
+    }
+    
+    private void iniciarVentana(){
         setSize(anchoV,largoV);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
+        Image icon = new ImageIcon(getClass().getResource("/imagenes/iconoVentana.png")).getImage();
+        setIconImage(icon);
+        
         setTitle("Adosa2");
     }
     
@@ -103,9 +111,9 @@ public class VentanaJuego extends JFrame {
         tiempo.start();
         
         //Fondo (provisonal)//
-        imgFondo = establecerIcon("\\src\\imagenes\\fondo.jpg", anchoV, largoV);
+        imgFondo = establecerIcon("\\src\\imagenes\\fondo3.png", anchoV, largoV);
         lblFondo = new JLabel(imgFondo);
-        lblFondo.setBounds(0, 0, anchoV, largoV);
+        lblFondo.setBounds(0, 0, anchoV, 500);
         
         //Labels punatje//
         lblPuntaje = new JLabel("Puntaje: 0000");
@@ -237,8 +245,9 @@ public class VentanaJuego extends JFrame {
     //metodo para inciailizar las baldosas
     private void inicializarBaldosas(){
         //cordenadas de cada baldosa
-        int coordenadas[][] = { {30,170}, {160,170}, {420,170}, {550,170},
-        {300,10}, {300,120}, {300,350}, {300,240} };
+//        int coordenadas[][] = { {30,170}, {160,170}, {420,170}, {550,170},
+//        {300,10}, {300,120}, {300,350}, {300,240} };
+            int coordenadas[][] = {{300,290},{300,290},{300,290},{300,290},{300,350},{300,350},{300,350},{300,350}};
         
         //Se añaden 8 baldosas
         for(int i = 0; i<8; i++){

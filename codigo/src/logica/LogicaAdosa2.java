@@ -50,6 +50,5 @@ public class LogicaAdosa2 {
     
     public void baldosasIguales(){
         vidas--;
-        
     }
 }
