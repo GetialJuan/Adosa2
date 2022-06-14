@@ -41,6 +41,9 @@ import logica.LogicaAdosa2;
  * @author Juan
  */
 public class VentanaJuego extends JFrame {
+    //baldosaCambiada
+    private int baldosaCambiada = 0;
+    
     //logica
     private LogicaAdosa2 logica;
     
@@ -187,7 +190,12 @@ public class VentanaJuego extends JFrame {
             //si se da click en el boton balnco
             if(e.getSource() == btnBlanco)
             {
-                System.out.println("falat implementar codigo");
+                if(baldosasIguales(baldosaCambiada)){
+                    System.out.println("Btn balnco ooka");
+                }
+                else{
+                    System.out.println("Btn blanco error");
+                }
             }
         }
     }
@@ -208,8 +216,7 @@ public class VentanaJuego extends JFrame {
         //tiempo
         private int t = 0;
         
-        //baldosaCambiada
-        private int baldosaCambiada = 0;
+        
         
         @Override
         public void actionPerformed(ActionEvent e) {
