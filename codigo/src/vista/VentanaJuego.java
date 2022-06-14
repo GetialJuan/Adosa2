@@ -10,6 +10,7 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
@@ -80,8 +81,8 @@ public class VentanaJuego extends JFrame {
     private ImageIcon imgFondo;
     
     public VentanaJuego() throws IOException {
-        iniciarComponentes();
         iniciarVentana();
+        iniciarComponentes();
     }
     
     private void iniciarVentana(){
@@ -111,9 +112,10 @@ public class VentanaJuego extends JFrame {
         tiempo.start();
         
         //Fondo (provisonal)//
-        imgFondo = establecerIcon("\\src\\imagenes\\fondo3.png", anchoV, largoV);
+        imgFondo = establecerIcon("\\src\\imagenes\\fondo3.png", anchoV-10,
+                largoV-38);
         lblFondo = new JLabel(imgFondo);
-        lblFondo.setBounds(0, 0, anchoV, 500);
+        lblFondo.setLayout(null);
         
         //Labels punatje//
         lblPuntaje = new JLabel("Puntaje: 0000");
@@ -149,7 +151,7 @@ public class VentanaJuego extends JFrame {
         
         //Contenedor Principal//
         contPrincipal = getContentPane();
-        contPrincipal.setLayout(null);
+        contPrincipal.setLayout(new GridLayout(1,1));
         //Añadiendo objetos
         contPrincipal.add(lblFondo);
         
@@ -245,9 +247,9 @@ public class VentanaJuego extends JFrame {
     //metodo para inciailizar las baldosas
     private void inicializarBaldosas(){
         //cordenadas de cada baldosa
-//        int coordenadas[][] = { {30,170}, {160,170}, {420,170}, {550,170},
-//        {300,10}, {300,120}, {300,350}, {300,240} };
-            int coordenadas[][] = {{300,290},{300,290},{300,290},{300,290},{300,350},{300,350},{300,350},{300,350}};
+        int coordenadas[][] = { {30,180}, {140,180}, {440,180}, {550,180},
+        {292,7}, {292,108}, {292,353}, {292,252} };
+           // int coordenadas[][] = {{300,290},{300,290},{300,290},{300,290},{300,350},{300,350},{300,350},{300,350}};
         
         //Se añaden 8 baldosas
         for(int i = 0; i<8; i++){
