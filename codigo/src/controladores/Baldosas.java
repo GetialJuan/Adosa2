@@ -31,7 +31,7 @@ public class Baldosas {
         ImageIcon baldosa;
         String rutaAux = "\\src\\imagenes\\baldosas\\numero.png";
 
-        for (int i = 1; i <= 29; i++) {
+        for (int i = 1; i <= 16; i++) {
             
             String nuevaRuta = rutaAux.replace("numero",i+"");
             
