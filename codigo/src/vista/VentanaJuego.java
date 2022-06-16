@@ -258,7 +258,8 @@ public class VentanaJuego extends JFrame {
                 listaBaldosas.get(baldosaACambiar).
                         setIcon(imgsBaldosas.getImgBaldosaAleatoria());
                 listaBaldosas.get(baldosaACambiar).
-                        setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                        setBorder(BorderFactory.
+                                createLineBorder(Color.GREEN, 3));
                 baldosaCambiada = baldosaACambiar;
             }
         }

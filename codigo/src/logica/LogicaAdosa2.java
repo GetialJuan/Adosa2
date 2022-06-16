@@ -44,7 +44,7 @@ public class LogicaAdosa2 {
                 baldosasAMostrar.size()));
     }
     
-    public ArrayList getBaldosasAMostrar(){
+    public ArrayList<Integer> getBaldosasAMostrar(){
         return baldosasAMostrar;
     }
     
