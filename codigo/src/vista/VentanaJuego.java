@@ -328,7 +328,10 @@ public class VentanaJuego extends JFrame {
     
     //metodo que modifica las Lblvidas si se pierde una vida
     private void quitarUnaVida(){
-        listaVidas.get(logica.getVidas()).setBackground(Color.red);
+        if(logica.getVidas() > 0) {
+            listaVidas.get(logica.getVidas()).setBackground(Color.red);
+        }
+        
     }
     
     //metodo que modificala visibilidad de las badldosas segun el caso
@@ -355,12 +358,21 @@ public class VentanaJuego extends JFrame {
         //se resta una vida
         logica.baldosasIguales();
         quitarUnaVida();
-
-        //se estbalcen nuevas baldosas
-        logica.nuevasBaldosasAMostrar();
-        modificarBaldosas();
         
-        baldosaCambiada = -1;
+        //se verfica si quedan vidas
+        if(logica.getVidas() > 0){
+            //se estbalcen nuevas baldosas
+            logica.nuevasBaldosasAMostrar();
+            modificarBaldosas();
+
+            baldosaCambiada = -1;
+        }
+        else {
+            dispose();
+            VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
+        }
+
+        
     }
     
     //acciones a realizar cuando el jugador acierte
