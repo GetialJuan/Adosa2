@@ -44,7 +44,7 @@ import logica.LogicaAdosa2;
 public class VentanaJuego extends JFrame {
 
     //baldosaCambiada
-    private int baldosaCambiada = 0;
+    private int baldosaCambiada = -1;
 
     //logica
     private LogicaAdosa2 logica;
@@ -72,6 +72,7 @@ public class VentanaJuego extends JFrame {
     private JLabel lblPuntaje;
 
     //Labels vidas
+    private ArrayList<JLabel> listaVidas;
     private JLabel lblVida1;
     private JLabel lblVida2;
     private JLabel lblVida3;
@@ -131,21 +132,9 @@ public class VentanaJuego extends JFrame {
         lblPuntaje.setFont(new Font("Serif", Font.PLAIN, 40));
 
         //Labels de vidas// (temporales)
-        lblVida1 = new JLabel();
-        lblVida1.setBounds(480, 10, 50, 50);
-        lblVida1.setOpaque(true);
-        lblVida1.setBackground(Color.GREEN);
-
-        lblVida2 = new JLabel();
-        lblVida2.setBounds(550, 10, 50, 50);
-        lblVida2.setOpaque(true);
-        lblVida2.setBackground(Color.GREEN);
-
-        lblVida3 = new JLabel();
-        lblVida3.setBounds(620, 10, 50, 50);
-        lblVida3.setOpaque(true);
-        lblVida3.setBackground(Color.GREEN);
-
+        listaVidas = new ArrayList<>();
+        inicializarVidas();
+        
         //Botn balnco//(temporral)
         btnBlanco = new JButton();
         btnBlanco.setBounds(520, 320, 100, 100);
@@ -174,12 +163,12 @@ public class VentanaJuego extends JFrame {
         contPrincipal.add(lblFondo);
 
         lblFondo.add(lblPuntaje);
-        lblFondo.add(lblVida1);
-        lblFondo.add(lblVida2);
-        lblFondo.add(lblVida3);
         lblFondo.add(btnBlanco);
         for (int i = 0; i < 8; i++) {
             lblFondo.add(listaBaldosas.get(i));
+        }
+        for (int i = 0; i < 3; i++) {
+            lblFondo.add(listaVidas.get(i));
         }
 
         //Añadiendo listenrs//
@@ -248,19 +237,33 @@ public class VentanaJuego extends JFrame {
                 //se verifica si hay baldosas iguales
                 if (baldosasIguales(baldosaCambiada)) {
                     System.out.println("Baldosas iguales");
+                    
+                    //se pone normal la baldosa anteriroemnet ressaltada
+                    listaBaldosas.get(baldosaCambiada).setBorder(null);
+                    
+                    //se resta una vida
+                    logica.baldosasIguales();
+                    
+                    //se reinicia las baldosas, las vidas y el tiempo
+                    quitarUnaVida();
+                    
+                    baldosaCambiada = -1;
+                } else {
+                    //se pone normal la baldosa anteriroemnet ressaltada
+                    if(baldosaCambiada != -1){
+                        listaBaldosas.get(baldosaCambiada).setBorder(null);
+                    }
+                    
+
+                    //se cambia la baldosa
+                    int baldosaACambiar = logica.baldosaACambiar();
+                    listaBaldosas.get(baldosaACambiar).
+                            setIcon(imgsBaldosas.getImgBaldosaAleatoria());
+                    listaBaldosas.get(baldosaACambiar).
+                            setBorder(BorderFactory.
+                                    createLineBorder(Color.GREEN, 3));
+                    baldosaCambiada = baldosaACambiar;
                 }
-
-                //se pone normal la baldosa anteriroemnet ressaltada
-                listaBaldosas.get(baldosaCambiada).setBorder(null);
-
-                //se cambia la baldosa
-                int baldosaACambiar = logica.baldosaACambiar();
-                listaBaldosas.get(baldosaACambiar).
-                        setIcon(imgsBaldosas.getImgBaldosaAleatoria());
-                listaBaldosas.get(baldosaACambiar).
-                        setBorder(BorderFactory.
-                                createLineBorder(Color.GREEN, 3));
-                baldosaCambiada = baldosaACambiar;
             }
         }
     }
@@ -270,13 +273,13 @@ public class VentanaJuego extends JFrame {
         //cordenadas de cada baldosa
         int coordenadas[][] = {{30, 180}, {140, 180}, {440, 180}, {550, 180},
         {292, 7}, {292, 108}, {292, 353}, {292, 252}};
-        // int coordenadas[][] = {{300,290},{300,290},{300,290},{300,290},{300,350},{300,350},{300,350},{300,350}};
 
         //Se añaden 8 baldosas
         for (int i = 0; i < 8; i++) {
             JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
             baldosa.setBounds(coordenadas[i][0], coordenadas[i][1],
                     100, 100);
+            //Se ponen visibles o no visibles degun el caso
             if (logica.baldosaAMostrar(i)) {
                 baldosa.setVisible(true);
             } else {
@@ -285,29 +288,57 @@ public class VentanaJuego extends JFrame {
             this.listaBaldosas.add(baldosa);
         }
     }
+    
+    //metodo que iniclliza las vidas
+    private void inicializarVidas() {
+        int coordenadas[][] = {{480, 10}, {550, 10}, {620, 10}};
+        for(int i = 0; i<3; i++){
+            LblVida lblVida = new LblVida();
+            lblVida.setBounds(coordenadas[i][0], coordenadas[i][1], 50, 50);
+            listaVidas.add(lblVida);
+        }
+    }
+    
+    //clase de las vidas
+    private class LblVida extends JLabel {
+
+        public LblVida() {
+            setOpaque(true);
+            setBackground(Color.GREEN);
+        }
+        
+    }
 
     //metodo que verfiica baldosas iguales(con la logica)
     private boolean baldosasIguales(int baldosaCambiada) {
-        //lista auxiliar del indice de las baldosas visibles
-        ArrayList<Integer> baldosasEnPantalla = logica.
-                getBaldosasAMostrar();
+        
         //VAriable que indicara si hay dos baldosas iguales
         boolean hayBaldosasIguales = false;
-        //Imagen de la baldosa cambiada anteriroremenet
-        Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
-        //se verifica si hay dos baldosa iguales//
-        for (int i = 0; i < baldosasEnPantalla.size(); i++) {
-            //se verfica que no sea la misma baldosa
-            if (baldosaCambiada != baldosasEnPantalla.get(i)) {
-                Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
-                //se verfica si sus imagenes son iguales
-                if (imgBaldosaCambiada == imgBaldosa) {
-                    hayBaldosasIguales = true;
+        if(baldosaCambiada != -1) {
+            //lista auxiliar del indice de las baldosas visibles
+            ArrayList<Integer> baldosasEnPantalla = logica.
+                    getBaldosasAMostrar();
+            //Imagen de la baldosa cambiada anteriroremenet
+            Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
+            //se verifica si hay dos baldosa iguales//
+            for (int i = 0; i < baldosasEnPantalla.size(); i++) {
+                //se verfica que no sea la misma baldosa
+                if (baldosaCambiada != baldosasEnPantalla.get(i)) {
+                    Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
+                    //se verfica si sus imagenes son iguales
+                    if (imgBaldosaCambiada == imgBaldosa) {
+                        hayBaldosasIguales = true;
+                    }
                 }
             }
         }
 
         return hayBaldosasIguales;
+    }
+    
+    //metodo que modifica las Lblvidas si se pierde una vida
+    private void quitarUnaVida(){
+        listaVidas.get(logica.getVidas()).setBackground(Color.red);
     }
 
 }

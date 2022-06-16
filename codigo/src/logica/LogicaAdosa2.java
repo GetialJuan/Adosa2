@@ -51,4 +51,8 @@ public class LogicaAdosa2 {
     public void baldosasIguales(){
         vidas--;
     }
+    
+    public int getVidas() {
+        return vidas;
+    }
 }
