@@ -211,7 +211,12 @@ public class VentanaJuego extends JFrame {
         public void keyPressed(KeyEvent e) {
             //Si se oprime la barra espaciadora
             if (e.getKeyCode() == 32) {
-                System.out.println("falat implementar codigo");
+                if (baldosasIguales(baldosaCambiada)) {
+                    acierto();
+                    
+                } else {
+                    falloCometido();
+                }
             }
         }
     }
@@ -350,7 +355,7 @@ public class VentanaJuego extends JFrame {
     
     //metodo que realiza las acciones correspondientes al cometer un fallo
     private void falloCometido() {
-        System.out.println("Baldosas iguales");
+        System.out.println("fallo");
                     
         //se pone normal la baldosa anteriroemnet ressaltada
         listaBaldosas.get(baldosaCambiada).setBorder(null);
@@ -382,6 +387,10 @@ public class VentanaJuego extends JFrame {
         //se pone normal la baldosa anteriroemnet ressaltada
         listaBaldosas.get(baldosaCambiada).setBorder(null);
         
+        //se suma el puntaje
+        logica.aumentarPuntaje();
+        logica.aumentarPuntajeASumar();
+        lblPuntaje.setText("Puntaje: "+logica.getPuntaje());
 
         //se estbalcen nuevas baldosas
         logica.aumentarBaldosasAMostrar();
