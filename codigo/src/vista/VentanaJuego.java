@@ -195,9 +195,10 @@ public class VentanaJuego extends JFrame {
             //si se da click en el boton balnco
             if (e.getSource() == btnBlanco) {
                 if (baldosasIguales(baldosaCambiada)) {
-                    System.out.println("Btn balnco ooka");
+                    acierto();
+                    
                 } else {
-                    System.out.println("Btn blanco error");
+                    falloCometido();
                 }
             }
         }
@@ -236,20 +237,7 @@ public class VentanaJuego extends JFrame {
             if (t % 2 == 0 && t > 4) {
                 //se verifica si hay baldosas iguales
                 if (baldosasIguales(baldosaCambiada)) {
-                    System.out.println("Baldosas iguales");
-                    
-                    //se pone normal la baldosa anteriroemnet ressaltada
-                    listaBaldosas.get(baldosaCambiada).setBorder(null);
-                    
-                    //se resta una vida
-                    logica.baldosasIguales();
-                    quitarUnaVida();
-                    
-                    //se estbalcen nuevas baldosas
-                    logica.nuevasBaldosasAMostrar();
-                    modificarBaldosas();
-                    
-                    baldosaCambiada = -1;
+                    falloCometido();
                 } else {
                     //se pone normal la baldosa anteriroemnet ressaltada
                     if(baldosaCambiada != -1){
@@ -355,6 +343,38 @@ public class VentanaJuego extends JFrame {
             }
             listaBaldosas.get(i).setIcon(imgsBaldosas.getImgBaldosa(i));
         }
+    }
+    
+    //metodo que realiza las acciones correspondientes al cometer un fallo
+    private void falloCometido() {
+        System.out.println("Baldosas iguales");
+                    
+        //se pone normal la baldosa anteriroemnet ressaltada
+        listaBaldosas.get(baldosaCambiada).setBorder(null);
+
+        //se resta una vida
+        logica.baldosasIguales();
+        quitarUnaVida();
+
+        //se estbalcen nuevas baldosas
+        logica.nuevasBaldosasAMostrar();
+        modificarBaldosas();
+        
+        baldosaCambiada = -1;
+    }
+    
+    //acciones a realizar cuando el jugador acierte
+    private void acierto(){
+        System.out.println("acierto");
+                    
+        //se pone normal la baldosa anteriroemnet ressaltada
+        listaBaldosas.get(baldosaCambiada).setBorder(null);
+
+        //se estbalcen nuevas baldosas
+        logica.nuevasBaldosasAMostrar();
+        modificarBaldosas();
+        
+        baldosaCambiada = -1;
     }
 
 }
