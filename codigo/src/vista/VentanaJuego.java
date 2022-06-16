@@ -243,9 +243,11 @@ public class VentanaJuego extends JFrame {
                     
                     //se resta una vida
                     logica.baldosasIguales();
-                    
-                    //se reinicia las baldosas, las vidas y el tiempo
                     quitarUnaVida();
+                    
+                    //se estbalcen nuevas baldosas
+                    logica.nuevasBaldosasAMostrar();
+                    modificarBaldosas();
                     
                     baldosaCambiada = -1;
                 } else {
@@ -339,6 +341,20 @@ public class VentanaJuego extends JFrame {
     //metodo que modifica las Lblvidas si se pierde una vida
     private void quitarUnaVida(){
         listaVidas.get(logica.getVidas()).setBackground(Color.red);
+    }
+    
+    //metodo que modificala visibilidad de las badldosas segun el caso
+    private void modificarBaldosas(){
+        //Se recorre cda baldosa
+        for (int i = 0; i < 8; i++) {
+            //Se ponen visibles o no visibles degun el caso
+            if (logica.baldosaAMostrar(i)) {
+                listaBaldosas.get(i).setVisible(true);
+            } else {
+                listaBaldosas.get(i).setVisible(false);
+            }
+            listaBaldosas.get(i).setIcon(imgsBaldosas.getImgBaldosa(i));
+        }
     }
 
 }

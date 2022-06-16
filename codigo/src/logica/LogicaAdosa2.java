@@ -11,13 +11,13 @@ import java.util.ArrayList;
  * @author Juan
  */
 public class LogicaAdosa2 {
-    private int dificultad;//Mientras mayor el numero, mas dificil
+    private int numeroDeBaldosasAMostrar;//Mientras mayor el numero, mas dificil
     private ArrayList<Integer> baldosasSinMostrar;
     private ArrayList<Integer> baldosasAMostrar;
     private int vidas;
     
     public LogicaAdosa2(){
-        dificultad = 1;
+        numeroDeBaldosasAMostrar = 3;
         vidas = 3;
         
         baldosasSinMostrar = new ArrayList<>();
@@ -26,7 +26,7 @@ public class LogicaAdosa2 {
         }
         
         baldosasAMostrar = new ArrayList<>();
-        for(int i = 0; i<3; i++){
+        for(int i = 0; i<numeroDeBaldosasAMostrar; i++){
             int cualBaldosa = (int) (Math.random() * baldosasSinMostrar.size());
             baldosasAMostrar.add(baldosasSinMostrar.get(cualBaldosa));
             baldosasSinMostrar.remove(cualBaldosa);
@@ -54,5 +54,24 @@ public class LogicaAdosa2 {
     
     public int getVidas() {
         return vidas;
+    }
+    
+    public void reiniciarBaldosasSinMostrar(){
+        baldosasSinMostrar.clear();
+        for(int i = 0; i<8; i++){
+            baldosasSinMostrar.add(i);
+        }
+    }
+    
+    public void nuevasBaldosasAMostrar() {
+        reiniciarBaldosasSinMostrar();
+        
+        baldosasAMostrar.clear();
+        for(int i = 0; i<numeroDeBaldosasAMostrar; i++){
+            int cualBaldosa = (int) (Math.random() * baldosasSinMostrar.size());
+            baldosasAMostrar.add(baldosasSinMostrar.get(cualBaldosa));
+            baldosasSinMostrar.remove(cualBaldosa);
+        }
+        
     }
 }
