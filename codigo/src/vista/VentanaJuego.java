@@ -369,8 +369,10 @@ public class VentanaJuego extends JFrame {
                     
         //se pone normal la baldosa anteriroemnet ressaltada
         listaBaldosas.get(baldosaCambiada).setBorder(null);
+        
 
         //se estbalcen nuevas baldosas
+        logica.aumentarBaldosasAMostrar();
         logica.nuevasBaldosasAMostrar();
         modificarBaldosas();
         

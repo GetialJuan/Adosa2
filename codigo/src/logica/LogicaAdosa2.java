@@ -50,6 +50,9 @@ public class LogicaAdosa2 {
     
     public void baldosasIguales(){
         vidas--;
+        if(numeroDeBaldosasAMostrar > 3) {
+            numeroDeBaldosasAMostrar--;
+        }
     }
     
     public int getVidas() {
@@ -71,6 +74,13 @@ public class LogicaAdosa2 {
             int cualBaldosa = (int) (Math.random() * baldosasSinMostrar.size());
             baldosasAMostrar.add(baldosasSinMostrar.get(cualBaldosa));
             baldosasSinMostrar.remove(cualBaldosa);
+        }
+        
+    }
+    
+    public void aumentarBaldosasAMostrar(){
+        if(numeroDeBaldosasAMostrar < 8) {
+            numeroDeBaldosasAMostrar++;
         }
         
     }
