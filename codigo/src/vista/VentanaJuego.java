@@ -117,7 +117,7 @@ public class VentanaJuego extends JFrame {
         imgsBaldosas = new Baldosas();
 
         //timer//
-        tiempo = new Timer(1000, new ManejadorDeEventosTiempo());
+        tiempo = new Timer(100, new ManejadorDeEventosTiempo());
         tiempo.start();
 
         //Fondo (provisonal)//
@@ -225,39 +225,55 @@ public class VentanaJuego extends JFrame {
     private class ManejadorDeEventosTiempo implements ActionListener {
 
         //tiempo
-        private int t = 0;
+        private double t = 0;
+        
+        //var que indica si se hace la cuenta regresiva
+        private boolean cuentaRegresiva = true;
 
         @Override
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
-            t++;
-
-            if (t < 4) {
-                //aqui debe ir la cuenta regresiva inciial
-                System.out.println(t + "");
-            }
-
-            //se cambia una baldosa cada cierto tiempo
-            //y verfica si hay baldosas iguales
-            if (t % 2 == 0 && t > 4) {
-                //se verifica si hay baldosas iguales
-                if (baldosasIguales(baldosaCambiada)) {
-                    falloCometido();
-                } else {
-                    //se pone normal la baldosa anteriroemnet ressaltada
-                    if(baldosaCambiada != -1){
-                        listaBaldosas.get(baldosaCambiada).setBorder(null);
+            t += 0.1;
+            if(cuentaRegresiva) {
+                if (t < 4) {
+                    if(t>1 && t<1.1){
+                        System.out.println("1");
+                    } else if(t>2 && t<2.1){
+                        System.out.println("2");
+                    } else if(3<t && t<3.1){
+                        System.out.println("3");
                     }
-                    
+                }
+                else {
+                    cuentaRegresiva = false;
+                    t= 0;
+                }
+            } else {
+                //se cambia una baldosa cada cierto tiempo
+                //y verfica si hay baldosas iguales
+                if (t > logica.getTiempoDeCambio() ) {
+                    //se reinicia el tiempo
+                    t = 0;
 
-                    //se cambia la baldosa
-                    int baldosaACambiar = logica.baldosaACambiar();
-                    listaBaldosas.get(baldosaACambiar).
-                            setIcon(imgsBaldosas.getImgBaldosaAleatoria());
-                    listaBaldosas.get(baldosaACambiar).
-                            setBorder(BorderFactory.
-                                    createLineBorder(Color.GREEN, 3));
-                    baldosaCambiada = baldosaACambiar;
+                    //se verifica si hay baldosas iguales
+                    if (baldosasIguales(baldosaCambiada)) {
+                        falloCometido();
+                    } else {
+                        //se pone normal la baldosa anteriroemnet ressaltada
+                        if(baldosaCambiada != -1){
+                            listaBaldosas.get(baldosaCambiada).setBorder(null);
+                        }
+
+
+                        //se cambia la baldosa
+                        int baldosaACambiar = logica.baldosaACambiar();
+                        listaBaldosas.get(baldosaACambiar).
+                                setIcon(imgsBaldosas.getImgBaldosaAleatoria());
+                        listaBaldosas.get(baldosaACambiar).
+                                setBorder(BorderFactory.
+                                        createLineBorder(Color.GREEN, 3));
+                        baldosaCambiada = baldosaACambiar;
+                    }
                 }
             }
         }
@@ -358,22 +374,28 @@ public class VentanaJuego extends JFrame {
         System.out.println("fallo");
                     
         //se pone normal la baldosa anteriroemnet ressaltada
-        listaBaldosas.get(baldosaCambiada).setBorder(null);
+        if(baldosaCambiada != -1) {
+            listaBaldosas.get(baldosaCambiada).setBorder(null);
+        }
+        baldosaCambiada = -1;
 
         //se resta una vida
         logica.baldosasIguales();
         quitarUnaVida();
+        
+        //se aumenta el tiempo de cambio
+        logica.aumentarTiempoDeCambio();
         
         //se verfica si quedan vidas
         if(logica.getVidas() > 0){
             //se estbalcen nuevas baldosas
             logica.nuevasBaldosasAMostrar();
             modificarBaldosas();
-
-            baldosaCambiada = -1;
         }
         else {
+            tiempo.stop();
             dispose();
+            
             VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
         }
 
@@ -391,6 +413,9 @@ public class VentanaJuego extends JFrame {
         logica.aumentarPuntaje();
         logica.aumentarPuntajeASumar();
         lblPuntaje.setText("Puntaje: "+logica.getPuntaje());
+        
+        //se reduce el tiempo de cambio
+        logica.disminuirTiempoDeCambio();
 
         //se estbalcen nuevas baldosas
         logica.aumentarBaldosasAMostrar();

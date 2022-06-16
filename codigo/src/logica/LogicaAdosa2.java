@@ -17,12 +17,14 @@ public class LogicaAdosa2 {
     private int vidas;
     private int puntaje;
     private int puntajeASumar;
+    private double tiempoDeCambio;
     
     public LogicaAdosa2(){
         numeroDeBaldosasAMostrar = 3;
         vidas = 3;
         puntaje = 0;
         puntajeASumar = 5;
+        tiempoDeCambio = 2;
         
         baldosasSinMostrar = new ArrayList<>();
         for(int i = 0; i<8; i++){
@@ -104,4 +106,21 @@ public class LogicaAdosa2 {
         return puntaje;
     }
     
+    public void disminuirTiempoDeCambio() {
+        if(tiempoDeCambio > 0.2){
+            tiempoDeCambio -= 0.2;
+        }
+        
+    }
+    
+    public void aumentarTiempoDeCambio() {
+        if(tiempoDeCambio < 2){
+            tiempoDeCambio += 0.2;
+        }
+        
+    }
+    
+    public double getTiempoDeCambio() {
+        return tiempoDeCambio;
+    }
 }
