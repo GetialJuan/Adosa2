@@ -18,6 +18,8 @@ public class LogicaAdosa2 {
     private int puntaje;
     private int puntajeASumar;
     private double tiempoDeCambio;
+    private int aciertos;
+    private int errores;
     
     public LogicaAdosa2(){
         numeroDeBaldosasAMostrar = 3;
@@ -25,6 +27,8 @@ public class LogicaAdosa2 {
         puntaje = 0;
         puntajeASumar = 5;
         tiempoDeCambio = 2;
+        aciertos = 0;
+        errores = 0;
         
         baldosasSinMostrar = new ArrayList<>();
         for(int i = 0; i<8; i++){
@@ -122,5 +126,21 @@ public class LogicaAdosa2 {
     
     public double getTiempoDeCambio() {
         return tiempoDeCambio;
+    }
+    
+    public int getAciertos() {
+        return aciertos;
+    }
+    
+    public int getErrores() {
+        return errores;
+    }
+    
+    public void aumentarAciertos() {
+        aciertos++;
+    }
+    
+    public void aumentarErrores() {
+        errores++;
     }
 }

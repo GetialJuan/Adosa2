@@ -24,6 +24,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -198,7 +200,11 @@ public class VentanaJuego extends JFrame {
                     acierto();
                     
                 } else {
-                    falloCometido();
+                    try {
+                        falloCometido();
+                    } catch (IOException ex) {
+                        Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
@@ -215,7 +221,11 @@ public class VentanaJuego extends JFrame {
                     acierto();
                     
                 } else {
-                    falloCometido();
+                    try {
+                        falloCometido();
+                    } catch (IOException ex) {
+                        Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
@@ -257,7 +267,11 @@ public class VentanaJuego extends JFrame {
 
                     //se verifica si hay baldosas iguales
                     if (baldosasIguales(baldosaCambiada)) {
-                        falloCometido();
+                        try {
+                            falloCometido();
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
                         //se pone normal la baldosa anteriroemnet ressaltada
                         if(baldosaCambiada != -1){
@@ -370,7 +384,7 @@ public class VentanaJuego extends JFrame {
     }
     
     //metodo que realiza las acciones correspondientes al cometer un fallo
-    private void falloCometido() {
+    private void falloCometido() throws IOException {
         System.out.println("fallo");
                     
         //se pone normal la baldosa anteriroemnet ressaltada
@@ -382,6 +396,9 @@ public class VentanaJuego extends JFrame {
         //se resta una vida
         logica.baldosasIguales();
         quitarUnaVida();
+        
+        //se añade un error
+        logica.aumentarErrores();
         
         //se aumenta el tiempo de cambio
         logica.aumentarTiempoDeCambio();
@@ -413,6 +430,9 @@ public class VentanaJuego extends JFrame {
         logica.aumentarPuntaje();
         logica.aumentarPuntajeASumar();
         lblPuntaje.setText("Puntaje: "+logica.getPuntaje());
+        
+        //se añade un acierto
+        logica.aumentarAciertos();
         
         //se reduce el tiempo de cambio
         logica.disminuirTiempoDeCambio();
