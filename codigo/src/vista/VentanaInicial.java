@@ -132,7 +132,7 @@ public class VentanaInicial extends JFrame {
         contPrincipal.setLayout(null);
         //Añadiendo objetos
         contPrincipal.add(lblFondo);
-        //Ñadiendo objetos al lblFondo
+        //Aadiendo objetos al lblFondo
         lblFondo.add(btnJugar);
         lblFondo.add(btnComoJugar);
         lblFondo.add(btnParaQueSirve);
@@ -210,7 +210,15 @@ public class VentanaInicial extends JFrame {
                             log(Level.SEVERE, null, ex);
                 }
             } else if (e.getSource() == btnComoJugar) {
-                reproducirSonido("boton");
+                dispose();
+                //Se abre la ventana del juego
+                try {
+                    reproducirSonido("boton");
+                    ComoJugar ventanaComoJugar = new ComoJugar();
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaInicial.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
             } else if (e.getSource() == btnParaQueSirve) {
                 reproducirSonido("boton");
             }

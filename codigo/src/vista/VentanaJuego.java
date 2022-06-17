@@ -112,8 +112,8 @@ public class VentanaJuego extends JFrame {
     private ImageIcon volumeOff2;
 
     public VentanaJuego() throws IOException {
-        iniciarVentana();
-        iniciarComponentes();
+            iniciarVentana();
+            iniciarComponentes();
     }
 
     private void iniciarVentana() {
