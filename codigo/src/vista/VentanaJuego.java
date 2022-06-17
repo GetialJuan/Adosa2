@@ -82,6 +82,9 @@ public class VentanaJuego extends JFrame {
 
     //Fondo lbl
     private JLabel lblFondo;
+    
+    //labelContador
+    private JLabel lblContador;
 
     //Botones
     private JButton btnBlanco;
@@ -91,9 +94,6 @@ public class VentanaJuego extends JFrame {
 
     //Labels vidas
     private ArrayList<JLabel> listaVidas;
-    private JLabel lblVida1;
-    private JLabel lblVida2;
-    private JLabel lblVida3;
 
     //Contendero principal
     private Container contPrincipal;
@@ -196,15 +196,22 @@ public class VentanaJuego extends JFrame {
         //Baldosas//
         listaBaldosas = new ArrayList<>();
         inicializarBaldosas();
+        
+        //lblContador//
+        lblContador = new JLabel();
+        lblContador.setBounds(300, 100, 300, 250);
+        lblContador.setBorder(null);
 
         //Contenedor Principal//
         contPrincipal = getContentPane();
         contPrincipal.setLayout(new GridLayout(1, 1));
         //Añadiendo objetos
         contPrincipal.add(lblFondo);
-
+        
         lblFondo.add(lblPuntaje);
+        lblFondo.add(lblContador);
         lblFondo.add(btnBlanco);
+        //se añaden las baldosas
         for (int i = 0; i < 8; i++) {
             lblFondo.add(listaBaldosas.get(i));
         }
@@ -376,14 +383,43 @@ public class VentanaJuego extends JFrame {
             t += 0.1;
             if (cuentaRegresiva) {
                 if (t < 4) {
-                    if (t > 1 && t < 1.1) {
-                        System.out.println("1");
-                    } else if (t > 2 && t < 2.1) {
-                        System.out.println("2");
-                    } else if (3 < t && t < 3.1) {
-                        System.out.println("3");
+                    if (0 <= t && t < 1) {
+                        try {
+                            lblContador.setIcon
+                (establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
+                    } else if (1 <= t && t < 2) {
+                        try {
+                            lblContador.setIcon
+                (establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
+                    } else if (2 <= t && t < 3) {
+                        try {
+                            lblContador.setIcon
+                (establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        lblContador.setBounds(200, 100, 300, 250);
+                        try {
+                            lblContador.setIcon
+                (establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else {
+                    lblContador.setVisible(false);
+                    modificarBaldosas();
                     cuentaRegresiva = false;
                     t = 0;
                 }
@@ -432,12 +468,7 @@ public class VentanaJuego extends JFrame {
             JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
             baldosa.setBounds(coordenadas[i][0], coordenadas[i][1],
                     100, 100);
-            //Se ponen visibles o no visibles degun el caso
-            if (logica.baldosaAMostrar(i)) {
-                baldosa.setVisible(true);
-            } else {
-                baldosa.setVisible(false);
-            }
+            baldosa.setVisible(false);
             this.listaBaldosas.add(baldosa);
         }
     }
@@ -519,8 +550,6 @@ public class VentanaJuego extends JFrame {
             reproducirSonido("perder");
         }
 
-        System.out.println("fallo");
-
         //se pone normal la baldosa anteriroemnet ressaltada
         if (baldosaCambiada != -1) {
             listaBaldosas.get(baldosaCambiada).setBorder(null);
@@ -556,7 +585,6 @@ public class VentanaJuego extends JFrame {
     //acciones a realizar cuando el jugador acierte
     private void acierto() {
         reproducirSonido("botonA");
-        System.out.println("acierto");
 
         //se pone normal la baldosa anteriroemnet ressaltada
         listaBaldosas.get(baldosaCambiada).setBorder(null);
