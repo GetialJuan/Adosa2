@@ -20,6 +20,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +29,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -34,6 +40,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -44,6 +52,14 @@ import logica.LogicaAdosa2;
  * @author Juan
  */
 public class VentanaJuego extends JFrame {
+
+    //Musica
+    private Clip music = null;
+    private long clipTime;
+    private int contador = 0;
+
+    // label volumen
+    JLabel lblVolumen;
 
     //baldosaCambiada
     private int baldosaCambiada = -1;
@@ -90,6 +106,10 @@ public class VentanaJuego extends JFrame {
     private ImageIcon iconoBtnNorm;
     private ImageIcon iconoBtnPress;
     private ImageIcon iconoBtnRoll;
+    private ImageIcon volumeOn;
+    private ImageIcon volumeOff;
+    private ImageIcon volumeOn2;
+    private ImageIcon volumeOff2;
 
     public VentanaJuego() throws IOException {
         iniciarVentana();
@@ -106,11 +126,30 @@ public class VentanaJuego extends JFrame {
         setIconImage(icon);
 
         setTitle("Adosa2");
+
     }
 
     private void iniciarComponentes() throws IOException {
+
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
+
+        //Establecemos los iconos de volumen
+        volumeOff = establecerIcon("\\src\\imagenes\\volumeOff.png", 70, 70);
+        volumeOn = establecerIcon("\\src\\imagenes\\volumeOn.png", 70, 70);
+        volumeOff2 = establecerIcon("\\src\\imagenes\\volumeOff2.png", 70, 70);
+        volumeOn2 = establecerIcon("\\src\\imagenes\\volumeOn2.png", 70, 70);
+
+        //Inicializamos la etiqueta Volumen
+        lblVolumen = new JLabel("");
+        lblVolumen.setBounds(50, 340, 70, 70);
+        lblVolumen.setIcon(volumeOff);
+        lblVolumen.addMouseListener(new ManejadorDeVolumen());
+
+        lblVolumen.setHorizontalAlignment(SwingConstants.CENTER);
+        lblVolumen.setForeground(Color.WHITE);
+
+        inicializarVolumen();
 
         //logica
         logica = new LogicaAdosa2();
@@ -136,11 +175,11 @@ public class VentanaJuego extends JFrame {
         //Labels de vidas// (temporales)
         listaVidas = new ArrayList<>();
         inicializarVidas();
-        
+
         //Botn balnco//(temporral)
         btnBlanco = new JButton();
         btnBlanco.setBounds(520, 320, 100, 100);
-        
+
         iconoBtnNorm = establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
         btnBlanco.setIcon(iconoBtnNorm);
 
@@ -173,6 +212,8 @@ public class VentanaJuego extends JFrame {
             lblFondo.add(listaVidas.get(i));
         }
 
+        lblFondo.add(lblVolumen);
+
         //Añadiendo listenrs//
         btnBlanco.addMouseListener(new ManejadorDeEventosMouse());
         btnBlanco.addKeyListener(new ManejadorDeEventosTeclado());
@@ -189,6 +230,7 @@ public class VentanaJuego extends JFrame {
         return new ImageIcon(imagen);
     }
 
+
     //clasee manejadora de eventos del mouse
     private class ManejadorDeEventosMouse extends MouseAdapter {
 
@@ -198,7 +240,7 @@ public class VentanaJuego extends JFrame {
             if (e.getSource() == btnBlanco) {
                 if (baldosasIguales(baldosaCambiada)) {
                     acierto();
-                    
+
                 } else {
                     try {
                         falloCometido();
@@ -219,7 +261,7 @@ public class VentanaJuego extends JFrame {
             if (e.getKeyCode() == 32) {
                 if (baldosasIguales(baldosaCambiada)) {
                     acierto();
-                    
+
                 } else {
                     try {
                         falloCometido();
@@ -231,12 +273,95 @@ public class VentanaJuego extends JFrame {
         }
     }
 
+    private void inicializarVolumen() {
+        if (contador == 0) {
+            try {
+                music = AudioSystem.getClip();
+                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/ash.wav")));
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
+                a.printStackTrace();
+            }
+        }
+        music.start();
+    }
+    
+    //Activar cierto sonido
+      public void reproducirSonido(String cualSonido){
+        switch(cualSonido){
+            case "boton" -> play("src\\sonidos\\boton.wav");
+            case "victoria" -> play("src\\sonidos\\victoria.wav");
+            default -> {
+            }
+        }
+    }
+
+    //Reproducir sonido
+    void play(String filePath) {
+        try {
+            Clip sonido = AudioSystem.getClip();
+            sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
+            sonido.start();
+            int delay2 = 3000;
+            Timer timerAux;
+            timerAux = new Timer(delay2, e -> { sonido.close(); });
+            timerAux.setRepeats(false);
+            timerAux.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.out.println("" + e);
+        }
+    }
+
+
+    //clase manejadora de volumen
+    private class ManejadorDeVolumen extends MouseAdapter {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+//            inicializarVolumen();
+            if (lblVolumen.getIcon().equals(volumeOn2) || lblVolumen.getIcon().equals(volumeOn)) {
+                lblVolumen.setIcon(volumeOff);
+                music.start();
+                contador++;
+            } else {
+                lblVolumen.setIcon(volumeOn);
+                clipTime = music.getMicrosecondPosition();
+                music.stop();
+                music.setMicrosecondPosition(clipTime);
+                contador++;
+            }
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            if (lblVolumen.getIcon().equals(volumeOff2)) {
+                lblVolumen.setIcon(volumeOff);
+
+            } else if (lblVolumen.getIcon().equals(volumeOn2)) {
+                lblVolumen.setIcon(volumeOn);
+
+            }
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (lblVolumen.getIcon().equals(volumeOff)) {
+                lblVolumen.setIcon(volumeOff2);
+            } else if (lblVolumen.getIcon().equals(volumeOn)) {
+                lblVolumen.setIcon(volumeOn2);
+
+            }
+
+        }
+
+    }
+
     //clase Manejadroa de eventos de tiempo
     private class ManejadorDeEventosTiempo implements ActionListener {
 
         //tiempo
         private double t = 0;
-        
+
         //var que indica si se hace la cuenta regresiva
         private boolean cuentaRegresiva = true;
 
@@ -244,24 +369,23 @@ public class VentanaJuego extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
             t += 0.1;
-            if(cuentaRegresiva) {
+            if (cuentaRegresiva) {
                 if (t < 4) {
-                    if(t>1 && t<1.1){
+                    if (t > 1 && t < 1.1) {
                         System.out.println("1");
-                    } else if(t>2 && t<2.1){
+                    } else if (t > 2 && t < 2.1) {
                         System.out.println("2");
-                    } else if(3<t && t<3.1){
+                    } else if (3 < t && t < 3.1) {
                         System.out.println("3");
                     }
-                }
-                else {
+                } else {
                     cuentaRegresiva = false;
-                    t= 0;
+                    t = 0;
                 }
             } else {
                 //se cambia una baldosa cada cierto tiempo
                 //y verfica si hay baldosas iguales
-                if (t > logica.getTiempoDeCambio() ) {
+                if (t > logica.getTiempoDeCambio()) {
                     //se reinicia el tiempo
                     t = 0;
 
@@ -274,10 +398,9 @@ public class VentanaJuego extends JFrame {
                         }
                     } else {
                         //se pone normal la baldosa anteriroemnet ressaltada
-                        if(baldosaCambiada != -1){
+                        if (baldosaCambiada != -1) {
                             listaBaldosas.get(baldosaCambiada).setBorder(null);
                         }
-
 
                         //se cambia la baldosa
                         int baldosaACambiar = logica.baldosaACambiar();
@@ -313,17 +436,17 @@ public class VentanaJuego extends JFrame {
             this.listaBaldosas.add(baldosa);
         }
     }
-    
+
     //metodo que iniclliza las vidas
     private void inicializarVidas() {
         int coordenadas[][] = {{480, 10}, {550, 10}, {620, 10}};
-        for(int i = 0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             LblVida lblVida = new LblVida();
             lblVida.setBounds(coordenadas[i][0], coordenadas[i][1], 50, 50);
             listaVidas.add(lblVida);
         }
     }
-    
+
     //clase de las vidas
     private class LblVida extends JLabel {
 
@@ -331,15 +454,15 @@ public class VentanaJuego extends JFrame {
             setOpaque(true);
             setBackground(Color.GREEN);
         }
-        
+
     }
 
     //metodo que verfiica baldosas iguales(con la logica)
     private boolean baldosasIguales(int baldosaCambiada) {
-        
+
         //VAriable que indicara si hay dos baldosas iguales
         boolean hayBaldosasIguales = false;
-        if(baldosaCambiada != -1) {
+        if (baldosaCambiada != -1) {
             //lista auxiliar del indice de las baldosas visibles
             ArrayList<Integer> baldosasEnPantalla = logica.
                     getBaldosasAMostrar();
@@ -360,17 +483,17 @@ public class VentanaJuego extends JFrame {
 
         return hayBaldosasIguales;
     }
-    
+
     //metodo que modifica las Lblvidas si se pierde una vida
-    private void quitarUnaVida(){
-        if(logica.getVidas() > 0) {
+    private void quitarUnaVida() {
+        if (logica.getVidas() > 0) {
             listaVidas.get(logica.getVidas()).setBackground(Color.red);
         }
-        
+
     }
-    
+
     //metodo que modificala visibilidad de las badldosas segun el caso
-    private void modificarBaldosas(){
+    private void modificarBaldosas() {
         //Se recorre cda baldosa
         for (int i = 0; i < 8; i++) {
             //Se ponen visibles o no visibles degun el caso
@@ -382,13 +505,13 @@ public class VentanaJuego extends JFrame {
             listaBaldosas.get(i).setIcon(imgsBaldosas.getImgBaldosa(i));
         }
     }
-    
+
     //metodo que realiza las acciones correspondientes al cometer un fallo
     private void falloCometido() throws IOException {
         System.out.println("fallo");
-                    
+
         //se pone normal la baldosa anteriroemnet ressaltada
-        if(baldosaCambiada != -1) {
+        if (baldosaCambiada != -1) {
             listaBaldosas.get(baldosaCambiada).setBorder(null);
         }
         baldosaCambiada = -1;
@@ -396,44 +519,44 @@ public class VentanaJuego extends JFrame {
         //se resta una vida
         logica.baldosasIguales();
         quitarUnaVida();
-        
+
         //se añade un error
         logica.aumentarErrores();
-        
+
         //se aumenta el tiempo de cambio
         logica.aumentarTiempoDeCambio();
-        
+
         //se verfica si quedan vidas
-        if(logica.getVidas() > 0){
+        if (logica.getVidas() > 0) {
             //se estbalcen nuevas baldosas
             logica.nuevasBaldosasAMostrar();
             modificarBaldosas();
-        }
-        else {
+        } else {
             tiempo.stop();
             dispose();
-            
+
             VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
+
+            music.stop();
         }
 
-        
     }
-    
+
     //acciones a realizar cuando el jugador acierte
-    private void acierto(){
+    private void acierto() {
         System.out.println("acierto");
-                    
+
         //se pone normal la baldosa anteriroemnet ressaltada
         listaBaldosas.get(baldosaCambiada).setBorder(null);
-        
+
         //se suma el puntaje
         logica.aumentarPuntaje();
         logica.aumentarPuntajeASumar();
-        lblPuntaje.setText("Puntaje: "+logica.getPuntaje());
-        
+        lblPuntaje.setText("Puntaje: " + logica.getPuntaje());
+
         //se añade un acierto
         logica.aumentarAciertos();
-        
+
         //se reduce el tiempo de cambio
         logica.disminuirTiempoDeCambio();
 
@@ -441,7 +564,7 @@ public class VentanaJuego extends JFrame {
         logica.aumentarBaldosasAMostrar();
         logica.nuevasBaldosasAMostrar();
         modificarBaldosas();
-        
+
         baldosaCambiada = -1;
     }
 
