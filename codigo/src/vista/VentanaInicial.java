@@ -16,12 +16,17 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -29,7 +34,7 @@ import javax.swing.JPanel;
  */
 public class VentanaInicial extends JFrame {
     //frame
-    
+
     //Ruta absoluta
     private String rutaAbsoluta;
 
@@ -87,7 +92,6 @@ public class VentanaInicial extends JFrame {
         lblFondo = new JLabel(imgFondo);
         lblFondo.setBounds(0, 0, anchoV, largoV);
 
-
         //Botones//
         /*btnJugar*/
         btnJugar = new BotonSinFondo();
@@ -135,7 +139,39 @@ public class VentanaInicial extends JFrame {
 
         ////Añadiendo listeners
         btnJugar.addMouseListener(new ManejadorDeEventos());
+        
+        btnComoJugar.addMouseListener(new ManejadorDeEventos());
+        
+        btnParaQueSirve.addMouseListener(new ManejadorDeEventos());
 
+    }
+
+    //Sonido
+    //Activar sonido de cierto boton
+    public void reproducirSonido(String cualSonido) {
+        switch (cualSonido) {
+            case "boton" ->
+                play("src\\sonidos\\boton.wav");
+            default -> {
+            }
+        }
+    }
+
+    void play(String filePath) {
+        try {
+            Clip sonido = AudioSystem.getClip();
+            sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
+            sonido.start();
+            int delay = 3000;
+            Timer timer;
+            timer = new Timer(delay, e -> {
+                sonido.close();
+            });
+            timer.setRepeats(false);
+            timer.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.out.println("" + e);
+        }
     }
 
     //Metodos para obtener el ancho y alto de un boton en el contenedor
@@ -163,15 +199,20 @@ public class VentanaInicial extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if(e.getSource() == btnJugar){
+            if (e.getSource() == btnJugar) {
                 dispose();
                 //Se abre la ventana del juego
                 try {
+                    reproducirSonido("boton");
                     VentanaJuego ventanaJuego = new VentanaJuego();
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaInicial.class.getName()).
                             log(Level.SEVERE, null, ex);
                 }
+            } else if (e.getSource() == btnComoJugar) {
+                reproducirSonido("boton");
+            } else if (e.getSource() == btnParaQueSirve) {
+                reproducirSonido("boton");
             }
         }
 

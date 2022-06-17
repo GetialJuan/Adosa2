@@ -230,7 +230,6 @@ public class VentanaJuego extends JFrame {
         return new ImageIcon(imagen);
     }
 
-
     //clasee manejadora de eventos del mouse
     private class ManejadorDeEventosMouse extends MouseAdapter {
 
@@ -284,12 +283,17 @@ public class VentanaJuego extends JFrame {
         }
         music.start();
     }
-    
+
     //Activar cierto sonido
-      public void reproducirSonido(String cualSonido){
-        switch(cualSonido){
-            case "boton" -> play("src\\sonidos\\boton.wav");
-            case "victoria" -> play("src\\sonidos\\victoria.wav");
+    public void reproducirSonido(String cualSonido) {
+        switch (cualSonido) {
+            case "botonA" ->
+                play("src\\sonidos\\blancoAcierto.wav");
+            case "botonD" ->
+                play("src\\sonidos\\blancoDesacierto.wav");
+            case "perder" ->
+                play("src\\sonidos\\perder.wav");
+
             default -> {
             }
         }
@@ -303,14 +307,15 @@ public class VentanaJuego extends JFrame {
             sonido.start();
             int delay2 = 3000;
             Timer timerAux;
-            timerAux = new Timer(delay2, e -> { sonido.close(); });
+            timerAux = new Timer(delay2, e -> {
+                sonido.close();
+            });
             timerAux.setRepeats(false);
             timerAux.start();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.out.println("" + e);
         }
     }
-
 
     //clase manejadora de volumen
     private class ManejadorDeVolumen extends MouseAdapter {
@@ -508,6 +513,12 @@ public class VentanaJuego extends JFrame {
 
     //metodo que realiza las acciones correspondientes al cometer un fallo
     private void falloCometido() throws IOException {
+        if (logica.getVidas() != 1) {
+            reproducirSonido("botonD");
+        } else {
+            reproducirSonido("perder");
+        }
+
         System.out.println("fallo");
 
         //se pone normal la baldosa anteriroemnet ressaltada
@@ -544,6 +555,7 @@ public class VentanaJuego extends JFrame {
 
     //acciones a realizar cuando el jugador acierte
     private void acierto() {
+        reproducirSonido("botonA");
         System.out.println("acierto");
 
         //se pone normal la baldosa anteriroemnet ressaltada
