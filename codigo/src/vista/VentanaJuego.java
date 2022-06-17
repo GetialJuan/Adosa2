@@ -277,7 +277,7 @@ public class VentanaJuego extends JFrame {
         if (contador == 0) {
             try {
                 music = AudioSystem.getClip();
-                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/ash.wav")));
+                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/47.wav")));
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
                 a.printStackTrace();
             }
