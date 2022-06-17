@@ -418,7 +418,9 @@ public class VentanaJuego extends JFrame {
                         }
                     }
                 } else {
+                    //se quita el contador
                     lblContador.setVisible(false);
+                    //se visibilizan las baldosas
                     modificarBaldosas();
                     cuentaRegresiva = false;
                     t = 0;
