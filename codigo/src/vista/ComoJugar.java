@@ -225,6 +225,8 @@ public class ComoJugar extends JFrame {
 
         //Eventos
         btnSiguiente.addMouseListener(new ManejadorDeEventos());
+        btnAtras.addMouseListener(new ManejadorDeEventos());
+        btnSalir.addMouseListener(new ManejadorDeEventos());
 
     }
 
@@ -243,14 +245,161 @@ public class ComoJugar extends JFrame {
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getSource() == btnSiguiente) {
-                System.out.println("aa");
+                switch (numVentana) {
+                    case 1 ->
+                        iniciarVentana2();
+                    case 2 ->
+                        iniciarVentana3();
+                    case 3 ->
+                        iniciarVentana4();
+                    default -> {
+                    }
+                }
+            } else if (e.getSource() == btnSalir) {
+                dispose();
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                }
+                try {
+                    reproducirSonido(0);
+                    VentanaInicial ventanaInicial = new VentanaInicial();
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaInicial.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
+            } else if (e.getSource() == btnAtras) {
+                switch (numVentana) {
+                    case 2 ->
+                        iniciarVentana1();
+                    case 3 ->
+                        iniciarVentana2();
+                    case 4 ->
+                        iniciarVentana3();
+                    default -> {
+                    }
+                }
             }
         }
 
     }
 
-    private void iniciarSonido1() {
-        archivowav = new File("src/sonidos/tuto1.wav");
+    private void iniciarVentana1() {
+        numVentana = 1;
+
+        txtNumeroVentana.setText("1/4");
+
+        reproducirSonido(1);
+
+        try {
+            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
+            lblImagen.setIcon(imgEjemplo);
+            lblFondo.add(lblImagen);
+        } catch (IOException e) {
+            System.out.println("No se encontro la imagen de fondo en Como Jugar");
+        }
+
+        lblFlecha.setVisible(false);
+
+        btnAtras.setVisible(false);
+        lblLinea1.setText("En Adosa2 aparecen en pantalla una serie de baldosas.");
+        lblLinea2.setText("Las baldosas van cambiando de 1 en 1 mostrando");
+        lblLinea3.setText("distintos diseños.");
+        lblLinea4.setText("Podrás saber qué baldosas cambia en cada momento");
+        lblLinea4.setVisible(true);
+        lblLinea5.setText("gracias a un reborde de color azul.");
+        lblLinea5.setVisible(true);
+    }
+
+    private void iniciarVentana2() {
+        numVentana = 2;
+
+        txtNumeroVentana.setText("2/4");
+
+        reproducirSonido(2);
+
+        try {
+            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
+            lblImagen.setIcon(imgEjemplo);
+            lblFondo.add(lblImagen);
+        } catch (IOException e) {
+            System.out.println("No se encontro la imagen de fondo en Como Jugar");
+        }
+
+        lblFlecha.setVisible(true);
+
+        btnAtras.setVisible(true);
+
+        lblLinea1.setText("En el momento en el que veas en pantalla 2 baldosas");
+        lblLinea2.setText("idénticas, debes presionar rápidamente el pulsador");
+        lblLinea3.setText("blanco que aparece en la zona inferior derecha");
+        lblLinea4.setText("");
+        lblLinea4.setVisible(false);
+        lblLinea5.setText("");
+        lblLinea5.setVisible(false);
+
+    }
+
+    private void iniciarVentana3() {
+        numVentana = 3;
+
+        txtNumeroVentana.setText("3/4");
+
+        reproducirSonido(3);
+
+        try {
+            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
+            lblImagen.setIcon(imgEjemplo);
+            lblFondo.add(lblImagen);
+        } catch (IOException e) {
+            System.out.println("No se encontro la imagen de fondo en Como Jugar");
+        }
+
+        lblFlecha.setVisible(false);
+
+        lblLinea1.setText("Hay dos formas de presionar el pulsador: ");
+        lblLinea2.setText("- Pulsar directamente el botón blanco en pantalla");
+        lblLinea3.setText("- Pulsar la barra de espacio del teclado");
+        lblLinea4.setText("");
+        lblLinea4.setVisible(false);
+        lblLinea5.setText("");
+        lblLinea5.setVisible(false);
+    }
+
+    private void iniciarVentana4() {
+        numVentana = 4;
+
+        txtNumeroVentana.setText("4/4");
+
+        reproducirSonido(4);
+
+        try {
+            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
+          lblImagen.setIcon(imgEjemplo);
+            lblFondo.add(lblImagen);
+        } catch (IOException e) {
+            System.out.println("No se encontro la imagen de fondo en Como Jugar");
+        }
+
+        lblFlecha.setVisible(true);
+        lblFlecha.setBounds(509, 20, 70, 70);
+        lblFondo.add(lblFlecha);
+        lblFondo.add(lblImagen);
+
+        lblLinea1.setText("¡OJO! Si no pulsas a tiempo perderás vidas. A medida");
+        lblLinea2.setText("que el juego avanza el ritmo al que cambian las");
+        lblLinea3.setText("baldosas es mayor y tu tiempo de reaccción es menor");
+        lblLinea4.setText("   ");
+        lblLinea4.setVisible(true);
+        lblLinea5.setText("¡Ojo avizor y encuentra tus Adosa2!");
+        lblLinea5.setVisible(true);
+    }
+
+    private void iniciarSonido(String filePath) {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
+
+        archivowav = new File(filePath);
         try {
             audioInputStream = AudioSystem.getAudioInputStream(archivowav);
             clip = AudioSystem.getClip();
@@ -263,8 +412,16 @@ public class ComoJugar extends JFrame {
 
     public void reproducirSonido(int ventana) {
         switch (ventana) {
+            case 0 ->
+                iniciarSonido("src\\sonidos\\boton.wav");
             case 1 ->
-                iniciarSonido1();
+                iniciarSonido("src\\sonidos\\tuto1.wav");
+            case 2 ->
+                iniciarSonido("src\\sonidos\\tuto2.wav");
+            case 3 ->
+                iniciarSonido("src\\sonidos\\tuto3.wav");
+            case 4 ->
+                iniciarSonido("src\\sonidos\\tuto4.wav");
             default -> {
             }
         }

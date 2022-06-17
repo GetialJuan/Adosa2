@@ -361,7 +361,7 @@ public class VentanaJuego extends JFrame {
                 lblVolumen.setIcon(volumeOff2);
             } else if (lblVolumen.getIcon().equals(volumeOn)) {
                 lblVolumen.setIcon(volumeOn2);
-
+                
             }
 
         }
