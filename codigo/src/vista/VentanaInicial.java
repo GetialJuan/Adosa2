@@ -43,6 +43,9 @@ public class VentanaInicial extends JFrame {
     private Clip clip;
     private AudioInputStream audioInputStream;
 
+    //opcion
+    private int opcion;
+
     //timer
     private Timer tiempo;
 
@@ -73,9 +76,10 @@ public class VentanaInicial extends JFrame {
     //Label de Fondo
     private JLabel lblFondo;
 
-    public VentanaInicial() throws IOException {
+    public VentanaInicial(int opcion) throws IOException {
         iniciarComponentes();
         iniciarVentana();
+        this.opcion = opcion;
     }
 
     private void iniciarVentana() throws IOException {
@@ -169,8 +173,13 @@ public class VentanaInicial extends JFrame {
         switch (cualSonido) {
             case "boton" ->
                 play("src\\sonidos\\boton.wav");
-            case "inicio" ->
-                play("src\\sonidos\\bienvenidoHomero.wav");
+            case "inicio" -> {
+                if (opcion == 0) {
+                   play("src\\sonidos\\bienvenidoHomero.wav");
+                } else if (opcion == 1) {
+                   play("src\\sonidos\\comoJugarVentanInicio.wav");
+                }
+            }
             default -> {
             }
         }
@@ -234,7 +243,7 @@ public class VentanaInicial extends JFrame {
                     reproducirSonido("boton");
                     clip.stop();
                     ComoJugar ventanaComoJugar = new ComoJugar();
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaInicial.class.getName()).
                             log(Level.SEVERE, null, ex);

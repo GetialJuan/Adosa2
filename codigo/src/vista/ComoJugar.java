@@ -280,7 +280,7 @@ public class ComoJugar extends JFrame {
                 }
                 try {
                     reproducirSonido(0);
-                    VentanaInicial ventanaInicial = new VentanaInicial();
+                    VentanaInicial ventanaInicial = new VentanaInicial(1);
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaInicial.class.getName()).
                             log(Level.SEVERE, null, ex);
@@ -334,7 +334,7 @@ public class ComoJugar extends JFrame {
                         }
                         try {
                             reproducirSonido(0);
-                            VentanaInicial ventanaInicial = new VentanaInicial();
+                            VentanaInicial ventanaInicial = new VentanaInicial(1);
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaInicial.class.getName()).
                                     log(Level.SEVERE, null, ex);

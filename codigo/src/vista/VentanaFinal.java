@@ -156,7 +156,7 @@ public class VentanaFinal extends JFrame {
         public void actionPerformed(ActionEvent e) {
             dispose();
             try {
-                VentanaInicial ventanaInicial = new VentanaInicial();
+                VentanaInicial ventanaInicial = new VentanaInicial(0);
             } catch (IOException ex) {
                 Logger.getLogger(VentanaFinal.class.getName()).log(Level.SEVERE, null, ex);
             }
