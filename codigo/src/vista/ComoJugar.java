@@ -149,7 +149,8 @@ public class ComoJugar extends JFrame {
         iconoSiguiente = establecerIcon("\\src\\imagenes\\siguiente.png", 130, 40);
         iconoSiguiente2 = establecerIcon("\\src\\imagenes\\siguiente2.png", 130, 40);
 
-        btnSiguiente = new JButton(iconoSiguiente);
+        btnSiguiente = new BotonSinFondo();
+        btnSiguiente.setIcon(iconoSiguiente);
         btnSiguiente.setRolloverIcon(iconoSiguiente2);
         btnSiguiente.setPressedIcon(iconoSiguiente2);
         btnSiguiente.setBounds(536, 140, 130, 40);
@@ -158,7 +159,8 @@ public class ComoJugar extends JFrame {
         iconoAtras = establecerIcon("\\src\\imagenes\\atras.png", 130, 40);
         iconoAtras2 = establecerIcon("\\src\\imagenes\\atras2.png", 130, 40);
 
-        btnAtras = new JButton(iconoAtras);
+        btnAtras = new BotonSinFondo();
+        btnAtras.setIcon(iconoAtras);
         btnAtras.setRolloverIcon(iconoAtras2);
         btnAtras.setPressedIcon(iconoAtras2);
         btnAtras.setBounds(20, 140, 130, 40);
@@ -174,7 +176,8 @@ public class ComoJugar extends JFrame {
         iconoSalir = establecerIcon("\\src\\imagenes\\salir.png", 70, 70);
         iconoSalir2 = establecerIcon("\\src\\imagenes\\salir2.png", 70, 70);
 
-        btnSalir = new JButton(iconoSalir);
+        btnSalir = new BotonSinFondo();
+        btnSalir.setIcon(iconoSalir);
         btnSalir.setRolloverIcon(iconoSalir2);
         btnSalir.setPressedIcon(iconoSalir2);
         btnSalir.setBounds(600, 20, 70, 70);
@@ -571,5 +574,19 @@ public class ComoJugar extends JFrame {
         }
     }
 
-    
+    //Clase de boton sin fondo ni bordes
+    private class BotonSinFondo extends JButton {
+
+        public BotonSinFondo() {
+            inicializar();
+        }
+
+        private void inicializar() {
+            setRolloverEnabled(true);
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setContentAreaFilled(false);
+        }
+    }
+
 }
