@@ -82,7 +82,7 @@ public class VentanaJuego extends JFrame {
 
     //Fondo lbl
     private JLabel lblFondo;
-    
+
     //labelContador
     private JLabel lblContador;
 
@@ -112,8 +112,8 @@ public class VentanaJuego extends JFrame {
     private ImageIcon volumeOff2;
 
     public VentanaJuego() throws IOException {
-            iniciarVentana();
-            iniciarComponentes();
+        iniciarVentana();
+        iniciarComponentes();
     }
 
     private void iniciarVentana() {
@@ -149,8 +149,7 @@ public class VentanaJuego extends JFrame {
         lblVolumen.setHorizontalAlignment(SwingConstants.CENTER);
         lblVolumen.setForeground(Color.WHITE);
 
-        inicializarVolumen();
-
+//        inicializarVolumen();
         //logica
         logica = new LogicaAdosa2();
 
@@ -196,7 +195,7 @@ public class VentanaJuego extends JFrame {
         //Baldosas//
         listaBaldosas = new ArrayList<>();
         inicializarBaldosas();
-        
+
         //lblContador//
         lblContador = new JLabel();
         lblContador.setBounds(300, 100, 300, 250);
@@ -207,7 +206,7 @@ public class VentanaJuego extends JFrame {
         contPrincipal.setLayout(new GridLayout(1, 1));
         //Añadiendo objetos
         contPrincipal.add(lblFondo);
-        
+
         lblFondo.add(lblPuntaje);
         lblFondo.add(lblContador);
         lblFondo.add(btnBlanco);
@@ -300,6 +299,8 @@ public class VentanaJuego extends JFrame {
                 play("src\\sonidos\\blancoDesacierto.wav");
             case "perder" ->
                 play("src\\sonidos\\perder.wav");
+            case "cuentaA" ->
+                play("src\\sonidos\\cuentaAtras.wav");
 
             default -> {
             }
@@ -312,13 +313,13 @@ public class VentanaJuego extends JFrame {
             Clip sonido = AudioSystem.getClip();
             sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
             sonido.start();
-            int delay2 = 3000;
-            Timer timerAux;
-            timerAux = new Timer(delay2, e -> {
-                sonido.close();
-            });
-            timerAux.setRepeats(false);
-            timerAux.start();
+//            int delay2 = 3000;
+//            Timer timerAux;
+//            timerAux = new Timer(delay2, e -> {
+//                sonido.close();
+//            });
+//            timerAux.setRepeats(false);
+//            timerAux.start();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.out.println("" + e);
         }
@@ -335,11 +336,13 @@ public class VentanaJuego extends JFrame {
                 music.start();
                 contador++;
             } else {
+                if(music!=null){
                 lblVolumen.setIcon(volumeOn);
                 clipTime = music.getMicrosecondPosition();
                 music.stop();
                 music.setMicrosecondPosition(clipTime);
                 contador++;
+                }
             }
         }
 
@@ -361,7 +364,7 @@ public class VentanaJuego extends JFrame {
                 lblVolumen.setIcon(volumeOff2);
             } else if (lblVolumen.getIcon().equals(volumeOn)) {
                 lblVolumen.setIcon(volumeOn2);
-                
+
             }
 
         }
@@ -377,32 +380,40 @@ public class VentanaJuego extends JFrame {
         //var que indica si se hace la cuenta regresiva
         private boolean cuentaRegresiva = true;
 
+        //Iniciarlizar una sola vez el volumen
+        private boolean sonidoCuentaRegresiva = true;
+        private boolean sonidoFondo = true;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
             t += 0.1;
+            if(t>=4){
+                inicializarVolumen();
+            }
             if (cuentaRegresiva) {
                 if (t < 4) {
                     if (0 <= t && t < 1) {
                         try {
-                            lblContador.setIcon
-                (establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
+                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
+                            if (sonidoCuentaRegresiva) {
+                                reproducirSonido("cuentaA");
+                                sonidoCuentaRegresiva = false;
+                            }
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
                         }
                     } else if (1 <= t && t < 2) {
                         try {
-                            lblContador.setIcon
-                (establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
+                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
                         }
                     } else if (2 <= t && t < 3) {
                         try {
-                            lblContador.setIcon
-                (establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
+                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
@@ -410,8 +421,7 @@ public class VentanaJuego extends JFrame {
                     } else {
                         lblContador.setBounds(200, 100, 300, 250);
                         try {
-                            lblContador.setIcon
-                (establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
+                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
