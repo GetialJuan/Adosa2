@@ -282,7 +282,7 @@ public class VentanaJuego extends JFrame {
         if (contador == 0) {
             try {
                 music = AudioSystem.getClip();
-                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/47.wav")));
+                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/theLast.wav")));
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
                 a.printStackTrace();
             }
@@ -382,7 +382,6 @@ public class VentanaJuego extends JFrame {
 
         //Iniciarlizar una sola vez el volumen
         private boolean sonidoCuentaRegresiva = true;
-        private boolean sonidoFondo = true;
 
         @Override
         public void actionPerformed(ActionEvent e) {

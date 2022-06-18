@@ -7,6 +7,8 @@ package vista;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,12 +37,14 @@ import javax.swing.Timer;
  */
 public class VentanaInicial extends JFrame {
     //frame
-    
-     //Sonido
+
+    //Sonido
     private File archivowav;
     private Clip clip;
     private AudioInputStream audioInputStream;
 
+    //timer
+    private Timer tiempo;
 
     //Ruta absoluta
     private String rutaAbsoluta;
@@ -92,8 +96,7 @@ public class VentanaInicial extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
 
         //Sonido
-        reproducirSonido("inicio");
-        
+//        reproducirSonido("inicio");
         //Fondo
         imgFondo = establecerIcon("\\src\\imagenes\\fondo2.png",
                 anchoV, largoV);
@@ -101,6 +104,10 @@ public class VentanaInicial extends JFrame {
         //Lbl fondo
         lblFondo = new JLabel(imgFondo);
         lblFondo.setBounds(0, 0, anchoV, largoV);
+
+        //timer//
+        tiempo = new Timer(100, new ManejadorDeEventosTiempo());
+        tiempo.start();
 
         //Botones//
         /*btnJugar*/
@@ -149,9 +156,9 @@ public class VentanaInicial extends JFrame {
 
         ////Añadiendo listeners
         btnJugar.addMouseListener(new ManejadorDeEventos());
-        
+
         btnComoJugar.addMouseListener(new ManejadorDeEventos());
-        
+
         btnParaQueSirve.addMouseListener(new ManejadorDeEventos());
 
     }
@@ -163,7 +170,7 @@ public class VentanaInicial extends JFrame {
             case "boton" ->
                 play("src\\sonidos\\boton.wav");
             case "inicio" ->
-                play("src\\sonidos\\theLast.wav");
+                play("src\\sonidos\\bienvenidoHomero.wav");
             default -> {
             }
         }
@@ -235,6 +242,26 @@ public class VentanaInicial extends JFrame {
             }
         }
 
+    }
+
+    private class ManejadorDeEventosTiempo implements ActionListener {
+
+        //tiempo
+        private double t = 0;
+
+        boolean sonidoInicializado = false;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //se aumenta el tiempo 1 segundo
+            t += 0.1;
+            if (t > 1) {
+                if (!sonidoInicializado) {
+                    reproducirSonido("inicio");
+                    sonidoInicializado = true;
+                }
+            }
+        }
     }
 
     //Clase de boton sin fondo ni bordes
