@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -34,6 +35,12 @@ import javax.swing.Timer;
  */
 public class VentanaInicial extends JFrame {
     //frame
+    
+     //Sonido
+    private File archivowav;
+    private Clip clip;
+    private AudioInputStream audioInputStream;
+
 
     //Ruta absoluta
     private String rutaAbsoluta;
@@ -84,6 +91,9 @@ public class VentanaInicial extends JFrame {
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
 
+        //Sonido
+        reproducirSonido("inicio");
+        
         //Fondo
         imgFondo = establecerIcon("\\src\\imagenes\\fondo2.png",
                 anchoV, largoV);
@@ -152,25 +162,26 @@ public class VentanaInicial extends JFrame {
         switch (cualSonido) {
             case "boton" ->
                 play("src\\sonidos\\boton.wav");
+            case "inicio" ->
+                play("src\\sonidos\\theLast.wav");
             default -> {
             }
         }
     }
 
     void play(String filePath) {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
+
+        archivowav = new File(filePath);
         try {
-            Clip sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
-            sonido.start();
-            int delay = 3000;
-            Timer timer;
-            timer = new Timer(delay, e -> {
-                sonido.close();
-            });
-            timer.setRepeats(false);
-            timer.start();
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-            System.out.println("" + e);
+            audioInputStream = AudioSystem.getAudioInputStream(archivowav);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            System.err.println(e.getMessage());
         }
     }
 
