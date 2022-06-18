@@ -232,7 +232,9 @@ public class VentanaInicial extends JFrame {
                 //Se abre la ventana del juego
                 try {
                     reproducirSonido("boton");
+                    clip.stop();
                     ComoJugar ventanaComoJugar = new ComoJugar();
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaInicial.class.getName()).
                             log(Level.SEVERE, null, ex);

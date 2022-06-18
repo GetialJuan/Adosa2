@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -52,6 +54,11 @@ public class ComoJugar extends JFrame {
 
     //Ruta absoluta
     private String rutaAbsoluta;
+
+    //timer
+    private Timer tiempo;
+    private boolean sonidoInicializado = false;
+    private double t = 0;
 
     //Fondo lbl
     private JLabel lblFondo;
@@ -113,10 +120,13 @@ public class ComoJugar extends JFrame {
 
     private void iniciarComponentes() throws IOException {
 
-        reproducirSonido(1);
-
+//        reproducirSonido(1);
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
+
+        //timer//
+        tiempo = new Timer(100, new ManejadorDeEventosTiempo());
+        tiempo.start();
 
         //Fondo //
         imgFondo = establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV,
@@ -312,16 +322,17 @@ public class ComoJugar extends JFrame {
                             case 3 -> {
                                 iniciarVentana4();
                             }
-                            
+
                             default -> {
-                                    }
+                            }
                         }
                     }
                     case 10, 32 -> {
                         dispose();
                         if (clip != null && clip.isRunning()) {
                             clip.stop();
-                        }   try {
+                        }
+                        try {
                             reproducirSonido(0);
                             VentanaInicial ventanaInicial = new VentanaInicial();
                         } catch (IOException ex) {
@@ -340,9 +351,9 @@ public class ComoJugar extends JFrame {
                             case 4 -> {
                                 iniciarVentana3();
                             }
-                            
+
                             default -> {
-                                    }
+                            }
                         }
                     }
                     default -> {
@@ -357,12 +368,52 @@ public class ComoJugar extends JFrame {
 
     }
 
+    private class ManejadorDeEventosTiempo implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //se aumenta el tiempo 1 segundo
+            t += 0.1;
+            if (t > 0.5) {
+                if (numVentana == 1) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(1);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 2) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(2);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 3) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(3);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 4) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(4);
+                        sonidoInicializado = true;
+                    }
+                }
+            }
+        }
+    }
+
     private void iniciarVentana1() {
         numVentana = 1;
 
         txtNumeroVentana.setText("1/4");
 
-        reproducirSonido(1);
+//        reproducirSonido(1);
+        sonidoInicializado = false;
+        t = 0;
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
 
         try {
             imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
@@ -389,7 +440,12 @@ public class ComoJugar extends JFrame {
 
         txtNumeroVentana.setText("2/4");
 
-        reproducirSonido(2);
+//        reproducirSonido(2);
+        t = 0;
+        sonidoInicializado = false;
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
 
         try {
             imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
@@ -418,7 +474,12 @@ public class ComoJugar extends JFrame {
 
         txtNumeroVentana.setText("3/4");
 
-        reproducirSonido(3);
+//        reproducirSonido(3);
+        t = 0;
+        sonidoInicializado = false;
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
 
         try {
             imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
@@ -446,7 +507,12 @@ public class ComoJugar extends JFrame {
 
         txtNumeroVentana.setText("4/4");
 
-        reproducirSonido(4);
+//        reproducirSonido(4);
+        t = 0;
+        sonidoInicializado = false;
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
 
         try {
             imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
@@ -505,4 +571,5 @@ public class ComoJugar extends JFrame {
         }
     }
 
+    
 }
