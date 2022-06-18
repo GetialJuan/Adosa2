@@ -168,6 +168,7 @@ public class VentanaJuego extends JFrame {
 
         //Labels punatje//
         lblPuntaje = new JLabel("Puntaje: 0000");
+        lblPuntaje.setForeground(new Color(255, 255, 255));
         lblPuntaje.setBounds(5, 0, 220, 50);
         lblPuntaje.setFont(new Font("Serif", Font.PLAIN, 40));
 
@@ -175,8 +176,8 @@ public class VentanaJuego extends JFrame {
         listaVidas = new ArrayList<>();
         inicializarVidas();
 
-        //Botn balnco//(temporral)
-        btnBlanco = new JButton();
+        //Botn balnco//
+        btnBlanco = new BotonSinFondo();
         btnBlanco.setBounds(520, 320, 100, 100);
 
         iconoBtnNorm = establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
@@ -187,9 +188,6 @@ public class VentanaJuego extends JFrame {
 
         iconoBtnRoll = establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
         btnBlanco.setRolloverIcon(iconoBtnRoll);
-
-        btnBlanco.setOpaque(true);
-        btnBlanco.setBorder(null);
 
 //        btnBlanco.setBackground(Color.WHITE);
         //Baldosas//
@@ -336,12 +334,12 @@ public class VentanaJuego extends JFrame {
                 music.start();
                 contador++;
             } else {
-                if(music!=null){
-                lblVolumen.setIcon(volumeOn);
-                clipTime = music.getMicrosecondPosition();
-                music.stop();
-                music.setMicrosecondPosition(clipTime);
-                contador++;
+                if (music != null) {
+                    lblVolumen.setIcon(volumeOn);
+                    clipTime = music.getMicrosecondPosition();
+                    music.stop();
+                    music.setMicrosecondPosition(clipTime);
+                    contador++;
                 }
             }
         }
@@ -387,7 +385,7 @@ public class VentanaJuego extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
             t += 0.1;
-            if(t>=4){
+            if (t >= 4) {
                 inicializarVolumen();
             }
             if (cuentaRegresiva) {
@@ -471,7 +469,7 @@ public class VentanaJuego extends JFrame {
     //metodo para inciailizar las baldosas
     private void inicializarBaldosas() {
         //cordenadas de cada baldosa
-        int coordenadas[][] = {{30, 180}, {140, 180}, {440, 180}, {550, 180},
+        int coordenadas[][] = {{30, 172}, {140, 172}, {440, 180}, {550, 180},
         {292, 7}, {292, 108}, {292, 353}, {292, 252}};
 
         //Se añaden 8 baldosas
@@ -588,7 +586,9 @@ public class VentanaJuego extends JFrame {
 
             VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
 
-            music.stop();
+            if (music != null) {
+                music.stop();
+            }
         }
 
     }
@@ -617,6 +617,21 @@ public class VentanaJuego extends JFrame {
         modificarBaldosas();
 
         baldosaCambiada = -1;
+    }
+
+    //Clase de boton sin fondo ni bordes
+    private class BotonSinFondo extends JButton {
+
+        public BotonSinFondo() {
+            inicializar();
+        }
+
+        private void inicializar() {
+            setRolloverEnabled(true);
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setContentAreaFilled(false);
+        }
     }
 
 }
