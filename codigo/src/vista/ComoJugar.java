@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -228,6 +230,12 @@ public class ComoJugar extends JFrame {
         btnAtras.addMouseListener(new ManejadorDeEventos());
         btnSalir.addMouseListener(new ManejadorDeEventos());
 
+        btnSalir.addKeyListener(new ManejadoraEventosTeclado());
+        btnSiguiente.addKeyListener(new ManejadoraEventosTeclado());
+        btnAtras.addKeyListener(new ManejadoraEventosTeclado());
+
+        btnSalir.requestFocus();
+
     }
 
     //Metodo que retorna una imagen con el ancho y alto recibido
@@ -279,6 +287,72 @@ public class ComoJugar extends JFrame {
                     }
                 }
             }
+        }
+
+    }
+
+    private class ManejadoraEventosTeclado implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getSource() == btnSalir || e.getSource() == btnAtras || e.getSource() == btnSiguiente) {
+                switch (e.getKeyCode()) {
+                    case 39 -> {
+                        switch (numVentana) {
+                            case 1 -> {
+                                iniciarVentana2();
+                            }
+                            case 2 -> {
+                                iniciarVentana3();
+                            }
+                            case 3 -> {
+                                iniciarVentana4();
+                            }
+                            
+                            default -> {
+                                    }
+                        }
+                    }
+                    case 10, 32 -> {
+                        dispose();
+                        if (clip != null && clip.isRunning()) {
+                            clip.stop();
+                        }   try {
+                            reproducirSonido(0);
+                            VentanaInicial ventanaInicial = new VentanaInicial();
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaInicial.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    case 37 -> {
+                        switch (numVentana) {
+                            case 2 -> {
+                                iniciarVentana1();
+                            }
+                            case 3 -> {
+                                iniciarVentana2();
+                            }
+                            case 4 -> {
+                                iniciarVentana3();
+                            }
+                            
+                            default -> {
+                                    }
+                        }
+                    }
+                    default -> {
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
         }
 
     }
@@ -354,6 +428,8 @@ public class ComoJugar extends JFrame {
             System.out.println("No se encontro la imagen de fondo en Como Jugar");
         }
 
+        btnSiguiente.setVisible(true);
+
         lblFlecha.setVisible(false);
 
         lblLinea1.setText("Hay dos formas de presionar el pulsador: ");
@@ -374,7 +450,7 @@ public class ComoJugar extends JFrame {
 
         try {
             imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
-          lblImagen.setIcon(imgEjemplo);
+            lblImagen.setIcon(imgEjemplo);
             lblFondo.add(lblImagen);
         } catch (IOException e) {
             System.out.println("No se encontro la imagen de fondo en Como Jugar");
@@ -384,6 +460,8 @@ public class ComoJugar extends JFrame {
         lblFlecha.setBounds(509, 20, 70, 70);
         lblFondo.add(lblFlecha);
         lblFondo.add(lblImagen);
+
+        btnSiguiente.setVisible(false);
 
         lblLinea1.setText("¡OJO! Si no pulsas a tiempo perderás vidas. A medida");
         lblLinea2.setText("que el juego avanza el ritmo al que cambian las");
