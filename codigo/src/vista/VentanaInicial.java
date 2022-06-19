@@ -249,7 +249,16 @@ public class VentanaInicial extends JFrame {
                             log(Level.SEVERE, null, ex);
                 }
             } else if (e.getSource() == btnParaQueSirve) {
+                dispose();
                 reproducirSonido("boton");
+                clip.stop();
+                try {
+                    VentanaParaQueSirve ventanaParaQueSirve
+                            = new VentanaParaQueSirve();
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaInicial.class.
+                            getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
