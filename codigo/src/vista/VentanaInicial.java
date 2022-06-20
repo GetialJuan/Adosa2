@@ -176,11 +176,13 @@ public class VentanaInicial extends JFrame {
             case "boton" ->
                 play("src\\sonidos\\boton.wav");
             case "inicio" -> {
-                if (opcion == 0) {
-                    play("src\\sonidos\\bienvenidoHomero.wav");
-                } else if (opcion == 1) {
-                    play("src\\sonidos\\comoJugarVentanInicio.wav");
+            switch (opcion) {
+                case 0 -> play("src\\sonidos\\bienvenidoHomero.wav");
+                case 1 -> play("src\\sonidos\\comoJugarVentanInicio.wav");
+                case 2 -> play("src\\sonidos\\bienvenidoParaQueSirve.wav");
+                default -> {
                 }
+            }
             }
             default -> {
             }

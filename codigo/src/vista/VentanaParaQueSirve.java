@@ -124,7 +124,7 @@ public class VentanaParaQueSirve extends JFrame {
         lblFondo.add(btnSalir);
         lblFondo.add(txtTexto);
         
-//        reproducirSonido("inicio");
+        reproducirSonido("inicio");
     }
 
     //clase manejadora de eventos
@@ -136,7 +136,7 @@ public class VentanaParaQueSirve extends JFrame {
                 dispose();
                 try {
                     reproducirSonido("boton");
-                    VentanaInicial ventanaInicial = new VentanaInicial(0);
+                    VentanaInicial ventanaInicial = new VentanaInicial(2);
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaParaQueSirve.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -150,7 +150,7 @@ public class VentanaParaQueSirve extends JFrame {
             case "boton" ->
                 iniciarSonido("src\\sonidos\\boton.wav");
             case "inicio" ->
-                iniciarSonido("src\\sonidos\\parQueSirve.wav");
+                iniciarSonido("src\\sonidos\\paraQueSirve.wav");
             default -> {
             }
         }
