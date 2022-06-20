@@ -42,6 +42,7 @@ public class VentanaInicial extends JFrame {
     private File archivowav;
     private Clip clip;
     private AudioInputStream audioInputStream;
+    private boolean pasoVentana;
 
     //opcion
     private int opcion;
@@ -80,6 +81,7 @@ public class VentanaInicial extends JFrame {
         iniciarComponentes();
         iniciarVentana();
         this.opcion = opcion;
+        this.pasoVentana = false;
     }
 
     private void iniciarVentana() throws IOException {
@@ -175,9 +177,9 @@ public class VentanaInicial extends JFrame {
                 play("src\\sonidos\\boton.wav");
             case "inicio" -> {
                 if (opcion == 0) {
-                   play("src\\sonidos\\bienvenidoHomero.wav");
+                    play("src\\sonidos\\bienvenidoHomero.wav");
                 } else if (opcion == 1) {
-                   play("src\\sonidos\\comoJugarVentanInicio.wav");
+                    play("src\\sonidos\\comoJugarVentanInicio.wav");
                 }
             }
             default -> {
@@ -230,6 +232,10 @@ public class VentanaInicial extends JFrame {
                 dispose();
                 //Se abre la ventana del juego
                 try {
+                    pasoVentana = true;
+                    if (clip != null) {
+                        clip.stop();
+                    }
                     reproducirSonido("boton");
                     VentanaJuego ventanaJuego = new VentanaJuego();
                 } catch (IOException ex) {
@@ -241,7 +247,10 @@ public class VentanaInicial extends JFrame {
                 //Se abre la ventana del juego
                 try {
                     reproducirSonido("boton");
-                    clip.stop();
+                    if (clip != null) {
+                        clip.stop();
+                    }
+                    pasoVentana = true;
                     ComoJugar ventanaComoJugar = new ComoJugar();
 
                 } catch (IOException ex) {
@@ -251,8 +260,11 @@ public class VentanaInicial extends JFrame {
             } else if (e.getSource() == btnParaQueSirve) {
                 dispose();
                 reproducirSonido("boton");
-                clip.stop();
                 try {
+                    if (clip != null) {
+                        clip.stop();
+                    }
+                    pasoVentana = true;
                     VentanaParaQueSirve ventanaParaQueSirve
                             = new VentanaParaQueSirve();
                 } catch (IOException ex) {
@@ -276,7 +288,7 @@ public class VentanaInicial extends JFrame {
             //se aumenta el tiempo 1 segundo
             t += 0.1;
             if (t > 1) {
-                if (!sonidoInicializado) {
+                if (!sonidoInicializado && !pasoVentana) {
                     reproducirSonido("inicio");
                     sonidoInicializado = true;
                 }
