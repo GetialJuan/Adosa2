@@ -111,7 +111,7 @@ public class LogicaAdosa2 {
     }
     
     public void disminuirTiempoDeCambio() {
-        if(tiempoDeCambio > 0.2){
+        if(tiempoDeCambio > 1){
             tiempoDeCambio -= 0.2;
         }
         

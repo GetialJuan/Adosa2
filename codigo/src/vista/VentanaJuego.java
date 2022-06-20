@@ -399,11 +399,11 @@ public class VentanaJuego extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //se aumenta el tiempo 1 segundo
+            //se aumenta el tiempo 1 decimo de segundo
             tAux += 0.1;
             t += 0.1;
 
-            if (tAux > 1.5) {
+            if (tAux > 1) {
                 puedeTirar = true;
             } else {
                 if (!inicioJuego) {
