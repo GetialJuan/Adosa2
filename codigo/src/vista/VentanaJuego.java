@@ -61,6 +61,9 @@ public class VentanaJuego extends JFrame {
     // label volumen
     JLabel lblVolumen;
 
+    //Saber si ya pasaron los tres segundos
+    private boolean puedeJugar = false;
+
     //baldosaCambiada
     private int baldosaCambiada = -1;
 
@@ -241,14 +244,16 @@ public class VentanaJuego extends JFrame {
         public void mousePressed(MouseEvent e) {
             //si se da click en el boton balnco
             if (e.getSource() == btnBlanco) {
-                if (baldosasIguales(baldosaCambiada)) {
-                    acierto();
+                if (puedeJugar) {
+                    if (baldosasIguales(baldosaCambiada)) {
+                        acierto();
 
-                } else {
-                    try {
-                        falloCometido();
-                    } catch (IOException ex) {
-                        Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    } else {
+                        try {
+                            falloCometido();
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -262,14 +267,16 @@ public class VentanaJuego extends JFrame {
         public void keyPressed(KeyEvent e) {
             //Si se oprime la barra espaciadora
             if (e.getKeyCode() == 32) {
-                if (baldosasIguales(baldosaCambiada)) {
-                    acierto();
+                if (puedeJugar) {
+                    if (baldosasIguales(baldosaCambiada)) {
+                        acierto();
 
-                } else {
-                    try {
-                        falloCometido();
-                    } catch (IOException ex) {
-                        Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    } else {
+                        try {
+                            falloCometido();
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -387,6 +394,7 @@ public class VentanaJuego extends JFrame {
             t += 0.1;
             if (t >= 4) {
                 inicializarVolumen();
+                puedeJugar = true;
             }
             if (cuentaRegresiva) {
                 if (t < 4) {
