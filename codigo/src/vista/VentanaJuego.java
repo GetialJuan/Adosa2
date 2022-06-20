@@ -305,7 +305,7 @@ public class VentanaJuego extends JFrame {
     }
 
     //Activar cierto sonido
-    public void reproducirSonido(String cualSonido) {
+    private void reproducirSonido(String cualSonido) {
         switch (cualSonido) {
             case "botonA" ->
                 play("src\\sonidos\\blancoAcierto.wav");
@@ -322,7 +322,7 @@ public class VentanaJuego extends JFrame {
     }
 
     //Reproducir sonido
-    void play(String filePath) {
+    private void play(String filePath) {
         try {
             Clip sonido = AudioSystem.getClip();
             sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
