@@ -178,7 +178,7 @@ public class VentanaJuego extends JFrame {
         //Labels punatje//
         lblPuntaje = new JLabel("Puntaje: 0000");
         lblPuntaje.setForeground(new Color(255, 255, 255));
-        lblPuntaje.setBounds(5, 0, 220, 50);
+        lblPuntaje.setBounds(5, 0, 300, 50);
         lblPuntaje.setFont(new Font("Serif", Font.PLAIN, 40));
 
         //Labels de vidas// (temporales)

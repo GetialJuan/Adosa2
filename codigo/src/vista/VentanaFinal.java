@@ -96,7 +96,7 @@ public class VentanaFinal extends JFrame {
         //lbls (texto estadisiticas)//
         lblPuntaje = new JLabel(logica.getPuntaje() + "");
         lblPuntaje.setFont(new Font("Serif", Font.PLAIN, 60));
-        lblPuntaje.setBounds(420, 305, 220, 50);
+        lblPuntaje.setBounds(420, 305, 300, 50);
 
         lblAciertos = new JLabel(logica.getAciertos() + "");
         lblAciertos.setFont(new Font("Serif", Font.PLAIN, 60));
