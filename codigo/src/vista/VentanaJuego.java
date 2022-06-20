@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -63,6 +64,9 @@ public class VentanaJuego extends JFrame {
 
     //Saber si ya pasaron los tres segundos
     private boolean puedeJugar = false;
+    private boolean puedeTirar = false;
+    private double tAux = 0;
+    private boolean inicioJuego = true;
 
     //baldosaCambiada
     private int baldosaCambiada = -1;
@@ -129,6 +133,8 @@ public class VentanaJuego extends JFrame {
         setIconImage(icon);
 
         setTitle("Adosa2");
+
+        setResizable(false);
 
     }
 
@@ -244,12 +250,14 @@ public class VentanaJuego extends JFrame {
         public void mousePressed(MouseEvent e) {
             //si se da click en el boton balnco
             if (e.getSource() == btnBlanco) {
-                if (puedeJugar) {
+                if (puedeJugar && puedeTirar) {
                     if (baldosasIguales(baldosaCambiada)) {
+                        tAux = 0;
                         acierto();
 
                     } else {
                         try {
+                            tAux = 0;
                             falloCometido();
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,12 +275,13 @@ public class VentanaJuego extends JFrame {
         public void keyPressed(KeyEvent e) {
             //Si se oprime la barra espaciadora
             if (e.getKeyCode() == 32) {
-                if (puedeJugar) {
+                if (puedeJugar && puedeTirar) {
                     if (baldosasIguales(baldosaCambiada)) {
+                        tAux = 0;
                         acierto();
-
                     } else {
                         try {
+                            tAux = 0;
                             falloCometido();
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,11 +400,24 @@ public class VentanaJuego extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             //se aumenta el tiempo 1 segundo
+            tAux += 0.1;
             t += 0.1;
+
+            if (tAux > 1.5) {
+                puedeTirar = true;
+            } else {
+                if (!inicioJuego) {
+                    puedeTirar = false;
+                }
+            }
+
             if (t >= 4) {
                 inicializarVolumen();
                 puedeJugar = true;
+                puedeTirar = true;
+                inicioJuego = false;
             }
+
             if (cuentaRegresiva) {
                 if (t < 4) {
                     if (0 <= t && t < 1) {

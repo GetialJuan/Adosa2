@@ -116,6 +116,8 @@ public class ComoJugar extends JFrame {
         setIconImage(icon);
 
         setTitle("Adosa2");
+
+        setResizable(false);
     }
 
     private void iniciarComponentes() throws IOException {
