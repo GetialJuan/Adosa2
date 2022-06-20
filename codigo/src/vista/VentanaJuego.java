@@ -403,7 +403,7 @@ public class VentanaJuego extends JFrame {
             tAux += 0.1;
             t += 0.1;
 
-            if (tAux > 1) {
+            if (tAux > 0.5) {
                 puedeTirar = true;
             } else {
                 if (!inicioJuego) {
