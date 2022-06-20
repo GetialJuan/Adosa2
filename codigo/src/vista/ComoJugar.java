@@ -34,7 +34,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import logica.LogicaAdosa2;
 
 /**
@@ -75,11 +78,7 @@ public class ComoJugar extends JFrame {
     private int numVentana = 1;
 
     //Label mensaje
-    private JLabel lblLinea1;
-    private JLabel lblLinea2;
-    private JLabel lblLinea3;
-    private JLabel lblLinea4;
-    private JLabel lblLinea5;
+    private JTextPane txtTexto;
 
     //Label flecha
     private JLabel lblFlecha;
@@ -185,40 +184,21 @@ public class ComoJugar extends JFrame {
         btnSalir.setBounds(600, 20, 70, 70);
 
         //Mensaje
-        lblLinea1 = new JLabel();
-        lblLinea1.setForeground(new Color(0, 0, 0));
-        lblLinea1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblLinea1.setText("En Adosa2 aparecen en pantalla una serie de baldosas.");
-        lblLinea1.setAlignmentX(CENTER_ALIGNMENT);
-        lblLinea1.setBounds(130, 320, 700, 20);
-
-        lblLinea2 = new JLabel();
-        lblLinea2.setForeground(new Color(0, 0, 0));
-        lblLinea2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblLinea2.setText("Las baldosas van cambiando de 1 en 1 mostrando");
-        lblLinea2.setAlignmentX(CENTER_ALIGNMENT);
-        lblLinea2.setBounds(130, 345, 700, 20);
-
-        lblLinea3 = new JLabel();
-        lblLinea3.setForeground(new Color(0, 0, 0));
-        lblLinea3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblLinea3.setText("distintos diseños.");
-        lblLinea3.setAlignmentX(CENTER_ALIGNMENT);
-        lblLinea3.setBounds(130, 370, 700, 20);
-
-        lblLinea4 = new JLabel();
-        lblLinea4.setForeground(new Color(0, 0, 0));
-        lblLinea4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblLinea4.setText("Podrás saber qué baldosas cambia en cada momento");
-        lblLinea4.setAlignmentX(CENTER_ALIGNMENT);
-        lblLinea4.setBounds(130, 395, 700, 20);
-
-        lblLinea5 = new JLabel();
-        lblLinea5.setForeground(new Color(0, 0, 0));
-        lblLinea5.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblLinea5.setText("gracias a un reborde de color azul.");
-        lblLinea5.setAlignmentX(CENTER_ALIGNMENT);
-        lblLinea5.setBounds(130, 420, 700, 20);
+        txtTexto = new JTextPane();
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+        StyleConstants.setFontSize(attribs, 22);
+        StyleConstants.setFontFamily(attribs, "Tahoma");
+        txtTexto.setParagraphAttributes(attribs, true);
+        txtTexto.setText("""
+                         En Adosa2 aparecen en pantalla una serie de baldosas.
+                         Las baldosas van cambiando de 1 en 1 mostrando
+                         distintos dise\u00f1os.
+                         Podr\u00e1s saber qu\u00e9 baldosas cambia en cada momento
+                         gracias a un reborde de color azul.""");
+        txtTexto.setBounds(10, 300, 670, 300);
+        txtTexto.setOpaque(false);
+        txtTexto.setEditable(false);
 
         //Contenedor Principal//
         contPrincipal = getContentPane();
@@ -228,11 +208,7 @@ public class ComoJugar extends JFrame {
         contPrincipal.add(lblFondo);
 
         //Añadiendo objetos al lblFondo
-        lblFondo.add(lblLinea1);
-        lblFondo.add(lblLinea2);
-        lblFondo.add(lblLinea3);
-        lblFondo.add(lblLinea4);
-        lblFondo.add(lblLinea5);
+        lblFondo.add(txtTexto);
         lblFondo.add(btnSalir);
         lblFondo.add(btnSiguiente);
         lblFondo.add(btnAtras);
@@ -431,13 +407,14 @@ public class ComoJugar extends JFrame {
         lblFlecha.setVisible(false);
 
         btnAtras.setVisible(false);
-        lblLinea1.setText("En Adosa2 aparecen en pantalla una serie de baldosas.");
-        lblLinea2.setText("Las baldosas van cambiando de 1 en 1 mostrando");
-        lblLinea3.setText("distintos diseños.");
-        lblLinea4.setText("Podrás saber qué baldosas cambia en cada momento");
-        lblLinea4.setVisible(true);
-        lblLinea5.setText("gracias a un reborde de color azul.");
-        lblLinea5.setVisible(true);
+
+        txtTexto.setText("""
+                         En Adosa2 aparecen en pantalla una serie de baldosas.
+                         Las baldosas van cambiando de 1 en 1 mostrando
+                         distintos dise\u00f1os.
+                         Podr\u00e1s saber qu\u00e9 baldosas cambia en cada momento
+                         gracias a un reborde de color azul.""");
+
     }
 
     private void iniciarVentana2() {
@@ -464,14 +441,10 @@ public class ComoJugar extends JFrame {
 
         btnAtras.setVisible(true);
 
-        lblLinea1.setText("En el momento en el que veas en pantalla 2 baldosas");
-        lblLinea2.setText("idénticas, debes presionar rápidamente el pulsador");
-        lblLinea3.setText("blanco que aparece en la zona inferior derecha");
-        lblLinea4.setText("");
-        lblLinea4.setVisible(false);
-        lblLinea5.setText("");
-        lblLinea5.setVisible(false);
-
+        txtTexto.setText("""
+                         En el momento en el que veas en pantalla 2 baldosas
+                         id\u00e9nticas, debes presionar r\u00e1pidamente el pulsador
+                         blanco que aparece en la zona inferior derecha""");
     }
 
     private void iniciarVentana3() {
@@ -498,13 +471,12 @@ public class ComoJugar extends JFrame {
 
         lblFlecha.setVisible(false);
 
-        lblLinea1.setText("Hay dos formas de presionar el pulsador: ");
-        lblLinea2.setText("- Pulsar directamente el botón blanco en pantalla");
-        lblLinea3.setText("- Pulsar la barra de espacio del teclado");
-        lblLinea4.setText("");
-        lblLinea4.setVisible(false);
-        lblLinea5.setText("");
-        lblLinea5.setVisible(false);
+        txtTexto.setText("""
+                         Hay dos formas de presionar el pulsador: 
+                         
+                         - Pulsar directamente el bot\u00f3n blanco en pantalla
+                         - Pulsar la barra de espacio del teclado""");
+
     }
 
     private void iniciarVentana4() {
@@ -534,13 +506,12 @@ public class ComoJugar extends JFrame {
 
         btnSiguiente.setVisible(false);
 
-        lblLinea1.setText("¡OJO! Si no pulsas a tiempo perderás vidas. A medida");
-        lblLinea2.setText("que el juego avanza el ritmo al que cambian las");
-        lblLinea3.setText("baldosas es mayor y tu tiempo de reaccción es menor");
-        lblLinea4.setText("   ");
-        lblLinea4.setVisible(true);
-        lblLinea5.setText("¡Ojo avizor y encuentra tus Adosa2!");
-        lblLinea5.setVisible(true);
+        txtTexto.setText("""
+                         \u00a1OJO! Si no pulsas a tiempo perder\u00e1s vidas. A medida
+                         que el juego avanza el ritmo al que cambian las
+                         baldosas es mayor y tu tiempo de reaccci\u00f3n es menor
+                         
+                         \u00a1Ojo avizor y encuentra tus Adosa2!""");
     }
 
     private void iniciarSonido(String filePath) {

@@ -327,13 +327,6 @@ public class VentanaJuego extends JFrame {
             Clip sonido = AudioSystem.getClip();
             sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
             sonido.start();
-//            int delay2 = 3000;
-//            Timer timerAux;
-//            timerAux = new Timer(delay2, e -> {
-//                sonido.close();
-//            });
-//            timerAux.setRepeats(false);
-//            timerAux.start();
         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.out.println("" + e);
         }

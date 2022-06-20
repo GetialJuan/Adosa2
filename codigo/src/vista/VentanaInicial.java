@@ -265,6 +265,7 @@ public class VentanaInicial extends JFrame {
                         clip.stop();
                     }
                     pasoVentana = true;
+                    reproducirSonido("boton");
                     VentanaParaQueSirve ventanaParaQueSirve
                             = new VentanaParaQueSirve();
                 } catch (IOException ex) {
