@@ -45,7 +45,7 @@ public class LogicaAdosa2 {
     }
     
     //indica si la baldosa si se esta mostrando
-    public boolean baldosaAMostrar(int cualNumero){
+    public boolean baldosaMostrandose(int cualNumero){
         return baldosasAMostrar.indexOf(cualNumero) != -1;
     }
     

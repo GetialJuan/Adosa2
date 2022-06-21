@@ -565,7 +565,7 @@ public class VentanaJuego extends JFrame {
         //Se recorre cda baldosa
         for (int i = 0; i < 8; i++) {
             //Se ponen visibles o no visibles degun el caso
-            if (logica.baldosaAMostrar(i)) {
+            if (logica.baldosaMostrandose(i)) {
                 listaBaldosas.get(i).setVisible(true);
             } else {
                 listaBaldosas.get(i).setVisible(false);
