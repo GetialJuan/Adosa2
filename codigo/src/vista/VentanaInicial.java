@@ -189,7 +189,7 @@ public class VentanaInicial extends JFrame {
         }
     }
 
-    void play(String filePath) {
+    private void play(String filePath) {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
