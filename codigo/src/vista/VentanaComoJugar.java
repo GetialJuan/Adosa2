@@ -530,7 +530,7 @@ public class VentanaComoJugar extends JFrame {
         }
     }
 
-    public void reproducirSonido(int ventana) {
+    private void reproducirSonido(int ventana) {
         switch (ventana) {
             case 0 ->
                 iniciarSonido("src\\sonidos\\boton.wav");
