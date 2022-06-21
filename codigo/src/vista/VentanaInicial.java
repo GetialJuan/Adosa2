@@ -253,7 +253,7 @@ public class VentanaInicial extends JFrame {
                         clip.stop();
                     }
                     pasoVentana = true;
-                    ComoJugar ventanaComoJugar = new ComoJugar();
+                    VentanaComoJugar ventanaComoJugar = new VentanaComoJugar();
 
                 } catch (IOException ex) {
                     Logger.getLogger(VentanaInicial.class.getName()).

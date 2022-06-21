@@ -44,7 +44,7 @@ import logica.LogicaAdosa2;
  *
  * @author carlos
  */
-public class ComoJugar extends JFrame {
+public class VentanaComoJugar extends JFrame {
 
     //Sonido
     private File archivowav;
@@ -100,7 +100,7 @@ public class ComoJugar extends JFrame {
     private ImageIcon iconoAtras;
     private ImageIcon iconoAtras2;
 
-    public ComoJugar() throws IOException {
+    public VentanaComoJugar() throws IOException {
         iniciarVentana();
         iniciarComponentes();
     }
