@@ -589,7 +589,7 @@ public class VentanaJuego extends JFrame {
         baldosaCambiada = -1;
 
         //se resta una vida
-        logica.baldosasIguales();
+        logica.errorCometido();
         quitarUnaVida();
 
         //se añade un error

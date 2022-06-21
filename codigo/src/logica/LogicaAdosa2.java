@@ -58,7 +58,7 @@ public class LogicaAdosa2 {
         return baldosasAMostrar;
     }
     
-    public void baldosasIguales(){
+    public void errorCometido(){
         vidas--;
         if(numeroDeBaldosasAMostrar > 3) {
             numeroDeBaldosasAMostrar--;
