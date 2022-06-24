@@ -6,6 +6,7 @@ package vista;
 
 import com.sun.java.accessibility.util.AWTEventMonitor;
 import controladores.Baldosas;
+import funcionalidadesAparte.BotonSinFondo;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
@@ -651,21 +652,6 @@ public class VentanaJuego extends JFrame {
             setBackground(Color.GREEN);
         }
 
-    }
-
-    //Clase de boton sin fondo ni bordes
-    private class BotonSinFondo extends JButton {
-
-        public BotonSinFondo() {
-            inicializar();
-        }
-
-        private void inicializar() {
-            setRolloverEnabled(true);
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setContentAreaFilled(false);
-        }
     }
 
 }

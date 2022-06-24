@@ -547,20 +547,5 @@ public class VentanaComoJugar extends JFrame {
             }
         }
     }
-/*
-    //Clase de boton sin fondo ni bordes
-    private class BotonSinFondo extends JButton {
-
-        public BotonSinFondo() {
-            inicializar();
-        }
-
-        private void inicializar() {
-            setRolloverEnabled(true);
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setContentAreaFilled(false);
-        }
-    }*/
 
 }

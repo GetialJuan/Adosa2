@@ -4,6 +4,7 @@
  */
 package vista;
 
+import funcionalidadesAparte.BotonSinFondo;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
@@ -107,12 +108,9 @@ public class VentanaFinal extends JFrame {
         lblErrores.setBounds(420, 228, 220, 50);
 
         //btnJugar//
-        btnJugar = new JButton(establecerIcon("\\src\\imagenes\\imgJugar.png", 300, 75));
+        btnJugar = new BotonSinFondo();
+        btnJugar.setIcon(establecerIcon("\\src\\imagenes\\imgJugar.png", 300, 75));
         btnJugar.setBounds(200, 380, 300, 75);
-        btnJugar.setRolloverEnabled(true);
-        btnJugar.setFocusPainted(false);
-        btnJugar.setBorderPainted(false);
-        btnJugar.setContentAreaFilled(false);
         btnJugar.setRolloverIcon(establecerIcon("\\src\\imagenes\\imgJugarShadow.png", 300, 75));
 
         btnJugar.addActionListener(new ManejadorDeEventos());

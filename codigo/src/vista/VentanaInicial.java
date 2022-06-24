@@ -4,6 +4,7 @@
  */
 package vista;
 
+import funcionalidadesAparte.BotonSinFondo;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Image;
@@ -296,21 +297,6 @@ public class VentanaInicial extends JFrame {
                     sonidoInicializado = true;
                 }
             }
-        }
-    }
-
-    //Clase de boton sin fondo ni bordes
-    private class BotonSinFondo extends JButton {
-
-        public BotonSinFondo() {
-            inicializar();
-        }
-
-        private void inicializar() {
-            setRolloverEnabled(true);
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setContentAreaFilled(false);
         }
     }
 
