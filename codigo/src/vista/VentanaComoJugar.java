@@ -5,6 +5,7 @@
 package vista;
 
 import controladores.Baldosas;
+import funcionalidadesAparte.BotonSinFondo;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -546,7 +547,7 @@ public class VentanaComoJugar extends JFrame {
             }
         }
     }
-
+/*
     //Clase de boton sin fondo ni bordes
     private class BotonSinFondo extends JButton {
 
@@ -560,6 +561,6 @@ public class VentanaComoJugar extends JFrame {
             setBorderPainted(false);
             setContentAreaFilled(false);
         }
-    }
+    }*/
 
 }
