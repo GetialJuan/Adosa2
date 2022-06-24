@@ -7,6 +7,7 @@ package vista;
 import com.sun.java.accessibility.util.AWTEventMonitor;
 import controladores.Baldosas;
 import funcionalidadesAparte.BotonSinFondo;
+import funcionalidadesAparte.metodosUtiles;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
@@ -146,10 +147,10 @@ public class VentanaJuego extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
 
         //Establecemos los iconos de volumen
-        volumeOff = establecerIcon("\\src\\imagenes\\volumeOff.png", 70, 70);
-        volumeOn = establecerIcon("\\src\\imagenes\\volumeOn.png", 70, 70);
-        volumeOff2 = establecerIcon("\\src\\imagenes\\volumeOff2.png", 70, 70);
-        volumeOn2 = establecerIcon("\\src\\imagenes\\volumeOn2.png", 70, 70);
+        volumeOff = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOff.png", 70, 70);
+        volumeOn = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOn.png", 70, 70);
+        volumeOff2 = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOff2.png", 70, 70);
+        volumeOn2 = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOn2.png", 70, 70);
 
         //Inicializamos la etiqueta Volumen
         lblVolumen = new JLabel("");
@@ -172,7 +173,7 @@ public class VentanaJuego extends JFrame {
         tiempo.start();
 
         //Fondo (provisonal)//
-        imgFondo = establecerIcon("\\src\\imagenes\\fondo3.png", anchoV - 10,
+        imgFondo = metodosUtiles.establecerIcon("\\src\\imagenes\\fondo3.png", anchoV - 10,
                 largoV - 38);
         lblFondo = new JLabel(imgFondo);
         lblFondo.setLayout(null);
@@ -191,13 +192,13 @@ public class VentanaJuego extends JFrame {
         btnBlanco = new BotonSinFondo();
         btnBlanco.setBounds(520, 320, 100, 100);
 
-        iconoBtnNorm = establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
+        iconoBtnNorm = metodosUtiles.establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
         btnBlanco.setIcon(iconoBtnNorm);
 
-        iconoBtnPress = establecerIcon("\\src\\imagenes\\btnPress.png", 100, 100);
+        iconoBtnPress = metodosUtiles.establecerIcon("\\src\\imagenes\\btnPress.png", 100, 100);
         btnBlanco.setPressedIcon(iconoBtnPress);
 
-        iconoBtnRoll = establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
+        iconoBtnRoll = metodosUtiles.establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
         btnBlanco.setRolloverIcon(iconoBtnRoll);
 
 //        btnBlanco.setBackground(Color.WHITE);
@@ -236,16 +237,6 @@ public class VentanaJuego extends JFrame {
     }
     
     //***************************METODOS**********************************//
-
-    //Metodo que retorna una imagen con el ancho y alto recibido
-    private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
-        BufferedImage bufferedImagen = ImageIO.
-                read(new File(rutaAbsoluta.concat(rutaArchivo)));
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-        return new ImageIcon(imagen);
-    }
     
     
     private void inicializarVolumen() {
@@ -570,7 +561,7 @@ public class VentanaJuego extends JFrame {
                 if (t < 4) {
                     if (0 <= t && t < 1) {
                         try {
-                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
                             if (sonidoCuentaRegresiva) {
                                 reproducirSonido("cuentaA");
                                 sonidoCuentaRegresiva = false;
@@ -581,14 +572,14 @@ public class VentanaJuego extends JFrame {
                         }
                     } else if (1 <= t && t < 2) {
                         try {
-                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
                         }
                     } else if (2 <= t && t < 3) {
                         try {
-                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
@@ -596,7 +587,7 @@ public class VentanaJuego extends JFrame {
                     } else {
                         lblContador.setBounds(200, 100, 300, 250);
                         try {
-                            lblContador.setIcon(establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);

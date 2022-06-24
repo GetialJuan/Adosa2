@@ -5,6 +5,7 @@
 package vista;
 
 import funcionalidadesAparte.BotonSinFondo;
+import funcionalidadesAparte.metodosUtiles;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -89,14 +90,14 @@ public class VentanaParaQueSirve extends JFrame {
 
         //btnSalir
         btnSalir = new BotonSinFondo();
-        btnSalir.setIcon(establecerIcon("\\src\\imagenes\\salir.png", 80, 80));
+        btnSalir.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\salir.png", 80, 80));
         btnSalir.setRolloverEnabled(true);
-        btnSalir.setRolloverIcon(establecerIcon("\\src\\imagenes\\salir2.png", 80, 80));
+        btnSalir.setRolloverIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\salir2.png", 80, 80));
         btnSalir.setBounds(560, 20, 80, 80);
         btnSalir.addActionListener(new ManejadorDeEventos());
 
         //dfondo
-        lblFondo = new JLabel(establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV, largoV));
+        lblFondo = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV, largoV));
 
         //texto
         txtTexto = new JTextPane();
@@ -154,15 +155,6 @@ public class VentanaParaQueSirve extends JFrame {
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    //Metodo que retorna una imagen con el ancho y alto recibido
-    private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
-        BufferedImage bufferedImagen = ImageIO.read(new File(rutaAbsoluta.concat(rutaArchivo)));
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-        return new ImageIcon(imagen);
     }
     
 ///***************************CLASES**************************************//

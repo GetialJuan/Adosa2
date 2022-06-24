@@ -6,6 +6,7 @@ package vista;
 
 import controladores.Baldosas;
 import funcionalidadesAparte.BotonSinFondo;
+import funcionalidadesAparte.metodosUtiles;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -131,7 +132,7 @@ public class VentanaComoJugar extends JFrame {
         tiempo.start();
 
         //Fondo //
-        imgFondo = establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV,
+        imgFondo = metodosUtiles.establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV,
                 largoV);
         lblFondo = new JLabel(imgFondo);
         lblFondo.setBounds(0, 0, anchoV, largoV);
@@ -143,13 +144,13 @@ public class VentanaComoJugar extends JFrame {
         txtNumeroVentana.setBounds(35, 20, 50, 30);
 
         //Imagen Ejemplo
-        imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
+        imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
         lblImagen = new JLabel(imgEjemplo);
         lblImagen.setBounds(175, 20, 350, 270);
 
         //JLabel Siguiente
-        iconoSiguiente = establecerIcon("\\src\\imagenes\\siguiente.png", 130, 40);
-        iconoSiguiente2 = establecerIcon("\\src\\imagenes\\siguiente2.png", 130, 40);
+        iconoSiguiente = metodosUtiles.establecerIcon("\\src\\imagenes\\siguiente.png", 130, 40);
+        iconoSiguiente2 = metodosUtiles.establecerIcon("\\src\\imagenes\\siguiente2.png", 130, 40);
 
         btnSiguiente = new BotonSinFondo();
         btnSiguiente.setIcon(iconoSiguiente);
@@ -158,8 +159,8 @@ public class VentanaComoJugar extends JFrame {
         btnSiguiente.setBounds(536, 140, 130, 40);
 
         //Boton Atras
-        iconoAtras = establecerIcon("\\src\\imagenes\\atras.png", 130, 40);
-        iconoAtras2 = establecerIcon("\\src\\imagenes\\atras2.png", 130, 40);
+        iconoAtras = metodosUtiles.establecerIcon("\\src\\imagenes\\atras.png", 130, 40);
+        iconoAtras2 = metodosUtiles.establecerIcon("\\src\\imagenes\\atras2.png", 130, 40);
 
         btnAtras = new BotonSinFondo();
         btnAtras.setIcon(iconoAtras);
@@ -169,14 +170,14 @@ public class VentanaComoJugar extends JFrame {
         btnAtras.setVisible(false);
 
         //Flecha
-        iconoFlecha = establecerIcon("\\src\\imagenes\\flecha.png", 70, 70);
+        iconoFlecha = metodosUtiles.establecerIcon("\\src\\imagenes\\flecha.png", 70, 70);
         lblFlecha = new JLabel(iconoFlecha);
         lblFlecha.setBounds(509, 200, 70, 70);
         lblFlecha.setVisible(false);
 
         //Salir
-        iconoSalir = establecerIcon("\\src\\imagenes\\salir.png", 70, 70);
-        iconoSalir2 = establecerIcon("\\src\\imagenes\\salir2.png", 70, 70);
+        iconoSalir = metodosUtiles.establecerIcon("\\src\\imagenes\\salir.png", 70, 70);
+        iconoSalir2 = metodosUtiles.establecerIcon("\\src\\imagenes\\salir2.png", 70, 70);
 
         btnSalir = new BotonSinFondo();
         btnSalir.setIcon(iconoSalir);
@@ -229,18 +230,8 @@ public class VentanaComoJugar extends JFrame {
         btnSalir.requestFocus();
 
     }
-    
+
 //***********************************METODOS**********************************//
-    //Metodo que retorna una imagen con el ancho y alto recibido
-    private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
-        BufferedImage bufferedImagen = ImageIO.
-                read(new File(rutaAbsoluta.concat(rutaArchivo)));
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-        return new ImageIcon(imagen);
-    }
-    
     private void iniciarVentana1() {
         numVentana = 1;
 
@@ -254,7 +245,7 @@ public class VentanaComoJugar extends JFrame {
         }
 
         try {
-            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
+            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
             lblImagen.setIcon(imgEjemplo);
             lblFondo.add(lblImagen);
         } catch (IOException e) {
@@ -287,7 +278,7 @@ public class VentanaComoJugar extends JFrame {
         }
 
         try {
-            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
+            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
             lblImagen.setIcon(imgEjemplo);
             lblFondo.add(lblImagen);
         } catch (IOException e) {
@@ -317,7 +308,7 @@ public class VentanaComoJugar extends JFrame {
         }
 
         try {
-            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
+            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
             lblImagen.setIcon(imgEjemplo);
             lblFondo.add(lblImagen);
         } catch (IOException e) {
@@ -349,7 +340,7 @@ public class VentanaComoJugar extends JFrame {
         }
 
         try {
-            imgEjemplo = establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
+            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
             lblImagen.setIcon(imgEjemplo);
             lblFondo.add(lblImagen);
         } catch (IOException e) {
@@ -403,9 +394,8 @@ public class VentanaComoJugar extends JFrame {
             }
         }
     }
-    
-//********************************CLASES************************************//
 
+//********************************CLASES************************************//
     private class ManejadorDeEventos extends MouseAdapter {
 
         @Override
@@ -550,7 +540,5 @@ public class VentanaComoJugar extends JFrame {
             }
         }
     }
-
-    
 
 }

@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import funcionalidadesAparte.metodosUtiles;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,22 +36,10 @@ public class Baldosas {
             
             String nuevaRuta = rutaAux.replace("numero",i+"");
             
-            baldosa = establecerIcon(nuevaRuta, anchoBaldosa, altoBaldosa);
+            baldosa = metodosUtiles.establecerIcon(nuevaRuta, anchoBaldosa, altoBaldosa);
             listaDeBaldosas.add(baldosa);
         }
 
-    }
-
-    private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
-        String rutaAbsoluta = new File("").getAbsolutePath();
-
-        BufferedImage bufferedImagen = ImageIO.read(new File(rutaAbsoluta.concat(rutaArchivo)));
-
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-
-        return new ImageIcon(imagen);
     }
     
     public ImageIcon getImgBaldosa(int cualBaldosa){

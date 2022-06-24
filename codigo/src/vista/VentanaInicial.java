@@ -5,6 +5,7 @@
 package vista;
 
 import funcionalidadesAparte.BotonSinFondo;
+import funcionalidadesAparte.metodosUtiles;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Image;
@@ -105,7 +106,7 @@ public class VentanaInicial extends JFrame {
         //Sonido
 //        reproducirSonido("inicio");
         //Fondo
-        imgFondo = establecerIcon("\\src\\imagenes\\fondo2.png",
+        imgFondo = metodosUtiles.establecerIcon("\\src\\imagenes\\fondo2.png",
                 anchoV, largoV);
 
         //Lbl fondo
@@ -121,10 +122,10 @@ public class VentanaInicial extends JFrame {
         btnJugar = new BotonSinFondo();
         btnJugar.setBounds(220, 280, 250, 150);
         //imagenes 
-        imgJugar = establecerIcon("\\src\\imagenes\\imgJugar.png",
+        imgJugar = metodosUtiles.establecerIcon("\\src\\imagenes\\imgJugar.png",
                 obtenerAnchoBoton(btnJugar), obtenerAltoBoton(btnJugar));
 
-        imgJugarShadow = establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
+        imgJugarShadow = metodosUtiles.establecerIcon("\\src\\imagenes\\imgJugarShadow.png",
                 obtenerAnchoBoton(btnJugar), obtenerAltoBoton(btnJugar));
 
         btnJugar.setIcon(imgJugar);
@@ -134,9 +135,9 @@ public class VentanaInicial extends JFrame {
         btnComoJugar = new BotonSinFondo();
         btnComoJugar.setBounds(10, 280, 200, 130);
         //imagnes
-        imgComoJugar = establecerIcon("\\src\\imagenes\\imgComoJugar.png",
+        imgComoJugar = metodosUtiles.establecerIcon("\\src\\imagenes\\imgComoJugar.png",
                 obtenerAnchoBoton(btnComoJugar), obtenerAltoBoton(btnComoJugar));
-        imgComoJugarShadow = establecerIcon("\\src\\imagenes\\imgComoJugarShadow.png",
+        imgComoJugarShadow = metodosUtiles.establecerIcon("\\src\\imagenes\\imgComoJugarShadow.png",
                 obtenerAnchoBoton(btnComoJugar), obtenerAltoBoton(btnComoJugar));
         btnComoJugar.setIcon(imgComoJugar);
         btnComoJugar.setRolloverIcon(imgComoJugarShadow);
@@ -145,9 +146,9 @@ public class VentanaInicial extends JFrame {
         btnParaQueSirve = new BotonSinFondo();
         btnParaQueSirve.setBounds(470, 280, 200, 130);
         //imagens
-        imgParaQueSirve = establecerIcon("\\src\\imagenes\\imgParaQueSirve.png",
+        imgParaQueSirve = metodosUtiles.establecerIcon("\\src\\imagenes\\imgParaQueSirve.png",
                 obtenerAnchoBoton(btnParaQueSirve), obtenerAltoBoton(btnParaQueSirve));
-        imgParaQueSirveShadow = establecerIcon("\\src\\imagenes\\imgParaQueSirveShadow.png", obtenerAnchoBoton(btnParaQueSirve), obtenerAltoBoton(btnParaQueSirve));
+        imgParaQueSirveShadow = metodosUtiles.establecerIcon("\\src\\imagenes\\imgParaQueSirveShadow.png", obtenerAnchoBoton(btnParaQueSirve), obtenerAltoBoton(btnParaQueSirve));
         btnParaQueSirve.setIcon(imgParaQueSirve);
         btnParaQueSirve.setRolloverIcon(imgParaQueSirveShadow);
 
@@ -217,15 +218,6 @@ public class VentanaInicial extends JFrame {
     private int obtenerAltoBoton(JButton btn) {
         int alto = (int) btn.getBounds().getHeight();
         return alto;
-    }
-
-    //Metodo que retorna una imagen con el ancho y alto recibido
-    private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
-        BufferedImage bufferedImagen = ImageIO.read(new File(rutaAbsoluta.concat(rutaArchivo)));
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-        return new ImageIcon(imagen);
     }
 
 //*********************************CLASES************************************//
