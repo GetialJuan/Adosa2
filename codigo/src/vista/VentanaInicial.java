@@ -169,6 +169,8 @@ public class VentanaInicial extends JFrame {
         btnParaQueSirve.addMouseListener(new ManejadorDeEventos());
 
     }
+    
+//*****************************METODOS***************************************//
 
     //Sonido
     //Activar sonido de cierto boton
@@ -226,6 +228,7 @@ public class VentanaInicial extends JFrame {
         return new ImageIcon(imagen);
     }
 
+//*********************************CLASES************************************//
     //Clase manejadora de eventos
     private class ManejadorDeEventos extends MouseAdapter {
 

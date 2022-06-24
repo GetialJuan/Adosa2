@@ -4,6 +4,7 @@
  */
 package vista;
 
+import funcionalidadesAparte.BotonSinFondo;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -127,25 +128,8 @@ public class VentanaParaQueSirve extends JFrame {
         reproducirSonido("inicio");
     }
 
-    //clase manejadora de eventos
-    private class ManejadorDeEventos implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == btnSalir) {
-                dispose();
-                try {
-                    reproducirSonido("boton");
-                    VentanaInicial ventanaInicial = new VentanaInicial(2);
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaParaQueSirve.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-    }
-
-       public void reproducirSonido(String sonido) {
+//********************************METODOS***********************************//
+    public void reproducirSonido(String sonido) {
         switch (sonido) {
             case "boton" ->
                 iniciarSonido("src\\sonidos\\boton.wav");
@@ -180,19 +164,24 @@ public class VentanaParaQueSirve extends JFrame {
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
     }
+    
+///***************************CLASES**************************************//
+    
+    //clase manejadora de eventos
+    private class ManejadorDeEventos implements ActionListener {
 
-    //Clase de boton sin fondo ni bordes
-    private class BotonSinFondo extends JButton {
-
-        public BotonSinFondo() {
-            inicializar();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == btnSalir) {
+                dispose();
+                try {
+                    reproducirSonido("boton");
+                    VentanaInicial ventanaInicial = new VentanaInicial(2);
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaParaQueSirve.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
-        private void inicializar() {
-            setRolloverEnabled(true);
-            setFocusPainted(false);
-            setBorderPainted(false);
-            setContentAreaFilled(false);
-        }
     }
 }

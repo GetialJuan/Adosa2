@@ -132,6 +132,8 @@ public class VentanaFinal extends JFrame {
         lblFondo.add(btnJugar);
 
     }
+    
+//**************************************METODOS*****************************//
 
     //Metodo que retorna una imagen con el ancho y alto recibido
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
@@ -142,6 +144,8 @@ public class VentanaFinal extends JFrame {
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
     }
+    
+//*************************************CLASES*******************************//
 
     //clas amjenadorea de eventos (btnJugar)
     private class ManejadorDeEventos implements ActionListener {

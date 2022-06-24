@@ -229,7 +229,8 @@ public class VentanaComoJugar extends JFrame {
         btnSalir.requestFocus();
 
     }
-
+    
+//***********************************METODOS**********************************//
     //Metodo que retorna una imagen con el ancho y alto recibido
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
             throws IOException {
@@ -239,152 +240,7 @@ public class VentanaComoJugar extends JFrame {
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
     }
-
-    private class ManejadorDeEventos extends MouseAdapter {
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            if (e.getSource() == btnSiguiente) {
-                switch (numVentana) {
-                    case 1 ->
-                        iniciarVentana2();
-                    case 2 ->
-                        iniciarVentana3();
-                    case 3 ->
-                        iniciarVentana4();
-                    default -> {
-                    }
-                }
-            } else if (e.getSource() == btnSalir) {
-                dispose();
-                if (clip != null && clip.isRunning()) {
-                    clip.stop();
-                }
-                try {
-                    reproducirSonido(0);
-                    VentanaInicial ventanaInicial = new VentanaInicial(1);
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaInicial.class.getName()).
-                            log(Level.SEVERE, null, ex);
-                }
-            } else if (e.getSource() == btnAtras) {
-                switch (numVentana) {
-                    case 2 ->
-                        iniciarVentana1();
-                    case 3 ->
-                        iniciarVentana2();
-                    case 4 ->
-                        iniciarVentana3();
-                    default -> {
-                    }
-                }
-            }
-        }
-
-    }
-
-    private class ManejadoraEventosTeclado implements KeyListener {
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getSource() == btnSalir || e.getSource() == btnAtras || e.getSource() == btnSiguiente) {
-                switch (e.getKeyCode()) {
-                    case 39 -> {
-                        switch (numVentana) {
-                            case 1 -> {
-                                iniciarVentana2();
-                            }
-                            case 2 -> {
-                                iniciarVentana3();
-                            }
-                            case 3 -> {
-                                iniciarVentana4();
-                            }
-
-                            default -> {
-                            }
-                        }
-                    }
-                    case 10, 32 -> {
-                        dispose();
-                        if (clip != null && clip.isRunning()) {
-                            clip.stop();
-                        }
-                        try {
-                            reproducirSonido(0);
-                            VentanaInicial ventanaInicial = new VentanaInicial(1);
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaInicial.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
-                    }
-                    case 37 -> {
-                        switch (numVentana) {
-                            case 2 -> {
-                                iniciarVentana1();
-                            }
-                            case 3 -> {
-                                iniciarVentana2();
-                            }
-                            case 4 -> {
-                                iniciarVentana3();
-                            }
-
-                            default -> {
-                            }
-                        }
-                    }
-                    default -> {
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-        }
-
-    }
-
-    private class ManejadorDeEventosTiempo implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //se aumenta el tiempo 1 segundo
-            t += 0.1;
-            if (t > 0.5) {
-                if (numVentana == 1) {
-                    if (!sonidoInicializado) {
-                        reproducirSonido(1);
-                        sonidoInicializado = true;
-                    }
-                }
-                if (numVentana == 2) {
-                    if (!sonidoInicializado) {
-                        reproducirSonido(2);
-                        sonidoInicializado = true;
-                    }
-                }
-                if (numVentana == 3) {
-                    if (!sonidoInicializado) {
-                        reproducirSonido(3);
-                        sonidoInicializado = true;
-                    }
-                }
-                if (numVentana == 4) {
-                    if (!sonidoInicializado) {
-                        reproducirSonido(4);
-                        sonidoInicializado = true;
-                    }
-                }
-            }
-        }
-    }
-
+    
     private void iniciarVentana1() {
         numVentana = 1;
 
@@ -547,5 +403,154 @@ public class VentanaComoJugar extends JFrame {
             }
         }
     }
+    
+//********************************CLASES************************************//
+
+    private class ManejadorDeEventos extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getSource() == btnSiguiente) {
+                switch (numVentana) {
+                    case 1 ->
+                        iniciarVentana2();
+                    case 2 ->
+                        iniciarVentana3();
+                    case 3 ->
+                        iniciarVentana4();
+                    default -> {
+                    }
+                }
+            } else if (e.getSource() == btnSalir) {
+                dispose();
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                }
+                try {
+                    reproducirSonido(0);
+                    VentanaInicial ventanaInicial = new VentanaInicial(1);
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaInicial.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
+            } else if (e.getSource() == btnAtras) {
+                switch (numVentana) {
+                    case 2 ->
+                        iniciarVentana1();
+                    case 3 ->
+                        iniciarVentana2();
+                    case 4 ->
+                        iniciarVentana3();
+                    default -> {
+                    }
+                }
+            }
+        }
+
+    }
+
+    private class ManejadoraEventosTeclado implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getSource() == btnSalir || e.getSource() == btnAtras || e.getSource() == btnSiguiente) {
+                switch (e.getKeyCode()) {
+                    case 39 -> {
+                        switch (numVentana) {
+                            case 1 -> {
+                                iniciarVentana2();
+                            }
+                            case 2 -> {
+                                iniciarVentana3();
+                            }
+                            case 3 -> {
+                                iniciarVentana4();
+                            }
+
+                            default -> {
+                            }
+                        }
+                    }
+                    case 10, 32 -> {
+                        dispose();
+                        if (clip != null && clip.isRunning()) {
+                            clip.stop();
+                        }
+                        try {
+                            reproducirSonido(0);
+                            VentanaInicial ventanaInicial = new VentanaInicial(1);
+                        } catch (IOException ex) {
+                            Logger.getLogger(VentanaInicial.class.getName()).
+                                    log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    case 37 -> {
+                        switch (numVentana) {
+                            case 2 -> {
+                                iniciarVentana1();
+                            }
+                            case 3 -> {
+                                iniciarVentana2();
+                            }
+                            case 4 -> {
+                                iniciarVentana3();
+                            }
+
+                            default -> {
+                            }
+                        }
+                    }
+                    default -> {
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
+    }
+
+    private class ManejadorDeEventosTiempo implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //se aumenta el tiempo 1 segundo
+            t += 0.1;
+            if (t > 0.5) {
+                if (numVentana == 1) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(1);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 2) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(2);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 3) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(3);
+                        sonidoInicializado = true;
+                    }
+                }
+                if (numVentana == 4) {
+                    if (!sonidoInicializado) {
+                        reproducirSonido(4);
+                        sonidoInicializado = true;
+                    }
+                }
+            }
+        }
+    }
+
+    
 
 }
