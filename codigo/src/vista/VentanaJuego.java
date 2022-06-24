@@ -61,6 +61,7 @@ public class VentanaJuego extends JFrame {
 
     // label volumen
     JLabel lblVolumen;
+    private boolean hayVolumen = true;
 
     //Saber si ya pasaron los tres segundos
     private boolean puedeJugar = false;
@@ -306,17 +307,19 @@ public class VentanaJuego extends JFrame {
 
     //Activar cierto sonido
     private void reproducirSonido(String cualSonido) {
-        switch (cualSonido) {
-            case "botonA" ->
-                play("src\\sonidos\\blancoAcierto.wav");
-            case "botonD" ->
-                play("src\\sonidos\\blancoDesacierto.wav");
-            case "perder" ->
-                play("src\\sonidos\\perder.wav");
-            case "cuentaA" ->
-                play("src\\sonidos\\cuentaAtras.wav");
+        if(hayVolumen || "perder".equals(cualSonido)){
+            switch (cualSonido) {
+                case "botonA" ->
+                    play("src\\sonidos\\blancoAcierto.wav");
+                case "botonD" ->
+                    play("src\\sonidos\\blancoDesacierto.wav");
+                case "perder" ->
+                    play("src\\sonidos\\perder.wav");
+                case "cuentaA" ->
+                    play("src\\sonidos\\cuentaAtras.wav");
 
-            default -> {
+                default -> {
+                }
             }
         }
     }
@@ -342,6 +345,7 @@ public class VentanaJuego extends JFrame {
                 lblVolumen.setIcon(volumeOff);
                 music.start();
                 contador++;
+                hayVolumen = true;
             } else {
                 if (music != null) {
                     lblVolumen.setIcon(volumeOn);
@@ -349,6 +353,7 @@ public class VentanaJuego extends JFrame {
                     music.stop();
                     music.setMicrosecondPosition(clipTime);
                     contador++;
+                    hayVolumen = false;
                 }
             }
         }
