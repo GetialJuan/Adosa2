@@ -233,6 +233,8 @@ public class VentanaJuego extends JFrame {
         btnBlanco.addKeyListener(new ManejadorDeEventosTeclado());
 
     }
+    
+    //***************************METODOS**********************************//
 
     //Metodo que retorna una imagen con el ancho y alto recibido
     private ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
@@ -243,6 +245,195 @@ public class VentanaJuego extends JFrame {
                 getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
         return new ImageIcon(imagen);
     }
+    
+    
+    private void inicializarVolumen() {
+        if (contador == 0) {
+            try {
+                music = AudioSystem.getClip();
+                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/theLast.wav")));
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
+                a.printStackTrace();
+            }
+        }
+        music.start();
+    }
+
+    //Activar cierto sonido
+    private void reproducirSonido(String cualSonido) {
+        if(hayVolumen || "perder".equals(cualSonido)){
+            switch (cualSonido) {
+                case "botonA" ->
+                    play("src\\sonidos\\blancoAcierto.wav");
+                case "botonD" ->
+                    play("src\\sonidos\\blancoDesacierto.wav");
+                case "perder" ->
+                    play("src\\sonidos\\perder.wav");
+                case "cuentaA" ->
+                    play("src\\sonidos\\cuentaAtras.wav");
+
+                default -> {
+                }
+            }
+        }
+    }
+
+    //Reproducir sonido
+    private void play(String filePath) {
+        try {
+            Clip sonido = AudioSystem.getClip();
+            sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
+            sonido.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.out.println("" + e);
+        }
+    }
+    
+    //metodo para inciailizar las baldosas
+    private void inicializarBaldosas() {
+        //cordenadas de cada baldosa
+        int coordenadas[][] = {{30, 172}, {140, 172}, {440, 180}, {550, 180},
+        {292, 7}, {292, 108}, {292, 353}, {292, 252}};
+
+        //Se añaden 8 baldosas
+        for (int i = 0; i < 8; i++) {
+            JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
+            baldosa.setBounds(coordenadas[i][0], coordenadas[i][1],
+                    100, 100);
+            baldosa.setVisible(false);
+            this.listaBaldosas.add(baldosa);
+        }
+    }
+
+    //metodo que iniclliza las vidas
+    private void inicializarVidas() {
+        int coordenadas[][] = {{480, 10}, {550, 10}, {620, 10}};
+        for (int i = 0; i < 3; i++) {
+            LblVida lblVida = new LblVida();
+            lblVida.setBounds(coordenadas[i][0], coordenadas[i][1], 50, 50);
+            listaVidas.add(lblVida);
+        }
+    }
+
+    //metodo que verfiica baldosas iguales(con la logica)
+    private boolean baldosasIguales(int baldosaCambiada) {
+
+        //VAriable que indicara si hay dos baldosas iguales
+        boolean hayBaldosasIguales = false;
+        if (baldosaCambiada != -1) {
+            //lista auxiliar del indice de las baldosas visibles
+            ArrayList<Integer> baldosasEnPantalla = logica.
+                    getBaldosasAMostrar();
+            //Imagen de la baldosa cambiada anteriroremenet
+            Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
+            //se verifica si hay dos baldosa iguales//
+            for (int i = 0; i < baldosasEnPantalla.size(); i++) {
+                //se verfica que no sea la misma baldosa
+                if (baldosaCambiada != baldosasEnPantalla.get(i)) {
+                    Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
+                    //se verfica si sus imagenes son iguales
+                    if (imgBaldosaCambiada == imgBaldosa) {
+                        hayBaldosasIguales = true;
+                    }
+                }
+            }
+        }
+
+        return hayBaldosasIguales;
+    }
+
+    //metodo que modifica las Lblvidas si se pierde una vida
+    private void quitarUnaVida() {
+        if (logica.getVidas() > 0) {
+            listaVidas.get(logica.getVidas()).setBackground(Color.red);
+        }
+
+    }
+
+    //metodo que modificala visibilidad de las badldosas segun el caso
+    private void modificarBaldosas() {
+        //Se recorre cda baldosa
+        for (int i = 0; i < 8; i++) {
+            //Se ponen visibles o no visibles degun el caso
+            if (logica.baldosaMostrandose(i)) {
+                listaBaldosas.get(i).setVisible(true);
+            } else {
+                listaBaldosas.get(i).setVisible(false);
+            }
+            listaBaldosas.get(i).setIcon(imgsBaldosas.getImgBaldosa(i));
+        }
+    }
+
+    //metodo que realiza las acciones correspondientes al cometer un fallo
+    private void falloCometido() throws IOException {
+        if (logica.getVidas() != 1) {
+            reproducirSonido("botonD");
+        } else {
+            reproducirSonido("perder");
+        }
+
+        //se pone normal la baldosa anteriroemnet ressaltada
+        if (baldosaCambiada != -1) {
+            listaBaldosas.get(baldosaCambiada).setBorder(null);
+        }
+        baldosaCambiada = -1;
+
+        //se resta una vida
+        logica.errorCometido();
+        quitarUnaVida();
+
+        //se añade un error
+        logica.aumentarErrores();
+
+        //se aumenta el tiempo de cambio
+        logica.aumentarTiempoDeCambio();
+
+        //se verfica si quedan vidas
+        if (logica.getVidas() > 0) {
+            //se estbalcen nuevas baldosas
+            logica.nuevasBaldosasAMostrar();
+            modificarBaldosas();
+        } else {
+            tiempo.stop();
+            dispose();
+
+            VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
+
+            if (music != null) {
+                music.stop();
+            }
+        }
+
+    }
+
+    //acciones a realizar cuando el jugador acierte
+    private void acierto() {
+        reproducirSonido("botonA");
+
+        //se pone normal la baldosa anteriroemnet ressaltada
+        listaBaldosas.get(baldosaCambiada).setBorder(null);
+
+        //se suma el puntaje
+        logica.aumentarPuntaje();
+        logica.aumentarPuntajeASumar();
+        lblPuntaje.setText("Puntaje: " + logica.getPuntaje());
+
+        //se añade un acierto
+        logica.aumentarAciertos();
+
+        //se reduce el tiempo de cambio
+        logica.disminuirTiempoDeCambio();
+
+        //se estbalcen nuevas baldosas
+        logica.aumentarBaldosasAMostrar();
+        logica.nuevasBaldosasAMostrar();
+        modificarBaldosas();
+
+        baldosaCambiada = -1;
+    }
+
+    
+    //*****************************CLASES***********************************//
 
     //clasee manejadora de eventos del mouse
     private class ManejadorDeEventosMouse extends MouseAdapter {
@@ -290,48 +481,6 @@ public class VentanaJuego extends JFrame {
                     }
                 }
             }
-        }
-    }
-
-    private void inicializarVolumen() {
-        if (contador == 0) {
-            try {
-                music = AudioSystem.getClip();
-                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/theLast.wav")));
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
-                a.printStackTrace();
-            }
-        }
-        music.start();
-    }
-
-    //Activar cierto sonido
-    private void reproducirSonido(String cualSonido) {
-        if(hayVolumen || "perder".equals(cualSonido)){
-            switch (cualSonido) {
-                case "botonA" ->
-                    play("src\\sonidos\\blancoAcierto.wav");
-                case "botonD" ->
-                    play("src\\sonidos\\blancoDesacierto.wav");
-                case "perder" ->
-                    play("src\\sonidos\\perder.wav");
-                case "cuentaA" ->
-                    play("src\\sonidos\\cuentaAtras.wav");
-
-                default -> {
-                }
-            }
-        }
-    }
-
-    //Reproducir sonido
-    private void play(String filePath) {
-        try {
-            Clip sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
-            sonido.start();
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-            System.out.println("" + e);
         }
     }
 
@@ -493,33 +642,7 @@ public class VentanaJuego extends JFrame {
             }
         }
     }
-
-    //metodo para inciailizar las baldosas
-    private void inicializarBaldosas() {
-        //cordenadas de cada baldosa
-        int coordenadas[][] = {{30, 172}, {140, 172}, {440, 180}, {550, 180},
-        {292, 7}, {292, 108}, {292, 353}, {292, 252}};
-
-        //Se añaden 8 baldosas
-        for (int i = 0; i < 8; i++) {
-            JLabel baldosa = new JLabel(imgsBaldosas.getImgBaldosa(i));
-            baldosa.setBounds(coordenadas[i][0], coordenadas[i][1],
-                    100, 100);
-            baldosa.setVisible(false);
-            this.listaBaldosas.add(baldosa);
-        }
-    }
-
-    //metodo que iniclliza las vidas
-    private void inicializarVidas() {
-        int coordenadas[][] = {{480, 10}, {550, 10}, {620, 10}};
-        for (int i = 0; i < 3; i++) {
-            LblVida lblVida = new LblVida();
-            lblVida.setBounds(coordenadas[i][0], coordenadas[i][1], 50, 50);
-            listaVidas.add(lblVida);
-        }
-    }
-
+    
     //clase de las vidas
     private class LblVida extends JLabel {
 
@@ -528,123 +651,6 @@ public class VentanaJuego extends JFrame {
             setBackground(Color.GREEN);
         }
 
-    }
-
-    //metodo que verfiica baldosas iguales(con la logica)
-    private boolean baldosasIguales(int baldosaCambiada) {
-
-        //VAriable que indicara si hay dos baldosas iguales
-        boolean hayBaldosasIguales = false;
-        if (baldosaCambiada != -1) {
-            //lista auxiliar del indice de las baldosas visibles
-            ArrayList<Integer> baldosasEnPantalla = logica.
-                    getBaldosasAMostrar();
-            //Imagen de la baldosa cambiada anteriroremenet
-            Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
-            //se verifica si hay dos baldosa iguales//
-            for (int i = 0; i < baldosasEnPantalla.size(); i++) {
-                //se verfica que no sea la misma baldosa
-                if (baldosaCambiada != baldosasEnPantalla.get(i)) {
-                    Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
-                    //se verfica si sus imagenes son iguales
-                    if (imgBaldosaCambiada == imgBaldosa) {
-                        hayBaldosasIguales = true;
-                    }
-                }
-            }
-        }
-
-        return hayBaldosasIguales;
-    }
-
-    //metodo que modifica las Lblvidas si se pierde una vida
-    private void quitarUnaVida() {
-        if (logica.getVidas() > 0) {
-            listaVidas.get(logica.getVidas()).setBackground(Color.red);
-        }
-
-    }
-
-    //metodo que modificala visibilidad de las badldosas segun el caso
-    private void modificarBaldosas() {
-        //Se recorre cda baldosa
-        for (int i = 0; i < 8; i++) {
-            //Se ponen visibles o no visibles degun el caso
-            if (logica.baldosaMostrandose(i)) {
-                listaBaldosas.get(i).setVisible(true);
-            } else {
-                listaBaldosas.get(i).setVisible(false);
-            }
-            listaBaldosas.get(i).setIcon(imgsBaldosas.getImgBaldosa(i));
-        }
-    }
-
-    //metodo que realiza las acciones correspondientes al cometer un fallo
-    private void falloCometido() throws IOException {
-        if (logica.getVidas() != 1) {
-            reproducirSonido("botonD");
-        } else {
-            reproducirSonido("perder");
-        }
-
-        //se pone normal la baldosa anteriroemnet ressaltada
-        if (baldosaCambiada != -1) {
-            listaBaldosas.get(baldosaCambiada).setBorder(null);
-        }
-        baldosaCambiada = -1;
-
-        //se resta una vida
-        logica.errorCometido();
-        quitarUnaVida();
-
-        //se añade un error
-        logica.aumentarErrores();
-
-        //se aumenta el tiempo de cambio
-        logica.aumentarTiempoDeCambio();
-
-        //se verfica si quedan vidas
-        if (logica.getVidas() > 0) {
-            //se estbalcen nuevas baldosas
-            logica.nuevasBaldosasAMostrar();
-            modificarBaldosas();
-        } else {
-            tiempo.stop();
-            dispose();
-
-            VentanaFinal ventanaFinal = new VentanaFinal(this.logica);
-
-            if (music != null) {
-                music.stop();
-            }
-        }
-
-    }
-
-    //acciones a realizar cuando el jugador acierte
-    private void acierto() {
-        reproducirSonido("botonA");
-
-        //se pone normal la baldosa anteriroemnet ressaltada
-        listaBaldosas.get(baldosaCambiada).setBorder(null);
-
-        //se suma el puntaje
-        logica.aumentarPuntaje();
-        logica.aumentarPuntajeASumar();
-        lblPuntaje.setText("Puntaje: " + logica.getPuntaje());
-
-        //se añade un acierto
-        logica.aumentarAciertos();
-
-        //se reduce el tiempo de cambio
-        logica.disminuirTiempoDeCambio();
-
-        //se estbalcen nuevas baldosas
-        logica.aumentarBaldosasAMostrar();
-        logica.nuevasBaldosasAMostrar();
-        modificarBaldosas();
-
-        baldosaCambiada = -1;
     }
 
     //Clase de boton sin fondo ni bordes
