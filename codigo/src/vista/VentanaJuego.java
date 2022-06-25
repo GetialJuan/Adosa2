@@ -561,7 +561,7 @@ public class VentanaJuego extends JFrame {
                 if (t < 4) {
                     if (0 <= t && t < 1) {
                         try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
                             if (sonidoCuentaRegresiva) {
                                 reproducirSonido("cuentaA");
                                 sonidoCuentaRegresiva = false;
@@ -579,7 +579,7 @@ public class VentanaJuego extends JFrame {
                         }
                     } else if (2 <= t && t < 3) {
                         try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
+                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
                         } catch (IOException ex) {
                             Logger.getLogger(VentanaJuego.class.getName()).
                                     log(Level.SEVERE, null, ex);
