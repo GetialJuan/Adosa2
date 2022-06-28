@@ -1,16 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package adosa2;
 
 import java.io.IOException;
 import vista.VentanaInicial;
-import vista.VentanaJuego;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * @profesor Luis Yovanny Romo Portilla
+ * Clase principal
  */
 public class Principal {
 
