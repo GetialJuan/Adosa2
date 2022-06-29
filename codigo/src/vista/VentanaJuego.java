@@ -1,37 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package vista;
 
-import com.sun.java.accessibility.util.AWTEventMonitor;
+package vista;
 import controladores.Baldosas;
 import funcionalidadesAparte.BotonSinFondo;
 import funcionalidadesAparte.metodosUtiles;
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -42,17 +29,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.UIManager;
-import javax.swing.border.BevelBorder;
 import logica.LogicaAdosa2;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que representa la ventana del juego ya ejecutandose
  */
 public class VentanaJuego extends JFrame {
 
@@ -121,11 +106,13 @@ public class VentanaJuego extends JFrame {
     private ImageIcon volumeOn2;
     private ImageIcon volumeOff2;
 
+    //Constructor
     public VentanaJuego() throws IOException {
         iniciarVentana();
         iniciarComponentes();
     }
 
+    //
     private void iniciarVentana() {
         setSize(anchoV, largoV);
         setVisible(true);
@@ -141,6 +128,7 @@ public class VentanaJuego extends JFrame {
 
     }
 
+    //
     private void iniciarComponentes() throws IOException {
 
         //Ruta absoluta//
@@ -200,8 +188,7 @@ public class VentanaJuego extends JFrame {
 
         iconoBtnRoll = metodosUtiles.establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
         btnBlanco.setRolloverIcon(iconoBtnRoll);
-
-//        btnBlanco.setBackground(Color.WHITE);
+        
         //Baldosas//
         listaBaldosas = new ArrayList<>();
         inicializarBaldosas();
@@ -312,6 +299,7 @@ public class VentanaJuego extends JFrame {
 
         //VAriable que indicara si hay dos baldosas iguales
         boolean hayBaldosasIguales = false;
+        
         if (baldosaCambiada != -1) {
             //lista auxiliar del indice de las baldosas visibles
             ArrayList<Integer> baldosasEnPantalla = logica.
@@ -342,7 +330,7 @@ public class VentanaJuego extends JFrame {
 
     }
 
-    //metodo que modificala visibilidad de las badldosas segun el caso
+    //metodo que modifica la visibilidad de las badldosas segun el caso
     private void modificarBaldosas() {
         //Se recorre cda baldosa
         for (int i = 0; i < 8; i++) {
@@ -435,6 +423,7 @@ public class VentanaJuego extends JFrame {
             //si se da click en el boton balnco
             if (e.getSource() == btnBlanco) {
                 if (puedeJugar && puedeTirar) {
+                    //si hay baldosas iguales
                     if (baldosasIguales(baldosaCambiada)) {
                         tAux = 0;
                         acierto();
@@ -460,6 +449,7 @@ public class VentanaJuego extends JFrame {
             //Si se oprime la barra espaciadora
             if (e.getKeyCode() == 32) {
                 if (puedeJugar && puedeTirar) {
+                    //si hay baldosas iguales
                     if (baldosasIguales(baldosaCambiada)) {
                         tAux = 0;
                         acierto();
@@ -481,7 +471,6 @@ public class VentanaJuego extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-//            inicializarVolumen();
             if (lblVolumen.getIcon().equals(volumeOn2) || lblVolumen.getIcon().equals(volumeOn)) {
                 lblVolumen.setIcon(volumeOff);
                 music.start();
@@ -613,7 +602,8 @@ public class VentanaJuego extends JFrame {
                         try {
                             falloCometido();
                         } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(VentanaJuego.class.getName()).
+                                    log(Level.SEVERE, null, ex);
                         }
                     } else {
                         //se pone normal la baldosa anteriroemnet ressaltada

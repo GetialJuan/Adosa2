@@ -1,31 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vista;
 
 import funcionalidadesAparte.BotonSinFondo;
 import funcionalidadesAparte.metodosUtiles;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import logica.LogicaAdosa2;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo 
+ * <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que representa la ventana final del juego donde se 
+ * muestran estadisticas
  */
 public class VentanaFinal extends JFrame {
 
@@ -55,8 +51,10 @@ public class VentanaFinal extends JFrame {
     //contenedor principal
     private Container contPrincipal;
 
+    //logica(de aqui se obtienen las estadisticas)
     private LogicaAdosa2 logica;
 
+    //contructor
     public VentanaFinal(LogicaAdosa2 logica) throws IOException {
         ancho = 700;
         largo = 500;
@@ -73,6 +71,7 @@ public class VentanaFinal extends JFrame {
         inciarComponentes();
     }
 
+    //
     private void inciarComponentes() throws IOException {
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
@@ -110,9 +109,11 @@ public class VentanaFinal extends JFrame {
 
         //btnJugar//
         btnJugar = new BotonSinFondo();
-        btnJugar.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgJugar.png", 300, 75));
+        btnJugar.setIcon(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\imgJugar.png", 300, 75));
         btnJugar.setBounds(200, 380, 300, 75);
-        btnJugar.setRolloverIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgJugarShadow.png", 300, 75));
+        btnJugar.setRolloverIcon(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\imgJugarShadow.png", 300, 75));
 
         btnJugar.addActionListener(new ManejadorDeEventos());
 
@@ -135,7 +136,7 @@ public class VentanaFinal extends JFrame {
     }
 //*************************************CLASES*******************************//
 
-    //clas amjenadorea de eventos (btnJugar)
+    //clase majnejadorea de eventos (btnJugar)
     private class ManejadorDeEventos implements ActionListener {
 
         @Override
@@ -144,7 +145,8 @@ public class VentanaFinal extends JFrame {
             try {
                 VentanaInicial ventanaInicial = new VentanaInicial(0);
             } catch (IOException ex) {
-                Logger.getLogger(VentanaFinal.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VentanaFinal.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
         }
 

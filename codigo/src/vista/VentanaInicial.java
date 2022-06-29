@@ -25,12 +25,12 @@ import javax.swing.JLabel;
 import javax.swing.Timer;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que representa la ventana incial o el menu del juego
  */
 public class VentanaInicial extends JFrame {
-    //frame
-
     //Sonido
     private File archivowav;
     private Clip clip;
@@ -70,6 +70,7 @@ public class VentanaInicial extends JFrame {
     //Label de Fondo
     private JLabel lblFondo;
 
+    // Constructor 
     public VentanaInicial(int opcion) throws IOException {
         iniciarComponentes();
         iniciarVentana();
@@ -77,6 +78,7 @@ public class VentanaInicial extends JFrame {
         this.pasoVentana = false;
     }
 
+    //
     private void iniciarVentana() throws IOException {
         setSize(anchoV, largoV);
         setVisible(true);
@@ -90,12 +92,11 @@ public class VentanaInicial extends JFrame {
         setResizable(false);
     }
 
+    //
     private void iniciarComponentes() throws IOException {
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
-
-        //Sonido
-//        reproducirSonido("inicio");
+        
         //Fondo
         imgFondo = metodosUtiles.establecerIcon("\\src\\imagenes\\fondo2.png",
                 anchoV, largoV);
@@ -184,6 +185,7 @@ public class VentanaInicial extends JFrame {
         }
     }
 
+    //reproduce un sonido recibido
     private void play(String filePath) {
         if (clip != null && clip.isRunning()) {
             clip.stop();
@@ -233,7 +235,7 @@ public class VentanaInicial extends JFrame {
                 }
             } else if (e.getSource() == btnComoJugar) {
                 dispose();
-                //Se abre la ventana del juego
+                //Se abre la ventana como jugar
                 try {
                     reproducirSonido("boton");
                     if (clip != null) {
