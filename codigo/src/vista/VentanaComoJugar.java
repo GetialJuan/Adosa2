@@ -4,10 +4,8 @@
  */
 package vista;
 
-import controladores.Baldosas;
 import funcionalidadesAparte.BotonSinFondo;
 import funcionalidadesAparte.metodosUtiles;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,15 +15,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -35,12 +26,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import logica.LogicaAdosa2;
 
 /**
  *
@@ -102,7 +91,7 @@ public class VentanaComoJugar extends JFrame {
     private ImageIcon iconoAtras;
     private ImageIcon iconoAtras2;
 
-    public VentanaComoJugar() throws IOException {
+    public VentanaComoJugar() {
         iniciarVentana();
         iniciarComponentes();
     }
@@ -121,7 +110,7 @@ public class VentanaComoJugar extends JFrame {
         setResizable(false);
     }
 
-    private void iniciarComponentes() throws IOException {
+    private void iniciarComponentes() {
 
 //        reproducirSonido(1);
         //Ruta absoluta
@@ -243,14 +232,9 @@ public class VentanaComoJugar extends JFrame {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
-
-        try {
-            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
-            lblImagen.setIcon(imgEjemplo);
-            lblFondo.add(lblImagen);
-        } catch (IOException e) {
-            System.out.println("No se encontro la imagen de fondo en Como Jugar");
-        }
+        imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar1.png", 350, 270);
+        lblImagen.setIcon(imgEjemplo);
+        lblFondo.add(lblImagen);
 
         lblFlecha.setVisible(false);
 
@@ -276,14 +260,9 @@ public class VentanaComoJugar extends JFrame {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
-
-        try {
-            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
-            lblImagen.setIcon(imgEjemplo);
-            lblFondo.add(lblImagen);
-        } catch (IOException e) {
-            System.out.println("No se encontro la imagen de fondo en Como Jugar");
-        }
+        imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar2.png", 350, 270);
+        lblImagen.setIcon(imgEjemplo);
+        lblFondo.add(lblImagen);
 
         lblFlecha.setVisible(true);
 
@@ -306,14 +285,9 @@ public class VentanaComoJugar extends JFrame {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
-
-        try {
-            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
-            lblImagen.setIcon(imgEjemplo);
-            lblFondo.add(lblImagen);
-        } catch (IOException e) {
-            System.out.println("No se encontro la imagen de fondo en Como Jugar");
-        }
+        imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar3.png", 350, 270);
+        lblImagen.setIcon(imgEjemplo);
+        lblFondo.add(lblImagen);
 
         btnSiguiente.setVisible(true);
 
@@ -338,14 +312,9 @@ public class VentanaComoJugar extends JFrame {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
-
-        try {
-            imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
-            lblImagen.setIcon(imgEjemplo);
-            lblFondo.add(lblImagen);
-        } catch (IOException e) {
-            System.out.println("No se encontro la imagen de fondo en Como Jugar");
-        }
+        imgEjemplo = metodosUtiles.establecerIcon("\\src\\imagenes\\comoJugar4.png", 350, 270);
+        lblImagen.setIcon(imgEjemplo);
+        lblFondo.add(lblImagen);
 
         lblFlecha.setVisible(true);
         lblFlecha.setBounds(509, 20, 70, 70);
@@ -416,13 +385,8 @@ public class VentanaComoJugar extends JFrame {
                 if (clip != null && clip.isRunning()) {
                     clip.stop();
                 }
-                try {
-                    reproducirSonido(0);
-                    VentanaInicial ventanaInicial = new VentanaInicial(1);
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaInicial.class.getName()).
-                            log(Level.SEVERE, null, ex);
-                }
+                reproducirSonido(0);
+                VentanaInicial ventanaInicial = new VentanaInicial(1);
             } else if (e.getSource() == btnAtras) {
                 switch (numVentana) {
                     case 2 ->
@@ -470,13 +434,8 @@ public class VentanaComoJugar extends JFrame {
                         if (clip != null && clip.isRunning()) {
                             clip.stop();
                         }
-                        try {
-                            reproducirSonido(0);
-                            VentanaInicial ventanaInicial = new VentanaInicial(1);
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaInicial.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        reproducirSonido(0);
+                        VentanaInicial ventanaInicial = new VentanaInicial(1);
                     }
                     case 37 -> {
                         switch (numVentana) {

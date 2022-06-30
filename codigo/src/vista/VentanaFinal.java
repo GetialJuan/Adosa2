@@ -7,9 +7,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,7 +52,7 @@ public class VentanaFinal extends JFrame {
     private LogicaAdosa2 logica;
 
     //contructor
-    public VentanaFinal(LogicaAdosa2 logica) throws IOException {
+    public VentanaFinal(LogicaAdosa2 logica) {
         ancho = 700;
         largo = 500;
 
@@ -72,7 +69,7 @@ public class VentanaFinal extends JFrame {
     }
 
     //
-    private void inciarComponentes() throws IOException {
+    private void inciarComponentes() {
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
 
@@ -142,12 +139,7 @@ public class VentanaFinal extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
-            try {
-                VentanaInicial ventanaInicial = new VentanaInicial(0);
-            } catch (IOException ex) {
-                Logger.getLogger(VentanaFinal.class.getName()).
-                        log(Level.SEVERE, null, ex);
-            }
+            VentanaInicial ventanaInicial = new VentanaInicial(0);
         }
 
     }

@@ -17,13 +17,12 @@ import javax.swing.ImageIcon;
  */
 public class metodosUtiles {
     public static ImageIcon establecerIcon(String rutaArchivo, int ancho, int alto)
-            throws IOException {
+            {
         
         String rutaAbsoluta = new File("").getAbsolutePath();
-        BufferedImage bufferedImagen = ImageIO.
-                read(new File(rutaAbsoluta.concat(rutaArchivo)));
-        Image imagen = bufferedImagen.
-                getScaledInstance(ancho, alto, Image.SCALE_DEFAULT);
-        return new ImageIcon(imagen);
+        ImageIcon imagen = new ImageIcon(rutaAbsoluta.concat(rutaArchivo));
+        Image image = (imagen).getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        
+        return new ImageIcon(image);
     }
 }

@@ -7,17 +7,12 @@ package vista;
 import funcionalidadesAparte.BotonSinFondo;
 import funcionalidadesAparte.metodosUtiles;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -27,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -62,7 +56,7 @@ public class VentanaParaQueSirve extends JFrame {
     //texto
     private JTextPane txtTexto;
 
-    public VentanaParaQueSirve() throws IOException {
+    public VentanaParaQueSirve() {
         iniciarComponentes();
         iniciarVentana();
     }
@@ -80,7 +74,7 @@ public class VentanaParaQueSirve extends JFrame {
         setResizable(false);
     }
 
-    private void iniciarComponentes() throws IOException {
+    private void iniciarComponentes() {
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
 
@@ -166,12 +160,8 @@ public class VentanaParaQueSirve extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == btnSalir) {
                 dispose();
-                try {
-                    reproducirSonido("boton");
-                    VentanaInicial ventanaInicial = new VentanaInicial(2);
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaParaQueSirve.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                reproducirSonido("boton");
+                VentanaInicial ventanaInicial = new VentanaInicial(2);
             }
         }
 

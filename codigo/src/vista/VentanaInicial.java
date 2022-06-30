@@ -11,8 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -71,7 +69,7 @@ public class VentanaInicial extends JFrame {
     private JLabel lblFondo;
 
     // Constructor 
-    public VentanaInicial(int opcion) throws IOException {
+    public VentanaInicial(int opcion){
         iniciarComponentes();
         iniciarVentana();
         this.opcion = opcion;
@@ -79,7 +77,7 @@ public class VentanaInicial extends JFrame {
     }
 
     //
-    private void iniciarVentana() throws IOException {
+    private void iniciarVentana() {
         setSize(anchoV, largoV);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -93,7 +91,7 @@ public class VentanaInicial extends JFrame {
     }
 
     //
-    private void iniciarComponentes() throws IOException {
+    private void iniciarComponentes() {
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
         
@@ -222,47 +220,31 @@ public class VentanaInicial extends JFrame {
             if (e.getSource() == btnJugar) {
                 dispose();
                 //Se abre la ventana del juego
-                try {
-                    pasoVentana = true;
-                    if (clip != null) {
-                        clip.stop();
-                    }
-                    reproducirSonido("boton");
-                    VentanaJuego ventanaJuego = new VentanaJuego();
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaInicial.class.getName()).
-                            log(Level.SEVERE, null, ex);
+                pasoVentana = true;
+                if (clip != null) {
+                    clip.stop();
                 }
+                reproducirSonido("boton");
+                VentanaJuego ventanaJuego = new VentanaJuego();
             } else if (e.getSource() == btnComoJugar) {
                 dispose();
                 //Se abre la ventana como jugar
-                try {
-                    reproducirSonido("boton");
-                    if (clip != null) {
-                        clip.stop();
-                    }
-                    pasoVentana = true;
-                    VentanaComoJugar ventanaComoJugar = new VentanaComoJugar();
-
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaInicial.class.getName()).
-                            log(Level.SEVERE, null, ex);
+                reproducirSonido("boton");
+                if (clip != null) {
+                    clip.stop();
                 }
+                pasoVentana = true;
+                VentanaComoJugar ventanaComoJugar = new VentanaComoJugar();
             } else if (e.getSource() == btnParaQueSirve) {
                 dispose();
                 reproducirSonido("boton");
-                try {
-                    if (clip != null) {
-                        clip.stop();
-                    }
-                    pasoVentana = true;
-                    reproducirSonido("boton");
-                    VentanaParaQueSirve ventanaParaQueSirve
-                            = new VentanaParaQueSirve();
-                } catch (IOException ex) {
-                    Logger.getLogger(VentanaInicial.class.
-                            getName()).log(Level.SEVERE, null, ex);
+                if (clip != null) {
+                    clip.stop();
                 }
+                pasoVentana = true;
+                reproducirSonido("boton");
+                VentanaParaQueSirve ventanaParaQueSirve
+                        = new VentanaParaQueSirve();
             }
         }
 

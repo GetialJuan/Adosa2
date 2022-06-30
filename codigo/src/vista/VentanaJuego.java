@@ -107,7 +107,7 @@ public class VentanaJuego extends JFrame {
     private ImageIcon volumeOff2;
 
     //Constructor
-    public VentanaJuego() throws IOException {
+    public VentanaJuego() {
         iniciarVentana();
         iniciarComponentes();
     }
@@ -129,7 +129,7 @@ public class VentanaJuego extends JFrame {
     }
 
     //
-    private void iniciarComponentes() throws IOException {
+    private void iniciarComponentes() {
 
         //Ruta absoluta//
         rutaAbsoluta = new File("").getAbsolutePath();
@@ -180,13 +180,16 @@ public class VentanaJuego extends JFrame {
         btnBlanco = new BotonSinFondo();
         btnBlanco.setBounds(520, 320, 100, 100);
 
-        iconoBtnNorm = metodosUtiles.establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
+        iconoBtnNorm = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\btnNorm.png", 100, 100);
         btnBlanco.setIcon(iconoBtnNorm);
 
-        iconoBtnPress = metodosUtiles.establecerIcon("\\src\\imagenes\\btnPress.png", 100, 100);
+        iconoBtnPress = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\btnPress.png", 100, 100);
         btnBlanco.setPressedIcon(iconoBtnPress);
 
-        iconoBtnRoll = metodosUtiles.establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
+        iconoBtnRoll = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\btnRoll.png", 100, 100);
         btnBlanco.setRolloverIcon(iconoBtnRoll);
         
         //Baldosas//
@@ -230,9 +233,10 @@ public class VentanaJuego extends JFrame {
         if (contador == 0) {
             try {
                 music = AudioSystem.getClip();
-                music.open(AudioSystem.getAudioInputStream(new File("src/sonidos/theLast.wav")));
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException a) {
-                a.printStackTrace();
+                music.open(AudioSystem.getAudioInputStream
+                    (new File("src/sonidos/theLast.wav")));
+            } catch (LineUnavailableException | IOException | 
+                    UnsupportedAudioFileException a) {
             }
         }
         music.start();
@@ -263,7 +267,8 @@ public class VentanaJuego extends JFrame {
             Clip sonido = AudioSystem.getClip();
             sonido.open(AudioSystem.getAudioInputStream(new File(filePath)));
             sonido.start();
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+        } catch (IOException | LineUnavailableException | 
+                UnsupportedAudioFileException e) {
             System.out.println("" + e);
         }
     }
@@ -290,6 +295,8 @@ public class VentanaJuego extends JFrame {
         for (int i = 0; i < 3; i++) {
             LblVida lblVida = new LblVida();
             lblVida.setBounds(coordenadas[i][0], coordenadas[i][1], 50, 50);
+            lblVida.setIcon(metodosUtiles.
+                    establecerIcon("\\src\\imagenes\\imgVidaVerde.png",50,50));
             listaVidas.add(lblVida);
         }
     }
@@ -305,12 +312,14 @@ public class VentanaJuego extends JFrame {
             ArrayList<Integer> baldosasEnPantalla = logica.
                     getBaldosasAMostrar();
             //Imagen de la baldosa cambiada anteriroremenet
-            Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).getIcon();
+            Icon imgBaldosaCambiada = listaBaldosas.get(baldosaCambiada).
+                    getIcon();
             //se verifica si hay dos baldosa iguales//
             for (int i = 0; i < baldosasEnPantalla.size(); i++) {
                 //se verfica que no sea la misma baldosa
                 if (baldosaCambiada != baldosasEnPantalla.get(i)) {
-                    Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.get(i)).getIcon();
+                    Icon imgBaldosa = listaBaldosas.get(baldosasEnPantalla.
+                            get(i)).getIcon();
                     //se verfica si sus imagenes son iguales
                     if (imgBaldosaCambiada == imgBaldosa) {
                         hayBaldosasIguales = true;
@@ -325,7 +334,8 @@ public class VentanaJuego extends JFrame {
     //metodo que modifica las Lblvidas si se pierde una vida
     private void quitarUnaVida() {
         if (logica.getVidas() > 0) {
-            listaVidas.get(logica.getVidas()).setBackground(Color.red);
+            listaVidas.get(logica.getVidas()).setIcon(metodosUtiles.
+                    establecerIcon("\\src\\imagenes\\imgVidaRoja.png",50,50));
         }
 
     }
@@ -345,7 +355,7 @@ public class VentanaJuego extends JFrame {
     }
 
     //metodo que realiza las acciones correspondientes al cometer un fallo
-    private void falloCometido() throws IOException {
+    private void falloCometido() {
         if (logica.getVidas() != 1) {
             reproducirSonido("botonD");
         } else {
@@ -429,12 +439,8 @@ public class VentanaJuego extends JFrame {
                         acierto();
 
                     } else {
-                        try {
-                            tAux = 0;
-                            falloCometido();
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        tAux = 0;
+                        falloCometido();
                     }
                 }
             }
@@ -454,12 +460,8 @@ public class VentanaJuego extends JFrame {
                         tAux = 0;
                         acierto();
                     } else {
-                        try {
-                            tAux = 0;
-                            falloCometido();
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        tAux = 0;
+                        falloCometido();
                     }
                 }
             }
@@ -471,7 +473,8 @@ public class VentanaJuego extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (lblVolumen.getIcon().equals(volumeOn2) || lblVolumen.getIcon().equals(volumeOn)) {
+            if (lblVolumen.getIcon().equals(volumeOn2) || lblVolumen.getIcon().
+                    equals(volumeOn)) {
                 lblVolumen.setIcon(volumeOff);
                 music.start();
                 contador++;
@@ -549,38 +552,22 @@ public class VentanaJuego extends JFrame {
             if (cuentaRegresiva) {
                 if (t < 4) {
                     if (0 <= t && t < 1) {
-                        try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum3.png", 100, 250));
-                            if (sonidoCuentaRegresiva) {
-                                reproducirSonido("cuentaA");
-                                sonidoCuentaRegresiva = false;
-                            }
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        lblContador.setIcon(metodosUtiles.
+                        establecerIcon("\\src\\imagenes\\imgNum3.png",100,250));
+                        if (sonidoCuentaRegresiva) {
+                            reproducirSonido("cuentaA");
+                            sonidoCuentaRegresiva = false;
+                        } 
                     } else if (1 <= t && t < 2) {
-                        try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum2.png", 100, 250));
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        lblContador.setIcon(metodosUtiles.
+                        establecerIcon("\\src\\imagenes\\imgNum2.png",100,250));
                     } else if (2 <= t && t < 3) {
-                        try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgNum1.png", 100, 250));
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        lblContador.setIcon(metodosUtiles.
+                        establecerIcon("\\src\\imagenes\\imgNum1.png",100,250));
                     } else {
-                        lblContador.setBounds(200, 100, 300, 250);
-                        try {
-                            lblContador.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\imgYa.png", 300, 250));
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        lblContador.setIcon(metodosUtiles.
+                        establecerIcon("\\src\\imagenes\\imgYa.png",300,250));
+                        lblContador.setBounds(200, 100, 300, 300);
                     }
                 } else {
                     //se quita el contador
@@ -599,12 +586,7 @@ public class VentanaJuego extends JFrame {
 
                     //se verifica si hay baldosas iguales
                     if (baldosasIguales(baldosaCambiada)) {
-                        try {
-                            falloCometido();
-                        } catch (IOException ex) {
-                            Logger.getLogger(VentanaJuego.class.getName()).
-                                    log(Level.SEVERE, null, ex);
-                        }
+                        falloCometido();
                     } else {
                         //se pone normal la baldosa anteriroemnet ressaltada
                         if (baldosaCambiada != -1) {
@@ -630,9 +612,9 @@ public class VentanaJuego extends JFrame {
 
         public LblVida() {
             setOpaque(true);
-            setBackground(Color.GREEN);
+            setBackground(new Color(0, 0, 0, 3));
+            
         }
 
     }
-
 }

@@ -5,12 +5,7 @@
 package controladores;
 
 import funcionalidadesAparte.metodosUtiles;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -23,12 +18,12 @@ public class Baldosas {
     private final int altoBaldosa = 100;
     private final int anchoBaldosa = 100;
 
-    public Baldosas() throws IOException {
+    public Baldosas() {
         listaDeBaldosas = new ArrayList<>();
         inicializarBaldosas();
     }
 
-    private void inicializarBaldosas() throws IOException {
+    private void inicializarBaldosas() {
         ImageIcon baldosa;
         String rutaAux = "\\src\\imagenes\\baldosas\\numero.png";
 
