@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package vista;
 
 import funcionalidadesAparte.BotonSinFondo;
@@ -32,8 +29,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- *
- * @author carlos
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo 
+ * <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que representa la ventana del  de las instrucciones del juego
  */
 public class VentanaComoJugar extends JFrame {
 
@@ -111,8 +111,6 @@ public class VentanaComoJugar extends JFrame {
     }
 
     private void iniciarComponentes() {
-
-//        reproducirSonido(1);
         //Ruta absoluta
         rutaAbsoluta = new File("").getAbsolutePath();
 
@@ -225,8 +223,6 @@ public class VentanaComoJugar extends JFrame {
         numVentana = 1;
 
         txtNumeroVentana.setText("1/4");
-
-//        reproducirSonido(1);
         sonidoInicializado = false;
         t = 0;
         if (clip != null && clip.isRunning()) {
@@ -254,7 +250,6 @@ public class VentanaComoJugar extends JFrame {
 
         txtNumeroVentana.setText("2/4");
 
-//        reproducirSonido(2);
         t = 0;
         sonidoInicializado = false;
         if (clip != null && clip.isRunning()) {
@@ -279,7 +274,6 @@ public class VentanaComoJugar extends JFrame {
 
         txtNumeroVentana.setText("3/4");
 
-//        reproducirSonido(3);
         t = 0;
         sonidoInicializado = false;
         if (clip != null && clip.isRunning()) {
@@ -306,7 +300,6 @@ public class VentanaComoJugar extends JFrame {
 
         txtNumeroVentana.setText("4/4");
 
-//        reproducirSonido(4);
         t = 0;
         sonidoInicializado = false;
         if (clip != null && clip.isRunning()) {

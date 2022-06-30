@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package logica;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que contiene la logica del juego Adosa2
  */
 public class LogicaAdosa2 {
     private int numeroDeBaldosasAMostrar;//Mientras mayor el numero, mas dificil
@@ -20,7 +19,7 @@ public class LogicaAdosa2 {
     private double tiempoDeCambio;
     private int aciertos;
     private int errores;
-    
+    //constructor
     public LogicaAdosa2(){
         numeroDeBaldosasAMostrar = 3;
         vidas = 3;

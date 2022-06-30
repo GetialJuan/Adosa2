@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package vista;
 
 import funcionalidadesAparte.BotonSinFondo;
@@ -27,8 +24,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- *
- * @author Juan
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que representa la ventana donde se muestra para que sirve el juego
  */
 public class VentanaParaQueSirve extends JFrame {
 
@@ -68,7 +67,8 @@ public class VentanaParaQueSirve extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Adosa");
 
-        Image icon = new ImageIcon(getClass().getResource("/imagenes/iconoVentana.png")).getImage();
+        Image icon = new ImageIcon(getClass().
+                getResource("/imagenes/iconoVentana.png")).getImage();
         setIconImage(icon);
 
         setResizable(false);
@@ -84,14 +84,17 @@ public class VentanaParaQueSirve extends JFrame {
 
         //btnSalir
         btnSalir = new BotonSinFondo();
-        btnSalir.setIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\salir.png", 80, 80));
+        btnSalir.setIcon(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\salir.png", 80, 80));
         btnSalir.setRolloverEnabled(true);
-        btnSalir.setRolloverIcon(metodosUtiles.establecerIcon("\\src\\imagenes\\salir2.png", 80, 80));
+        btnSalir.setRolloverIcon(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\salir2.png", 80, 80));
         btnSalir.setBounds(560, 20, 80, 80);
         btnSalir.addActionListener(new ManejadorDeEventos());
 
         //dfondo
-        lblFondo = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\fondoComoJugar.png", anchoV, largoV));
+        lblFondo = new JLabel(metodosUtiles.
+        establecerIcon("\\src\\imagenes\\fondoComoJugar.png",anchoV,largoV));
 
         //texto
         txtTexto = new JTextPane();
@@ -146,7 +149,8 @@ public class VentanaParaQueSirve extends JFrame {
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+        } catch (LineUnavailableException | IOException | 
+                UnsupportedAudioFileException e) {
             System.err.println(e.getMessage());
         }
     }

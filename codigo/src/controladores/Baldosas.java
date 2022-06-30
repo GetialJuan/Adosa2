@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controladores;
 
 import funcionalidadesAparte.metodosUtiles;
@@ -9,8 +6,10 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author carlos
+ * MINIPROYECTO 2 - Adosa2
+ * @author Juan Sebastian Getial <getial.juan@correounivalle.edu.co>
+ * @author Carlos Andres Hernandez Agudelo <carlos.hernandez.agudelo@correounivalle.edu.co>
+ * Clase que funciona como controlador de las imagenes de las baldosas
  */
 public class Baldosas {
 
@@ -18,6 +17,7 @@ public class Baldosas {
     private final int altoBaldosa = 100;
     private final int anchoBaldosa = 100;
 
+    //constructor
     public Baldosas() {
         listaDeBaldosas = new ArrayList<>();
         inicializarBaldosas();
