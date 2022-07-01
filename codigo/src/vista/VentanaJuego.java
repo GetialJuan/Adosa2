@@ -117,7 +117,8 @@ public class VentanaJuego extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Image icon = new ImageIcon(getClass().getResource("/imagenes/iconoVentana.png")).getImage();
+        Image icon = new ImageIcon(getClass().
+                getResource("/imagenes/iconoVentana.png")).getImage();
         setIconImage(icon);
 
         setTitle("Adosa2");
@@ -133,10 +134,14 @@ public class VentanaJuego extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
 
         //Establecemos los iconos de volumen
-        volumeOff = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOff.png", 70, 70);
-        volumeOn = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOn.png", 70, 70);
-        volumeOff2 = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOff2.png", 70, 70);
-        volumeOn2 = metodosUtiles.establecerIcon("\\src\\imagenes\\volumeOn2.png", 70, 70);
+        volumeOff = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\volumeOff.png", 70, 70);
+        volumeOn = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\volumeOn.png", 70, 70);
+        volumeOff2 = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\volumeOff2.png", 70, 70);
+        volumeOn2 = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\volumeOn2.png", 70, 70);
 
         //Inicializamos la etiqueta Volumen
         lblVolumen = new JLabel("");
@@ -159,7 +164,8 @@ public class VentanaJuego extends JFrame {
         tiempo.start();
 
         //Fondo (provisonal)//
-        imgFondo = metodosUtiles.establecerIcon("\\src\\imagenes\\fondo3.png", anchoV - 10,
+        imgFondo = metodosUtiles.
+                establecerIcon("\\src\\imagenes\\fondo3.png", anchoV - 10,
                 largoV - 38);
         lblFondo = new JLabel(imgFondo);
         lblFondo.setLayout(null);

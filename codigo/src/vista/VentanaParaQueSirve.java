@@ -104,11 +104,11 @@ public class VentanaParaQueSirve extends JFrame {
         StyleConstants.setFontSize(attribs, 30);
         txtTexto.setParagraphAttributes(attribs, true);
         txtTexto.setText("Este juego pone en acción la habilidad para comparar "
-                + "patrones visuales, entrenando además la atención a los "
-                + "detalles y velocidad perceptiva. Estas capacidades son "
-                + "relevantes cuando hay que decidir entre estímulos semejantes "
-                + "y hay que hacerlo de forma rápida, por ejemplo al reconocer "
-                + "fotografías, caras, objetos cotidianos o palabras especificas.");
+            + "patrones visuales, entrenando además la atención a los "
+            + "detalles y velocidad perceptiva. Estas capacidades son "
+            + "relevantes cuando hay que decidir entre estímulos semejantes "
+            + "y hay que hacerlo de forma rápida, por ejemplo al reconocer "
+            + "fotografías, caras, objetos cotidianos o palabras especificas.");
         txtTexto.setBounds(10, 100, 670, 300);
         txtTexto.setOpaque(false);
         txtTexto.setEditable(false);

@@ -48,6 +48,7 @@ public class LogicaAdosa2 {
         return baldosasAMostrar.indexOf(cualNumero) != -1;
     }
     
+    //retorna una baldosa aleatoria en pantalla para cambiarla
     public int baldosaACambiar(){
         return baldosasAMostrar.get((int) (Math.random() *
                 baldosasAMostrar.size()));

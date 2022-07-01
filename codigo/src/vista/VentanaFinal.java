@@ -74,21 +74,26 @@ public class VentanaFinal extends JFrame {
         rutaAbsoluta = new File("").getAbsolutePath();
 
         //lblFondo//
-        lblFondo = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\fondo.jpg",
+        lblFondo = new JLabel(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\fondo.jpg",
                 ancho, largo));
         lblFondo.setBounds(0, 0, ancho, largo);
 
         //lbls (imgs)//
-        lblFinDelJuego = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\imgFinDelJuego.png", ancho - 50, 90));
+        lblFinDelJuego = new JLabel(metodosUtiles.
+        establecerIcon("\\src\\imagenes\\imgFinDelJuego.png", ancho - 50, 90));
         lblFinDelJuego.setBounds(20, 30, ancho - 50, 90);
 
-        lblImgAciertos = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\imgAciertos.png", 300, 75));
+        lblImgAciertos = new JLabel(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\imgAciertos.png", 300, 75));
         lblImgAciertos.setBounds(100, 130, 300, 75);
 
-        lblImgErrores = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\imgErrores.png", 300, 75));
+        lblImgErrores = new JLabel(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\imgErrores.png", 300, 75));
         lblImgErrores.setBounds(100, 210, 300, 75);
 
-        lblImgPuntaje = new JLabel(metodosUtiles.establecerIcon("\\src\\imagenes\\imgPuntaje.png", 300, 80));
+        lblImgPuntaje = new JLabel(metodosUtiles.
+                establecerIcon("\\src\\imagenes\\imgPuntaje.png", 300, 80));
         lblImgPuntaje.setBounds(100, 290, 300, 80);
 
         //lbls (texto estadisiticas)//
